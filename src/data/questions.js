@@ -1,0 +1,197 @@
+// Conversational intake questions — mirrors a real personal trainer intake
+export const QUESTIONS = [
+  {
+    id: 'name',
+    field: 'name',
+    type: 'text',
+    trainerText: "Let's start with the basics. What's your name?",
+    placeholder: 'Your first name',
+    validation: (v) => v.trim().length >= 1,
+  },
+  {
+    id: 'primary_goal',
+    field: 'primaryGoal',
+    type: 'single',
+    trainerText: (answers) =>
+      `Great to meet you, ${answers.name}. What's your main goal right now?`,
+    options: [
+      { value: 'lose_fat', label: 'Lose Body Fat', icon: '🔥' },
+      { value: 'build_muscle', label: 'Build Muscle', icon: '💪' },
+      { value: 'get_stronger', label: 'Get Stronger', icon: '🏋️' },
+      { value: 'improve_fitness', label: 'Improve Overall Fitness', icon: '⚡' },
+      { value: 'athletic_performance', label: 'Athletic Performance', icon: '🏃' },
+      { value: 'tone_up', label: 'Tone & Define', icon: '✨' },
+    ],
+  },
+  {
+    id: 'secondary_goal',
+    field: 'secondaryGoal',
+    type: 'single',
+    trainerText: 'Good choice. Any secondary goal you want the program to support?',
+    options: [
+      { value: 'endurance', label: 'Build Endurance', icon: '🫀' },
+      { value: 'flexibility', label: 'Improve Flexibility', icon: '🧘' },
+      { value: 'stress', label: 'Reduce Stress', icon: '🧠' },
+      { value: 'posture', label: 'Improve Posture', icon: '🦴' },
+      { value: 'none', label: 'Just the primary goal', icon: '✅' },
+    ],
+  },
+  {
+    id: 'experience_level',
+    field: 'experienceLevel',
+    type: 'single',
+    trainerText: 'Honest question — how long have you been training consistently?',
+    options: [
+      { value: 'beginner', label: 'Never really trained', icon: '🌱' },
+      { value: 'novice', label: 'A few months', icon: '📅' },
+      { value: 'intermediate', label: '1–3 years', icon: '💡' },
+      { value: 'advanced', label: '3+ years', icon: '🔑' },
+    ],
+  },
+  {
+    id: 'training_history',
+    field: 'trainingHistory',
+    type: 'single',
+    trainerText:
+      'What kind of training have you mostly done in the past?',
+    options: [
+      { value: 'none', label: 'Little to none', icon: '⬜' },
+      { value: 'cardio', label: 'Mostly cardio', icon: '🏃' },
+      { value: 'weights', label: 'Mostly weights', icon: '🏋️' },
+      { value: 'mixed', label: 'Mix of both', icon: '🔄' },
+      { value: 'sports', label: 'Sports / functional', icon: '⚽' },
+    ],
+  },
+  {
+    id: 'injuries',
+    field: 'injuries',
+    type: 'multiselect',
+    trainerText:
+      'Any injuries, pain, or physical limitations I should know about? Select all that apply.',
+    options: [
+      { value: 'none', label: 'None — all clear', icon: '✅' },
+      { value: 'lower_back', label: 'Lower Back', icon: '🦴' },
+      { value: 'knee', label: 'Knee', icon: '🦵' },
+      { value: 'shoulder', label: 'Shoulder', icon: '💪' },
+      { value: 'hip', label: 'Hip', icon: '🦴' },
+      { value: 'wrist', label: 'Wrist / Elbow', icon: '🤝' },
+      { value: 'neck', label: 'Neck / Upper Back', icon: '🏥' },
+    ],
+    noneValue: 'none',
+  },
+  {
+    id: 'equipment',
+    field: 'equipment',
+    type: 'multiselect',
+    trainerText:
+      "What equipment do you have access to? Select everything available.",
+    options: [
+      { value: 'full_gym', label: 'Full Commercial Gym', icon: '🏢' },
+      { value: 'home_gym', label: 'Home Gym (rack + weights)', icon: '🏠' },
+      { value: 'dumbbells', label: 'Dumbbells', icon: '🏋️' },
+      { value: 'barbells', label: 'Barbell + Plates', icon: '⚖️' },
+      { value: 'cables', label: 'Cable Machine', icon: '🔗' },
+      { value: 'resistance_bands', label: 'Resistance Bands', icon: '🔴' },
+      { value: 'pull_up_bar', label: 'Pull-up Bar', icon: '⬆️' },
+      { value: 'kettlebells', label: 'Kettlebells', icon: '🫙' },
+      { value: 'bodyweight', label: 'Bodyweight Only', icon: '🤸' },
+    ],
+    noneValue: null,
+  },
+  {
+    id: 'days_per_week',
+    field: 'daysPerWeek',
+    type: 'single',
+    trainerText:
+      'How many days per week can you realistically commit to training?',
+    options: [
+      { value: '2', label: '2 days / week', icon: '📅' },
+      { value: '3', label: '3 days / week', icon: '📅' },
+      { value: '4', label: '4 days / week', icon: '📅' },
+      { value: '5', label: '5 days / week', icon: '📅' },
+      { value: '6', label: '6 days / week', icon: '📅' },
+    ],
+  },
+  {
+    id: 'session_duration',
+    field: 'sessionDuration',
+    type: 'single',
+    trainerText: 'How long can each session be?',
+    options: [
+      { value: '30', label: '~30 minutes', icon: '⚡' },
+      { value: '45', label: '~45 minutes', icon: '⏱️' },
+      { value: '60', label: '~60 minutes', icon: '🕐' },
+      { value: '75', label: '75–90 minutes', icon: '🕑' },
+    ],
+  },
+  {
+    id: 'gender',
+    field: 'gender',
+    type: 'single',
+    trainerText:
+      'A few quick biometrics. What is your biological sex? (This helps with hormonal and physiological programming.)',
+    options: [
+      { value: 'male', label: 'Male', icon: '♂️' },
+      { value: 'female', label: 'Female', icon: '♀️' },
+      { value: 'prefer_not', label: 'Prefer not to say', icon: '⚪' },
+    ],
+  },
+  {
+    id: 'age',
+    field: 'age',
+    type: 'number',
+    trainerText: 'How old are you?',
+    placeholder: 'e.g. 28',
+    unit: 'years',
+    min: 14,
+    max: 90,
+  },
+  {
+    id: 'weight',
+    field: 'weight',
+    type: 'number_unit',
+    trainerText: "What's your current body weight?",
+    placeholder: 'e.g. 175',
+    units: ['lbs', 'kg'],
+    defaultUnit: 'lbs',
+    min: 70,
+    max: 500,
+    field_unit: 'weightUnit',
+  },
+  {
+    id: 'height',
+    field: 'height',
+    type: 'number_unit',
+    trainerText: "And your height?",
+    placeholder: 'e.g. 68',
+    units: ['in', 'cm'],
+    defaultUnit: 'in',
+    min: 48,
+    max: 250,
+    field_unit: 'heightUnit',
+  },
+  {
+    id: 'diet',
+    field: 'diet',
+    type: 'single',
+    trainerText:
+      'Last thing: how would you describe your current diet / nutrition habits?',
+    options: [
+      { value: 'poor', label: 'Pretty poor — lots of processed food', icon: '🍔' },
+      { value: 'average', label: 'Average — room to improve', icon: '🥗' },
+      { value: 'good', label: 'Good — eat fairly clean', icon: '✅' },
+      { value: 'strict', label: 'Very strict — I track everything', icon: '📊' },
+    ],
+  },
+  {
+    id: 'additional_info',
+    field: 'additionalInfo',
+    type: 'textarea',
+    trainerText:
+      "Almost done. Anything else you want me to factor in? Specific preferences, a past program you liked, schedule quirks — anything at all.",
+    placeholder: 'Optional — type anything or skip',
+    optional: true,
+  },
+];
+
+export const TOTAL_QUESTIONS = QUESTIONS.length;
