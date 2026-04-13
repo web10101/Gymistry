@@ -12,7 +12,7 @@ const PHASES = {
   PLAN: 'plan',
 };
 
-export default function IntakeFlow() {
+export default function IntakeFlow({ onBack }) {
   const [phase, setPhase] = useState(PHASES.INTAKE);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -110,7 +110,12 @@ export default function IntakeFlow() {
           >
             G
           </div>
-          <span className="font-bold text-white tracking-tight text-sm">Gymistry</span>
+          <button
+            onClick={onBack}
+            className="font-bold text-white tracking-tight text-sm hover:text-lime-400 transition-colors"
+          >
+            Gymistry
+          </button>
         </div>
 
         {currentIndex > 0 && (
