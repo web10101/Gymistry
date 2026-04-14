@@ -61,19 +61,9 @@ Reference specific numbers from the data. If the data is insufficient to assess 
 }
 
 export async function analyzeForm(poseData, exercise, onChunk) {
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    throw new Error('No API key found. Add VITE_ANTHROPIC_API_KEY to your .env file.');
-  }
-
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const response = await fetch('/api/analyze-form', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: CLAUDE_MODEL,
       max_tokens: 2048,
@@ -84,7 +74,7 @@ export async function analyzeForm(poseData, exercise, onChunk) {
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err?.error?.message || `API error: ${response.status}`);
+    throw new Error(err?.error?.message || `Request failed: ${response.status}`);
   }
 
   const reader = response.body.getReader();

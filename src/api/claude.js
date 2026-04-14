@@ -1,5 +1,4 @@
 const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
-const API_URL = 'https://api.anthropic.com/v1/messages';
 
 function buildPrompt(answers) {
   const weightDisplay = answers.weight
@@ -95,39 +94,21 @@ Be specific with exercises — use real exercise names, proper form cues where n
 }
 
 export async function generateWorkoutPlan(answers, onChunk) {
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-
-  if (!apiKey) {
-    throw new Error(
-      'No API key found. Please add VITE_ANTHROPIC_API_KEY to your .env file.'
-    );
-  }
-
-  const response = await fetch(API_URL, {
+  const response = await fetch('/api/generate-program', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: CLAUDE_MODEL,
       max_tokens: 4096,
       stream: true,
-      messages: [
-        {
-          role: 'user',
-          content: buildPrompt(answers),
-        },
-      ],
+      messages: [{ role: 'user', content: buildPrompt(answers) }],
     }),
   });
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
     throw new Error(
-      error?.error?.message || `API request failed: ${response.status}`
+      error?.error?.message || `Request failed: ${response.status}`
     );
   }
 
