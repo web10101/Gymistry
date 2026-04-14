@@ -15,62 +15,128 @@ function getPrimaryAngle(angles, exercise) {
   return null;
 }
 
-const SMOOTH_WINDOW = 5; // frames to smooth over
+// Movement phase enum
+export const PHASE = {
+  REST:       'REST',
+  ECCENTRIC:  'ECCENTRIC',  // contracting / going toward bottom
+  AT_BOTTOM:  'AT_BOTTOM',  // near minimum angle
+  CONCENTRIC: 'CONCENTRIC', // extending / returning to top
+  AT_TOP:     'AT_TOP',     // near full extension
+};
+
+const SMOOTH_WINDOW = 6;
+const ROM_MARGIN    = 10;  // degrees — wiggle room for ROM comparison
 
 /**
- * Counts reps by detecting angle cycles (bottom → top transitions).
+ * Counts reps and tracks movement phase + range of motion.
  *
- * State machine per exercise:
- *   'top'    — at or above the top threshold (start/rest position)
- *   'bottom' — below the bottom threshold (contracted position)
+ * Phase machine:
+ *   AT_TOP → ECCENTRIC → AT_BOTTOM → CONCENTRIC → AT_TOP (rep counted)
  *
- * A rep is counted when the angle transitions: top → bottom → top
+ * ROM tracking:
+ *   Records the minimum angle reached in each rep.
+ *   Reports whether the person hit adequate depth for the exercise.
  */
 export function useRepCounter(exercise) {
-  const [repCount, setRepCount] = useState(0);
+  const [repCount,  setRepCount]  = useState(0);
+  const [phase,     setPhase]     = useState(PHASE.AT_TOP);
+  const [lastROM,   setLastROM]   = useState(null); // bottom angle of last rep
 
-  const phaseRef      = useRef('top');   // 'top' | 'bottom'
-  const repCountRef   = useRef(0);
-  const angleHistRef  = useRef([]);       // rolling buffer for smoothing
+  const phaseRef       = useRef(PHASE.AT_TOP);
+  const repCountRef    = useRef(0);
+  const angleHistRef   = useRef([]);
+  const prevAngleRef   = useRef(null);
+  const repMinAngleRef = useRef(Infinity); // track depth in current rep
+
+  const setPhaseSync = (p) => {
+    phaseRef.current = p;
+    setPhase(p);
+  };
 
   const update = useCallback(
     (angles) => {
       const cfg = EXERCISE_REP_CONFIG[exercise];
-      if (!cfg) return null;
+      if (!cfg) return { newRep: null, phase: phaseRef.current };
 
       const raw = getPrimaryAngle(angles, exercise);
-      if (raw === null) return null;
+      if (raw === null) return { newRep: null, phase: phaseRef.current };
 
-      // Smooth the angle over the last N frames
+      // Smooth
       angleHistRef.current.push(raw);
       if (angleHistRef.current.length > SMOOTH_WINDOW) angleHistRef.current.shift();
       const smoothed = angleHistRef.current.reduce((a, b) => a + b, 0) / angleHistRef.current.length;
 
       const { bottom, top } = cfg;
-      const phase = phaseRef.current;
+      const prev    = prevAngleRef.current;
+      const curPhase = phaseRef.current;
 
-      if (phase === 'top' && smoothed < bottom) {
-        // Entered the contracted/bottom position
-        phaseRef.current = 'bottom';
-      } else if (phase === 'bottom' && smoothed > top) {
-        // Returned to extended/top position — rep complete
-        phaseRef.current = 'top';
-        repCountRef.current += 1;
-        setRepCount(repCountRef.current);
-        return repCountRef.current;
+      // Velocity of angle change (positive = extending, negative = contracting)
+      const velocity = prev !== null ? smoothed - prev : 0;
+      prevAngleRef.current = smoothed;
+
+      let newRep = null;
+      let romData = null;
+
+      if (curPhase === PHASE.AT_TOP || curPhase === PHASE.REST) {
+        if (velocity < -1) setPhaseSync(PHASE.ECCENTRIC);
+        if (smoothed < bottom) { setPhaseSync(PHASE.AT_BOTTOM); repMinAngleRef.current = smoothed; }
       }
 
-      return null; // no new rep this frame
+      if (curPhase === PHASE.ECCENTRIC) {
+        if (smoothed < repMinAngleRef.current) repMinAngleRef.current = smoothed;
+        if (smoothed < bottom) setPhaseSync(PHASE.AT_BOTTOM);
+      }
+
+      if (curPhase === PHASE.AT_BOTTOM) {
+        if (smoothed < repMinAngleRef.current) repMinAngleRef.current = smoothed;
+        if (velocity > 1) setPhaseSync(PHASE.CONCENTRIC);
+      }
+
+      if (curPhase === PHASE.CONCENTRIC) {
+        if (smoothed > top) {
+          // Rep complete
+          repCountRef.current += 1;
+          setRepCount(repCountRef.current);
+          newRep = repCountRef.current;
+
+          // ROM data
+          const achievedROM = repMinAngleRef.current;
+          const expectedBottom = bottom;
+          romData = {
+            achieved: Math.round(achievedROM),
+            target: expectedBottom,
+            adequate: achievedROM <= expectedBottom + ROM_MARGIN,
+          };
+          setLastROM(romData);
+
+          // Reset for next rep
+          repMinAngleRef.current = Infinity;
+          setPhaseSync(PHASE.AT_TOP);
+        }
+      }
+
+      // Detect rest: angle stable near top and no velocity
+      if (Math.abs(velocity) < 0.5 && smoothed > top - 5) {
+        if (curPhase !== PHASE.AT_TOP && curPhase !== PHASE.REST) {
+          // Don't interrupt a completed rep check
+        }
+      }
+
+      return { newRep, phase: phaseRef.current, romData };
     },
     [exercise]
   );
 
   const reset = useCallback(() => {
     setRepCount(0);
-    repCountRef.current  = 0;
-    phaseRef.current     = 'top';
-    angleHistRef.current = [];
+    setPhase(PHASE.AT_TOP);
+    setLastROM(null);
+    repCountRef.current    = 0;
+    phaseRef.current       = PHASE.AT_TOP;
+    angleHistRef.current   = [];
+    prevAngleRef.current   = null;
+    repMinAngleRef.current = Infinity;
   }, []);
 
-  return { repCount, repCountRef, update, reset };
+  return { repCount, repCountRef, phase, phaseRef, lastROM, update, reset };
 }

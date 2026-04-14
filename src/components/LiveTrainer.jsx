@@ -1,35 +1,26 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { LIVE_EXERCISES, CAMERA_GUIDES } from '../data/exerciseGuides';
-import { useLivePose, extractAnglesFromLandmarks, detectMovement } from '../hooks/useLivePose';
-import { useRepCounter } from '../hooks/useRepCounter';
-import { getCoachingCue } from '../api/liveCoaching';
+import {
+  useLivePose,
+  extractAnglesFromLandmarks,
+  computeSymmetry,
+  computeVelocity,
+  detectMovement,
+} from '../hooks/useLivePose';
+import { useRepCounter, PHASE } from '../hooks/useRepCounter';
+import { getCoachingCue, TTSQueue } from '../api/liveCoaching';
+import EnvironmentCheck from './EnvironmentCheck';
 
-// ─── TTS ─────────────────────────────────────────────────────────────────────
-
-const ttsAvailable = typeof window !== 'undefined' && 'speechSynthesis' in window;
-
-function speak(text, interrupt = false) {
-  if (!ttsAvailable || !text) return;
-  try {
-    if (interrupt) window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.1;
-    u.pitch = 1.0;
-    u.volume = 1.0;
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(
-      (v) =>
-        (v.lang === 'en-US' || v.lang === 'en-GB') &&
-        (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Premium'))
-    );
-    if (preferred) u.voice = preferred;
-    window.speechSynthesis.speak(u);
-  } catch { /* TTS unavailable — silent fallback */ }
+// Singleton TTS queue — persists for the session
+let tts = null;
+function getTTS() {
+  if (!tts) tts = new TTSQueue();
+  return tts;
 }
 
 // ─── Setup screen ─────────────────────────────────────────────────────────────
 
-function SetupScreen({ onStart, onBack }) {
+function SetupScreen({ onContinue, onBack }) {
   const [selected, setSelected] = useState(null);
   const guide = selected ? CAMERA_GUIDES[selected] : null;
 
@@ -37,24 +28,19 @@ function SetupScreen({ onStart, onBack }) {
     <div className="flex-1 px-5 py-8 max-w-2xl mx-auto w-full">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-white mb-2">Live Trainer</h1>
-        <p className="text-zinc-400 text-sm">
-          Choose your exercise, position your camera, then start. Your AI trainer
-          will coach you live — counting reps, correcting form, out loud.
+        <p className="text-zinc-400 text-sm leading-relaxed">
+          Choose your exercise. We'll verify your camera setup before starting
+          so you get the most accurate coaching.
         </p>
       </div>
 
-      {/* Exercise grid */}
-      <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">
-        Select exercise
-      </p>
+      <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">Select exercise</p>
       <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5 mb-6">
         {LIVE_EXERCISES.map((ex) => (
           <button
             key={ex.value}
             onClick={() => setSelected(ex.value)}
-            className={`option-card flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 transition-all ${
-              selected === ex.value ? 'selected' : ''
-            }`}
+            className={`option-card flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 transition-all ${selected === ex.value ? 'selected' : ''}`}
           >
             <span className="text-xl">{ex.icon}</span>
             <span className="text-xs font-medium text-zinc-300 leading-tight text-center">{ex.label}</span>
@@ -62,20 +48,17 @@ function SetupScreen({ onStart, onBack }) {
         ))}
       </div>
 
-      {/* Camera guide */}
       {guide && (
-        <div
-          className="slide-up mb-8 rounded-2xl p-5"
-          style={{ background: 'rgba(232,255,71,0.04)', border: '1px solid rgba(232,255,71,0.12)' }}
-        >
+        <div className="slide-up mb-8 rounded-2xl p-5"
+          style={{ background: 'rgba(232,255,71,0.04)', border: '1px solid rgba(232,255,71,0.12)' }}>
           <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#e8ff47' }}>
-            Camera Setup — {selected}
+            Camera Guide — {selected}
           </p>
           <div className="grid grid-cols-3 gap-4 mb-4 text-center">
             {[
-              { label: 'View', value: guide.view },
+              { label: 'View',     value: guide.view },
               { label: 'Distance', value: guide.distance },
-              { label: 'Height', value: guide.height },
+              { label: 'Height',   value: guide.height },
             ].map(({ label, value }) => (
               <div key={label}>
                 <p className="text-white text-sm font-semibold">{value}</p>
@@ -86,8 +69,7 @@ function SetupScreen({ onStart, onBack }) {
           <ul className="space-y-1.5">
             {guide.tips.map((tip) => (
               <li key={tip} className="flex items-start gap-2 text-xs text-zinc-400">
-                <span style={{ color: '#e8ff47' }} className="mt-0.5 flex-shrink-0">→</span>
-                {tip}
+                <span style={{ color: '#e8ff47' }} className="flex-shrink-0 mt-0.5">→</span>{tip}
               </li>
             ))}
           </ul>
@@ -95,125 +77,155 @@ function SetupScreen({ onStart, onBack }) {
       )}
 
       <button
-        onClick={() => onStart(selected)}
+        onClick={() => onContinue(selected)}
         disabled={!selected}
         className="btn-primary w-full py-4 rounded-xl text-sm font-bold tracking-wide disabled:opacity-30 disabled:pointer-events-none"
       >
-        Start Session →
+        Check Camera Setup →
       </button>
     </div>
   );
 }
 
-// ─── Coaching cue bubble ──────────────────────────────────────────────────────
+// ─── Coaching cue overlay ─────────────────────────────────────────────────────
 
 function CueBubble({ cue }) {
   const [visible, setVisible] = useState(false);
-  const prevCue = useRef('');
+  const prevRef = useRef('');
 
   useEffect(() => {
-    if (cue && cue !== prevCue.current) {
-      prevCue.current = cue;
+    if (cue && cue !== prevRef.current) {
+      prevRef.current = cue;
       setVisible(true);
-      const t = setTimeout(() => setVisible(false), 5000);
+      const t = setTimeout(() => setVisible(false), 6000);
       return () => clearTimeout(t);
     }
   }, [cue]);
 
   if (!cue) return null;
-
   return (
-    <div
-      className="transition-all duration-300"
-      style={{ opacity: visible ? 1 : 0.4, transform: visible ? 'translateY(0)' : 'translateY(4px)' }}
-    >
-      <p className="text-white text-base sm:text-lg font-semibold leading-snug">
-        "{cue}"
-      </p>
-    </div>
+    <p className="text-white font-semibold text-base sm:text-lg leading-snug transition-all duration-400"
+      style={{ opacity: visible ? 1 : 0.35 }}>
+      "{cue}"
+    </p>
   );
 }
 
-// ─── Live session screen ──────────────────────────────────────────────────────
+// ─── In-session live view ─────────────────────────────────────────────────────
 
 function SessionScreen({ exercise, onEnd }) {
   const videoRef   = useRef(null);
   const canvasRef  = useRef(null);
   const startedRef = useRef(false);
 
-  // Coaching state
-  const [currentCue, setCurrentCue] = useState('');
-  const [isMoving, setIsMoving]     = useState(false);
+  const [currentCue,  setCurrentCue]  = useState('');
+  const [isMoving,    setIsMoving]     = useState(false);
+  const [outOfFrame,  setOutOfFrame]   = useState(false);
 
-  // Session tracking
-  const sessionStartRef   = useRef(Date.now());
-  const prevLandmarksRef  = useRef(null);
-  const anglesRef         = useRef(null);
-  const claudeInFlight    = useRef(false);
-  const lastClaudeTime    = useRef(0);
-  const recentCues        = useRef([]);
-  const cueLogRef         = useRef([]); // full log for summary
+  // Rich session state
+  const anglesRef        = useRef(null);
+  const prevLandmarksRef = useRef(null);
+  const velocityRef      = useRef(0);
+  const sessionStartRef  = useRef(Date.now());
+  const claudeInFlight   = useRef(false);
+  const lastClaudeTime   = useRef(0);
+  const recentCues       = useRef([]);
+  const cueLogRef        = useRef([]);
+  const noBodyFrames     = useRef(0);
+  const NO_BODY_LIMIT    = 40; // ~4 seconds at 10fps → show out-of-frame warning
 
-  // Rep counter
-  const { repCount, repCountRef, update: updateRep, reset: resetRep } = useRepCounter(exercise);
+  // Rep counter with phase and ROM
+  const { repCount, repCountRef, phase, phaseRef, lastROM, update: updateRep, reset: resetRep } = useRepCounter(exercise);
 
-  // Pose hook
+  const tts_ = getTTS();
+
+  // ── Landmarks callback ──────────────────────────────────────────────────────
   const handleLandmarks = useCallback((landmarks) => {
-    const angles = extractAnglesFromLandmarks(landmarks);
-    anglesRef.current = angles;
-
-    // Rep counting
-    const newRep = updateRep(angles);
-    if (newRep !== null) {
-      speak(String(newRep), true);
+    if (!landmarks) {
+      noBodyFrames.current++;
+      if (noBodyFrames.current > NO_BODY_LIMIT) setOutOfFrame(true);
+      return;
     }
 
-    // Movement detection
-    const moving = detectMovement(prevLandmarksRef.current, landmarks);
+    noBodyFrames.current = 0;
+    if (outOfFrame) {
+      setOutOfFrame(false);
+      tts_.speak('Back in frame — let\'s go', 'high');
+    }
+
+    const angles   = extractAnglesFromLandmarks(landmarks);
+    const velocity = computeVelocity(landmarks, prevLandmarksRef.current);
+    const moving   = detectMovement(prevLandmarksRef.current, landmarks);
+
+    anglesRef.current       = angles;
+    velocityRef.current     = velocity;
     prevLandmarksRef.current = landmarks;
     setIsMoving(moving);
 
-    // Throttled Claude coaching (every 2.5s, only while moving or just started)
-    const now = Date.now();
+    // Rep counting
+    const { newRep, romData } = updateRep(angles);
+    if (newRep !== null) {
+      tts_.speak(String(newRep), 'high');
+      cueLogRef.current.push({
+        time: Math.floor((Date.now() - sessionStartRef.current) / 1000),
+        cue: `Rep ${newRep}`,
+      });
+    }
+
+    // Throttled Claude coaching
+    const now     = Date.now();
     const elapsed = Math.floor((now - sessionStartRef.current) / 1000);
-    if (
+    const shouldCall =
       !claudeInFlight.current &&
-      now - lastClaudeTime.current > 2500 &&
-      elapsed > 3 &&           // wait 3s before first call
-      (moving || elapsed < 8)  // coach during movement or at start
-    ) {
+      now - lastClaudeTime.current > 2200 &&
+      elapsed > 2 &&
+      (moving || elapsed < 6);
+
+    if (shouldCall) {
       lastClaudeTime.current = now;
       claudeInFlight.current = true;
+      const sym = computeSymmetry(angles);
+
       getCoachingCue({
         exercise,
         angles,
-        repCount: repCountRef.current,
-        isMoving: moving,
-        recentCues: recentCues.current.slice(-4),
+        velocity,
+        symmetry: sym,
+        repCount:       repCountRef.current,
+        phase:          phaseRef.current,
+        lastROM,
+        recentCues:     recentCues.current.slice(-4),
         secondsElapsed: elapsed,
       }).then((cue) => {
         claudeInFlight.current = false;
         if (!cue) return;
+
+        // Prioritize safety cues
+        const isSafety = /round|collapse|cave|hyperextend|lock|stop|careful|danger/i.test(cue);
+        tts_.speak(cue, isSafety ? 'urgent' : 'normal');
+
         setCurrentCue(cue);
-        speak(cue, false);
         recentCues.current.push(cue);
         if (recentCues.current.length > 10) recentCues.current.shift();
-        cueLogRef.current.push({ time: elapsed, cue });
+        cueLogRef.current.push({
+          time: elapsed,
+          cue,
+        });
       }).catch(() => { claudeInFlight.current = false; });
     }
-  }, [exercise, updateRep, repCountRef]);
+  }, [exercise, updateRep, repCountRef, phaseRef, lastROM, outOfFrame, tts_]);
 
   const { start, stop, status, errorMsg } = useLivePose({ onLandmarks: handleLandmarks });
 
-  // Start camera once refs are mounted
+  // Start camera on mount
   useEffect(() => {
     if (!startedRef.current && videoRef.current && canvasRef.current) {
       startedRef.current = true;
-      speak(`Starting ${exercise}. Get into position.`, true);
+      tts_.speak(`Starting ${exercise}. Get into position.`, 'high');
       start(videoRef.current, canvasRef.current);
     }
     return () => {
-      if (ttsAvailable) window.speechSynthesis.cancel();
+      tts_.cancel();
       stop();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -221,129 +233,112 @@ function SessionScreen({ exercise, onEnd }) {
 
   const handleEnd = () => {
     stop();
-    if (ttsAvailable) window.speechSynthesis.cancel();
+    tts_.cancel();
     const duration = Math.floor((Date.now() - sessionStartRef.current) / 1000);
-    onEnd({
-      exercise,
-      reps: repCountRef.current,
-      duration,
-      cueLog: cueLogRef.current,
-    });
+    onEnd({ exercise, reps: repCountRef.current, duration, cueLog: cueLogRef.current });
   };
+
+  // Phase label
+  const phaseLabel = {
+    [PHASE.AT_TOP]:     '⬆ Top',
+    [PHASE.ECCENTRIC]:  '⬇ Down',
+    [PHASE.AT_BOTTOM]:  '⬇ Bottom',
+    [PHASE.CONCENTRIC]: '⬆ Up',
+    [PHASE.REST]:       '— Rest',
+  }[phase] || '';
 
   return (
     <div className="flex flex-col h-screen bg-zinc-950 select-none">
-      {/* Top bar — minimal, non-distracting */}
-      <div
-        className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 py-3"
-        style={{ background: 'linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, transparent 100%)' }}
-      >
-        <div className="flex items-center gap-2">
-          <div
-            className="w-2 h-2 rounded-full"
-            style={{
-              background: status === 'active' ? '#4ade80' : '#f59e0b',
-              boxShadow: status === 'active' ? '0 0 8px rgba(74,222,128,0.7)' : 'none',
-              animation: status === 'active' ? 'pulse 2s ease-in-out infinite' : 'none',
-            }}
-          />
+      {/* Minimal top bar */}
+      <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 py-3"
+        style={{ background: 'linear-gradient(to bottom, rgba(10,10,10,0.92) 0%, transparent 100%)' }}>
+        <div className="flex items-center gap-2.5">
+          <div className="w-2 h-2 rounded-full"
+            style={{ background: status === 'active' ? '#4ade80' : '#f59e0b', boxShadow: status === 'active' ? '0 0 8px rgba(74,222,128,0.7)' : 'none', animation: status === 'active' ? 'pulse 2s ease-in-out infinite' : 'none' }} />
           <span className="text-white text-sm font-semibold">{exercise}</span>
+          {phaseLabel && (
+            <span className="text-xs text-zinc-500 font-medium">{phaseLabel}</span>
+          )}
         </div>
-        <button
-          onClick={handleEnd}
-          className="px-4 py-1.5 rounded-full text-xs font-bold border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-all"
-        >
+        <button onClick={handleEnd}
+          className="px-4 py-1.5 rounded-full text-xs font-bold border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-all">
           End Session
         </button>
       </div>
 
-      {/* Camera feed */}
+      {/* Camera */}
       <div className="relative flex-1 overflow-hidden bg-black">
-        {/* Loading overlay */}
         {status === 'loading' && (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-zinc-950 gap-4">
-            <div
-              className="w-12 h-12 rounded-full border-2 border-transparent"
-              style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }}
-            />
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-zinc-950">
+            <div className="w-12 h-12 rounded-full border-2 border-transparent" style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }} />
             <p className="text-zinc-400 text-sm">Starting camera…</p>
           </div>
         )}
-
-        {/* Error */}
         {status === 'error' && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 px-8 text-center bg-zinc-950">
             <span className="text-4xl">📷</span>
-            <p className="text-white font-semibold">Camera access denied</p>
+            <p className="text-white font-semibold">Camera error</p>
             <p className="text-zinc-400 text-sm">{errorMsg}</p>
-            <button onClick={handleEnd} className="btn-primary px-6 py-3 rounded-xl text-sm font-bold mt-2">
-              Go Back
-            </button>
+            <button onClick={handleEnd} className="btn-primary px-6 py-3 rounded-xl text-sm font-bold mt-2">Go Back</button>
           </div>
         )}
 
-        {/* Video feed — mirrored so it looks like a mirror */}
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ transform: 'scaleX(-1)' }}
-          playsInline
-          muted
-        />
+        <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ transform: 'scaleX(-1)' }} />
 
-        {/* Skeleton overlay — also mirrored to align with video */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ transform: 'scaleX(-1)', objectFit: 'cover' }}
-        />
+        {/* Out of frame alert */}
+        {outOfFrame && (
+          <div className="absolute inset-0 z-15 flex items-center justify-center"
+            style={{ background: 'rgba(10,10,10,0.75)' }}>
+            <div className="text-center px-8">
+              <p className="text-3xl mb-3">⚠️</p>
+              <p className="text-white font-bold text-lg">Get Back in Frame</p>
+              <p className="text-zinc-400 text-sm mt-1">Step back or re-center yourself</p>
+            </div>
+          </div>
+        )}
 
-        {/* Movement indicator */}
-        <div
-          className="absolute top-14 right-4 z-10 text-xs px-2.5 py-1 rounded-full font-medium transition-all"
+        {/* Symmetry flag */}
+        {anglesRef.current && (() => {
+          const sym = computeSymmetry(anglesRef.current);
+          const worst = Object.entries(sym).find(([, v]) => v > 15);
+          return worst ? (
+            <div className="absolute top-14 left-3 z-10 text-xs px-2.5 py-1.5 rounded-lg font-medium"
+              style={{ background: 'rgba(239,68,68,0.15)', color: '#f87171', border: '1px solid rgba(239,68,68,0.3)' }}>
+              ⚠ {worst[0]} asymmetry {worst[1]}°
+            </div>
+          ) : null;
+        })()}
+
+        {/* Movement pill */}
+        <div className="absolute top-14 right-3 z-10 text-xs px-2.5 py-1 rounded-full font-medium transition-all"
           style={{
-            background: isMoving ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.06)',
+            background: isMoving ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.05)',
             color: isMoving ? '#4ade80' : '#52525b',
             border: `1px solid ${isMoving ? 'rgba(74,222,128,0.3)' : 'rgba(255,255,255,0.08)'}`,
-          }}
-        >
+          }}>
           {isMoving ? 'MOVING' : 'REST'}
         </div>
       </div>
 
       {/* Bottom HUD */}
-      <div
-        className="relative z-10 px-4 py-4 flex items-center gap-4"
-        style={{
-          background: 'rgba(10,10,10,0.95)',
-          borderTop: '1px solid rgba(255,255,255,0.06)',
-        }}
-      >
-        {/* Rep counter */}
-        <div className="flex-shrink-0 text-center min-w-[56px]">
-          <div
-            className="text-4xl font-extrabold leading-none"
-            style={{ color: '#e8ff47', fontVariantNumeric: 'tabular-nums' }}
-          >
+      <div className="relative z-10 px-4 py-4 flex items-center gap-4"
+        style={{ background: 'rgba(10,10,10,0.97)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="flex-shrink-0 text-center min-w-[60px]">
+          <div className="text-4xl font-extrabold leading-none"
+            style={{ color: '#e8ff47', fontVariantNumeric: 'tabular-nums' }}>
             {repCount}
           </div>
           <div className="text-zinc-600 text-xs mt-0.5 uppercase tracking-wider">Reps</div>
         </div>
-
-        {/* Divider */}
         <div className="w-px h-10 bg-zinc-800 flex-shrink-0" />
-
-        {/* Coaching cue */}
         <div className="flex-1 min-w-0">
-          {currentCue ? (
-            <CueBubble cue={currentCue} />
-          ) : (
-            <p className="text-zinc-600 text-sm italic">
-              {status === 'active'
-                ? 'Begin your first rep…'
-                : 'Starting camera…'}
-            </p>
-          )}
+          {currentCue
+            ? <CueBubble cue={currentCue} />
+            : <p className="text-zinc-600 text-sm italic">
+                {status === 'active' ? 'Begin your first rep…' : 'Starting camera…'}
+              </p>
+          }
         </div>
       </div>
 
@@ -361,54 +356,42 @@ function SummaryScreen({ result, onBack, onRestart }) {
   const { exercise, reps, duration, cueLog } = result;
   const mins = Math.floor(duration / 60);
   const secs = duration % 60;
+  const coachingCues = cueLog.filter(({ cue }) => !cue.startsWith('Rep '));
 
   return (
     <div className="flex-1 px-5 py-8 max-w-2xl mx-auto w-full fade-in">
-      {/* Trophy header */}
       <div className="text-center mb-8">
-        <div
-          className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4"
-          style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
-        >
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4"
+          style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}>
           🏆
         </div>
         <h1 className="text-2xl font-bold text-white mb-1">Session Complete</h1>
         <p className="text-zinc-400 text-sm">{exercise}</p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 gap-4 mb-8">
         {[
-          { label: 'Reps Completed', value: reps, unit: 'reps' },
-          { label: 'Session Time', value: `${mins}:${String(secs).padStart(2, '0')}`, unit: 'min:sec' },
-        ].map(({ label, value, unit }) => (
-          <div
-            key={label}
-            className="rounded-2xl p-5 text-center"
-            style={{ background: 'rgba(232,255,71,0.06)', border: '1px solid rgba(232,255,71,0.12)' }}
-          >
+          { label: 'Reps Completed', value: reps },
+          { label: 'Session Time', value: `${mins}:${String(secs).padStart(2, '0')}` },
+        ].map(({ label, value }) => (
+          <div key={label} className="rounded-2xl p-5 text-center"
+            style={{ background: 'rgba(232,255,71,0.06)', border: '1px solid rgba(232,255,71,0.12)' }}>
             <p className="text-3xl font-extrabold text-white mb-1">{value}</p>
             <p className="text-xs text-zinc-500 uppercase tracking-wider">{label}</p>
           </div>
         ))}
       </div>
 
-      {/* Coaching log */}
-      {cueLog.length > 0 && (
+      {coachingCues.length > 0 && (
         <div className="mb-8">
-          <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">
-            Trainer Notes
-          </p>
+          <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">Trainer Notes</p>
           <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
-            {cueLog.map(({ time, cue }, i) => {
+            {coachingCues.map(({ time, cue }, i) => {
               const m = Math.floor(time / 60);
               const s = time % 60;
               return (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 rounded-xl px-3 py-2.5"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}
-                >
+                <div key={i} className="flex items-start gap-3 rounded-xl px-3 py-2.5"
+                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}>
                   <span className="text-xs text-zinc-600 flex-shrink-0 mt-0.5 font-mono">
                     {m}:{String(s).padStart(2, '0')}
                   </span>
@@ -420,18 +403,12 @@ function SummaryScreen({ result, onBack, onRestart }) {
         </div>
       )}
 
-      {/* Actions */}
       <div className="flex gap-3">
-        <button
-          onClick={onBack}
-          className="flex-1 py-3.5 rounded-xl border border-zinc-700 text-sm font-medium text-zinc-300 hover:border-zinc-500 transition-all"
-        >
+        <button onClick={onBack}
+          className="flex-1 py-3.5 rounded-xl border border-zinc-700 text-sm font-medium text-zinc-300 hover:border-zinc-500 transition-all">
           Home
         </button>
-        <button
-          onClick={onRestart}
-          className="btn-primary flex-1 py-3.5 rounded-xl text-sm font-bold"
-        >
+        <button onClick={onRestart} className="btn-primary flex-1 py-3.5 rounded-xl text-sm font-bold">
           New Session
         </button>
       </div>
@@ -439,19 +416,21 @@ function SummaryScreen({ result, onBack, onRestart }) {
   );
 }
 
-// ─── Root component ───────────────────────────────────────────────────────────
+// ─── Root orchestrator ────────────────────────────────────────────────────────
 
-const STAGES = { SETUP: 'setup', SESSION: 'session', SUMMARY: 'summary' };
+const STAGES = { SETUP: 'setup', VALIDATION: 'validation', SESSION: 'session', SUMMARY: 'summary' };
 
 export default function LiveTrainer({ onBack }) {
-  const [stage, setStage]       = useState(STAGES.SETUP);
+  const [stage,    setStage]    = useState(STAGES.SETUP);
   const [exercise, setExercise] = useState(null);
-  const [result, setResult]     = useState(null);
+  const [result,   setResult]   = useState(null);
 
   const handleStart = (ex) => {
     setExercise(ex);
-    setStage(STAGES.SESSION);
+    setStage(STAGES.VALIDATION);
   };
+
+  const handleValidationPassed = () => setStage(STAGES.SESSION);
 
   const handleEnd = (sessionResult) => {
     setResult(sessionResult);
@@ -466,14 +445,12 @@ export default function LiveTrainer({ onBack }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header — only shown outside session (session is full-screen) */}
+      {/* Header (hidden during full-screen session) */}
       {stage !== STAGES.SESSION && (
         <header className="flex items-center justify-between px-5 py-4 border-b border-zinc-900">
           <div className="flex items-center gap-3">
-            <button
-              onClick={onBack}
-              className="text-zinc-500 hover:text-zinc-300 transition-colors text-sm flex items-center gap-1.5"
-            >
+            <button onClick={onBack}
+              className="text-zinc-500 hover:text-zinc-300 transition-colors text-sm flex items-center gap-1.5">
               ← Back
             </button>
             <div className="w-px h-4 bg-zinc-800" />
@@ -482,17 +459,23 @@ export default function LiveTrainer({ onBack }) {
               <span className="font-semibold text-white text-sm">Live Trainer</span>
             </div>
           </div>
-          <div
-            className="text-xs px-2.5 py-1 rounded-full font-bold"
-            style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
-          >
-            LIVE
+          <div className="text-xs px-2.5 py-1 rounded-full font-bold"
+            style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}>
+            {stage === STAGES.VALIDATION ? 'CHECKING' : 'LIVE'}
           </div>
         </header>
       )}
 
       {stage === STAGES.SETUP && (
-        <SetupScreen onStart={handleStart} onBack={onBack} />
+        <SetupScreen onContinue={handleStart} onBack={onBack} />
+      )}
+
+      {stage === STAGES.VALIDATION && exercise && (
+        <EnvironmentCheck
+          exercise={exercise}
+          onPassed={handleValidationPassed}
+          onBack={() => setStage(STAGES.SETUP)}
+        />
       )}
 
       {stage === STAGES.SESSION && exercise && (
