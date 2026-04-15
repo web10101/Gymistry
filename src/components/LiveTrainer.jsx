@@ -111,6 +111,51 @@ function CueBubble({ cue }) {
   );
 }
 
+// ─── Live environment monitor (mirrors EnvironmentCheck logic) ───────────────
+
+function checkEnvironmentFrame(video, analysisCanvas, landmarks) {
+  // Lighting
+  let tooDark = false, backlight = false;
+  if (video && analysisCanvas && video.readyState >= 2) {
+    try {
+      const ctx = analysisCanvas.getContext('2d');
+      const { width: w, height: h } = analysisCanvas;
+      ctx.drawImage(video, 0, 0, w, h);
+      const centerPx = ctx.getImageData(Math.round(w * 0.2), Math.round(h * 0.05), Math.round(w * 0.6), Math.round(h * 0.9)).data;
+      const topPx    = ctx.getImageData(0, 0, w, Math.round(h * 0.12)).data;
+      const lum = (px) => { let s = 0, n = 0; for (let i = 0; i < px.length; i += 4) { s += px[i] * 0.299 + px[i + 1] * 0.587 + px[i + 2] * 0.114; n++; } return n ? s / n : 0; };
+      const cb = lum(centerPx), bg = lum(topPx);
+      tooDark   = cb < 55;
+      backlight = bg > cb + 55 && bg > 120;
+    } catch { /* ignore canvas errors */ }
+  }
+
+  // Pose / frame
+  let outOfFrame = false;
+  if (!landmarks) {
+    outOfFrame = true;
+  } else {
+    const lm  = landmarks;
+    const vis = (i, t = 0.5) => lm[i] && (lm[i].visibility ?? 1) >= t;
+    const KEY = [11, 12, 23, 24, 25, 26, 27, 28];
+    if (KEY.filter((i) => vis(i)).length < 5) outOfFrame = true;
+    if (!outOfFrame) {
+      const M = 0.06;
+      if (vis(0)  && lm[0].y  < M)     outOfFrame = true; // head clipped top
+      if (vis(27) && lm[27].y > 1 - M) outOfFrame = true; // left ankle clipped bottom
+      if (vis(28) && lm[28].y > 1 - M) outOfFrame = true; // right ankle clipped bottom
+      if (vis(11) && lm[11].x < M)     outOfFrame = true; // left shoulder clipped left
+      if (vis(12) && lm[12].x > 1 - M) outOfFrame = true; // right shoulder clipped right
+    }
+  }
+
+  // Priority: frame issues first, then backlight, then darkness
+  if (outOfFrame) return { ok: false, message: "Hold on — step back into frame" };
+  if (backlight)  return { ok: false, message: "Move away from that window behind you" };
+  if (tooDark)    return { ok: false, message: "Turn on a light" };
+  return { ok: true, message: null };
+}
+
 // ─── In-session live view ─────────────────────────────────────────────────────
 
 function SessionScreen({ exercise, onEnd }) {
@@ -121,6 +166,8 @@ function SessionScreen({ exercise, onEnd }) {
   const [currentCue,  setCurrentCue]  = useState('');
   const [isMoving,    setIsMoving]     = useState(false);
   const [outOfFrame,  setOutOfFrame]   = useState(false);
+  const [envPaused,   setEnvPaused]    = useState(false); // coaching paused by env check
+  const [envIssue,    setEnvIssue]     = useState(null);  // human-readable reason
 
   // Rich session state
   const anglesRef        = useRef(null);
@@ -133,6 +180,8 @@ function SessionScreen({ exercise, onEnd }) {
   const cueLogRef        = useRef([]);
   const noBodyFrames     = useRef(0);
   const NO_BODY_LIMIT    = 40; // ~4 seconds at 10fps → show out-of-frame warning
+  const envPausedRef     = useRef(false); // ref mirror of envPaused for use inside callbacks
+  const envAnalysisRef   = useRef(null);  // off-screen canvas for lighting analysis
 
   // Rep counter with phase and ROM
   const { repCount, repCountRef, phase, phaseRef, lastROM, update: updateRep, reset: resetRep } = useRepCounter(exercise);
@@ -177,6 +226,7 @@ function SessionScreen({ exercise, onEnd }) {
     const elapsed = Math.floor((now - sessionStartRef.current) / 1000);
     const shouldCall =
       !claudeInFlight.current &&
+      !envPausedRef.current &&
       now - lastClaudeTime.current > 2200 &&
       elapsed > 2 &&
       (moving || elapsed < 6);
@@ -228,6 +278,38 @@ function SessionScreen({ exercise, onEnd }) {
       tts_.cancel();
       stop();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // 3-second environment monitor — pauses coaching if frame/lighting fails
+  useEffect(() => {
+    const ac = document.createElement('canvas');
+    ac.width = 160; ac.height = 90;
+    envAnalysisRef.current = ac;
+
+    const id = setInterval(() => {
+      const result = checkEnvironmentFrame(
+        videoRef.current,
+        envAnalysisRef.current,
+        prevLandmarksRef.current,
+      );
+
+      if (!result.ok && !envPausedRef.current) {
+        // Transition into paused state
+        envPausedRef.current = true;
+        setEnvPaused(true);
+        setEnvIssue(result.message);
+        getTTS().speak(result.message, 'urgent');
+      } else if (result.ok && envPausedRef.current) {
+        // Transition back to active
+        envPausedRef.current = false;
+        setEnvPaused(false);
+        setEnvIssue(null);
+        getTTS().speak("Good, let's keep going", 'high');
+      }
+    }, 3000);
+
+    return () => clearInterval(id);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -294,6 +376,21 @@ function SessionScreen({ exercise, onEnd }) {
               <p className="text-3xl mb-3">⚠️</p>
               <p className="text-white font-bold text-lg">Get Back in Frame</p>
               <p className="text-zinc-400 text-sm mt-1">Step back or re-center yourself</p>
+            </div>
+          </div>
+        )}
+
+        {/* Environment-check pause overlay */}
+        {envPaused && (
+          <div className="absolute inset-0 flex items-center justify-center"
+            style={{ background: 'rgba(10,10,10,0.82)', zIndex: 18 }}>
+            <div className="text-center px-8">
+              <p className="text-3xl mb-3">⏸</p>
+              <p className="text-white font-bold text-lg">Coaching Paused</p>
+              {envIssue && (
+                <p className="text-sm mt-2" style={{ color: '#fbbf24' }}>{envIssue}</p>
+              )}
+              <p className="text-zinc-500 text-xs mt-3">Fix the issue and coaching will resume automatically</p>
             </div>
           </div>
         )}
