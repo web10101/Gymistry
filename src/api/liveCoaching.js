@@ -1,5 +1,3 @@
-import { describeVelocity, describeSpine, computeSymmetry } from '../hooks/useLivePose';
-import { PHASE } from '../hooks/useRepCounter';
 
 const COACHING_MODEL = 'claude-haiku-4-5-20251001';
 
@@ -109,73 +107,46 @@ export class TTSQueue {
 
 // ─── Claude coaching prompt ───────────────────────────────────────────────────
 
-function fmtA(v) { return v !== null && !isNaN(v) ? `${Math.round(v)}°` : '—'; }
-function fmtS(v) { return v !== undefined ? `${v}°` : '—'; }
+function buildPrompt({ exercise, angles, deviations, formScore, phase, repCount, lastROM, recentCues }) {
+  // Summarise worst joint deviations (red first, then yellow)
+  const devEntries = Object.entries(deviations || {})
+    .filter(([, d]) => d.color !== 'green')
+    .sort(([, a], [, b]) => b.deviation - a.deviation);
 
-function buildPrompt({ exercise, angles, velocity, symmetry, repCount, phase, lastROM, recentCues, secondsElapsed }) {
-  const sym = symmetry || computeSymmetry(angles);
-  const asymmetries = Object.entries(sym)
-    .filter(([, v]) => v > 8)
-    .map(([joint, v]) => `${joint}: ${v}° L/R difference`)
-    .join(', ') || 'none significant';
+  const devStr = devEntries.length
+    ? devEntries.map(([j, d]) => `${j} ${d.deviation}° off (${d.color})`).join(', ')
+    : 'all joints within range';
+
+  const score = formScore != null ? `${formScore}%` : 'n/a';
 
   const romNote = lastROM
-    ? lastROM.adequate
-      ? `Last rep reached ${lastROM.achieved}° — good depth ✓`
-      : `Last rep only reached ${lastROM.achieved}° — target is ${lastROM.target}° or lower, cut short`
-    : 'No full rep yet';
-
-  const avoidStr = recentCues?.length
-    ? `DO NOT say: "${recentCues.slice(-4).join('" | "')}"`
+    ? lastROM.adequate ? 'good depth' : `only ${lastROM.achieved}° — target ${lastROM.target}°`
     : '';
 
-  const mm = Math.floor(secondsElapsed / 60);
-  const ss = String(secondsElapsed % 60).padStart(2, '0');
+  const avoidStr = recentCues?.length
+    ? `NEVER repeat: "${recentCues.slice(-3).join('" | "')}"`
+    : '';
 
-  return `You are an elite personal trainer watching someone perform ${exercise} via live camera.
-
-SESSION: ${mm}:${ss} elapsed | Rep ${repCount} | Phase: ${phase}
-
-FULL JOINT DATA:
-Knees:     L ${fmtA(angles.leftKnee)} / R ${fmtA(angles.rightKnee)}
-Hips:      L ${fmtA(angles.leftHip)} / R ${fmtA(angles.rightHip)}
-Elbows:    L ${fmtA(angles.leftElbow)} / R ${fmtA(angles.rightElbow)}
-Shoulders: L ${fmtA(angles.leftShoulder)} / R ${fmtA(angles.rightShoulder)}
-Ankles:    L ${fmtA(angles.leftAnkle)} / R ${fmtA(angles.rightAnkle)}
-Wrists:    L ${fmtA(angles.leftWrist)} / R ${fmtA(angles.rightWrist)}
-Torso lean: ${fmtA(angles.torsoLean)} | Spine: ${describeSpine(angles.spineAngle)}
-Hip tilt: ${angles.hipTilt?.toFixed(1) ?? '—'}% | Shoulder tilt: ${angles.shoulderTilt?.toFixed(1) ?? '—'}%
-Stance width: ${angles.stanceWidth?.toFixed(2) ?? '—'} (0=feet together, 1=full frame width)
-Head position: ${fmtA(angles.headForward)} offset from center
-
-SYMMETRY: ${asymmetries}
-
-MOVEMENT:
-Velocity: ${describeVelocity(velocity)}
-Depth / ROM: ${romNote}
-
+  return `Trainer for ${exercise}. Rep ${repCount}. Phase: ${phase}. Form score: ${score}.
+Joint deviations: ${devStr}.${romNote ? ` Depth: ${romNote}.` : ''}
 ${avoidStr}
 
-YOUR RESPONSE: ONE coaching cue, MAX 12 words.
+Rules — read carefully:
+- ONE sentence max. Short. Natural. Like a real trainer talking.
+- Form score >85: just count the rep or say something encouraging.
+- A joint is red/yellow: name it specifically and give one simple fix.
+- Never give a technical report. Never start with "I".
+- Never repeat the last 3 cues above.
+- Return empty string if nothing important to say.
 
-Priority order (respond to highest priority that applies):
-1. URGENT SAFETY — spinal rounding, joint collapse, loss of control → interrupt immediately
-2. Form correction — specific body part + exact direction ("left knee 2 inches inside your toes")
-3. Depth feedback — if they're not hitting ROM ("drop 3 inches lower, you can do it")
-4. Symmetry flag — if one side is deviating > 12°
-5. Tempo note — if velocity indicates too fast/too slow
-6. Rep acknowledgment / encouragement — when form is solid
-7. EMPTY STRING — if resting with clean form and nothing needs saying
+Examples of good responses:
+"Three. Good depth."
+"Chest is dropping — chin up."
+"Nice, that's better."
+"Knees out a bit more."
+"Four. Keep that pace."
 
-Rules:
-- Hyper-specific: "left knee caving in, drive it over your pinky toe" not "watch your knees"
-- Notice improvements: "knee tracked better that rep — keep that"
-- Vary tone: firm corrections, calm counts, warm encouragement
-- When they're RESTING (${phase === PHASE.REST ? 'YES, currently resting' : 'no, currently moving'}): brief reset cue or silence
-- Return EXACTLY "" (empty string) if resting and nothing needs correcting
-- Never start with "I", never use filler words ("okay", "alright", "so")
-
-Respond with ONLY the cue text (or empty string). No quotes, no labels.`;
+Respond with ONLY the cue (or empty string). No quotes, no labels.`;
 }
 
 // ─── API call ─────────────────────────────────────────────────────────────────

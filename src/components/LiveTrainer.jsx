@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { LIVE_EXERCISES, CAMERA_GUIDES } from '../data/exerciseGuides';
+import { getJointDeviations } from '../data/poseThresholds';
 import {
   useLivePose,
   extractAnglesFromLandmarks,
@@ -113,14 +114,70 @@ function CueBubble({ cue }) {
 
 // ─── In-session live view ─────────────────────────────────────────────────────
 
+// Map angle names to MediaPipe landmark indices (the pivot joint)
+const JOINT_LANDMARK_IDX = {
+  leftShoulder: 11, rightShoulder: 12,
+  leftElbow:    13, rightElbow:    14,
+  leftWrist:    15, rightWrist:    16,
+  leftHip:      23, rightHip:      24,
+  leftKnee:     25, rightKnee:     26,
+  leftAnkle:    27, rightAnkle:    28,
+};
+
+const DEV_COLOR = {
+  green:  '34,197,94',
+  yellow: '234,179,8',
+  red:    '239,68,68',
+};
+
+function drawJointOverlay(overlayCanvas, mainCanvas, landmarks, deviations) {
+  if (!overlayCanvas || !mainCanvas || !landmarks) return;
+  if (overlayCanvas.width !== mainCanvas.width || overlayCanvas.height !== mainCanvas.height) {
+    overlayCanvas.width  = mainCanvas.width;
+    overlayCanvas.height = mainCanvas.height;
+  }
+  const ctx = overlayCanvas.getContext('2d');
+  ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+  if (!deviations) return;
+
+  for (const [joint, { color }] of Object.entries(deviations)) {
+    const idx = JOINT_LANDMARK_IDX[joint];
+    if (idx == null) continue;
+    const lm = landmarks[idx];
+    if (!lm || (lm.visibility ?? 1) < 0.3) continue;
+
+    const x   = lm.x * overlayCanvas.width;
+    const y   = lm.y * overlayCanvas.height;
+    const rgb = DEV_COLOR[color] ?? DEV_COLOR.green;
+
+    // Glow ring
+    ctx.beginPath();
+    ctx.arc(x, y, 12, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(${rgb},0.35)`;
+    ctx.lineWidth   = 5;
+    ctx.stroke();
+
+    // Solid dot
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, Math.PI * 2);
+    ctx.fillStyle   = `rgba(${rgb},0.9)`;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+    ctx.lineWidth   = 1.5;
+    ctx.stroke();
+  }
+}
+
 function SessionScreen({ exercise, onEnd }) {
-  const videoRef   = useRef(null);
-  const canvasRef  = useRef(null);
-  const startedRef = useRef(false);
+  const videoRef      = useRef(null);
+  const canvasRef     = useRef(null);
+  const overlayRef    = useRef(null);
+  const startedRef    = useRef(false);
 
   const [currentCue,  setCurrentCue]  = useState('');
   const [isMoving,    setIsMoving]     = useState(false);
   const [outOfFrame,  setOutOfFrame]   = useState(false);
+  const [formScore,   setFormScore]    = useState(null);
 
   // Rich session state
   const anglesRef        = useRef(null);
@@ -134,14 +191,19 @@ function SessionScreen({ exercise, onEnd }) {
   const noBodyFrames     = useRef(0);
   const NO_BODY_LIMIT    = 40; // ~4 seconds at 10fps → show out-of-frame warning
 
-  // Rep counter with phase and ROM
-  const { repCount, repCountRef, phase, phaseRef, lastROM, update: updateRep, reset: resetRep } = useRepCounter(exercise);
+  // Rep counter with phase, ROM and form score
+  const { repCount, repCountRef, phase, phaseRef, lastROM, lastFormScore, update: updateRep, reset: resetRep } = useRepCounter(exercise);
 
   const tts_ = getTTS();
 
   // ── Landmarks callback ──────────────────────────────────────────────────────
   const handleLandmarks = useCallback((landmarks) => {
     if (!landmarks) {
+      // Clear overlay when body lost
+      if (overlayRef.current) {
+        const ctx = overlayRef.current.getContext('2d');
+        ctx.clearRect(0, 0, overlayRef.current.width, overlayRef.current.height);
+      }
       noBodyFrames.current++;
       if (noBodyFrames.current > NO_BODY_LIMIT) setOutOfFrame(true);
       return;
@@ -157,63 +219,62 @@ function SessionScreen({ exercise, onEnd }) {
     const velocity = computeVelocity(landmarks, prevLandmarksRef.current);
     const moving   = detectMovement(prevLandmarksRef.current, landmarks);
 
-    anglesRef.current       = angles;
-    velocityRef.current     = velocity;
+    anglesRef.current        = angles;
+    velocityRef.current      = velocity;
     prevLandmarksRef.current = landmarks;
     setIsMoving(moving);
+
+    // Per-frame joint deviation overlay
+    const deviations = getJointDeviations(angles, exercise, phaseRef.current);
+    drawJointOverlay(overlayRef.current, canvasRef.current, landmarks, deviations);
 
     // Rep counting
     const { newRep, romData } = updateRep(angles);
     if (newRep !== null) {
       tts_.speak(String(newRep), 'high');
+      if (romData?.formScore != null) setFormScore(romData.formScore);
       cueLogRef.current.push({
         time: Math.floor((Date.now() - sessionStartRef.current) / 1000),
         cue: `Rep ${newRep}`,
       });
     }
 
-    // Throttled Claude coaching
+    // Throttled Claude coaching (~2s)
     const now     = Date.now();
     const elapsed = Math.floor((now - sessionStartRef.current) / 1000);
     const shouldCall =
       !claudeInFlight.current &&
-      now - lastClaudeTime.current > 2200 &&
+      now - lastClaudeTime.current > 2000 &&
       elapsed > 2 &&
       (moving || elapsed < 6);
 
     if (shouldCall) {
       lastClaudeTime.current = now;
       claudeInFlight.current = true;
-      const sym = computeSymmetry(angles);
 
       getCoachingCue({
         exercise,
         angles,
-        velocity,
-        symmetry: sym,
+        deviations,
+        formScore:      lastFormScore,
         repCount:       repCountRef.current,
         phase:          phaseRef.current,
         lastROM,
-        recentCues:     recentCues.current.slice(-4),
-        secondsElapsed: elapsed,
+        recentCues:     recentCues.current.slice(-3),
       }).then((cue) => {
         claudeInFlight.current = false;
         if (!cue) return;
 
-        // Prioritize safety cues
         const isSafety = /round|collapse|cave|hyperextend|lock|stop|careful|danger/i.test(cue);
         tts_.speak(cue, isSafety ? 'urgent' : 'normal');
 
         setCurrentCue(cue);
         recentCues.current.push(cue);
         if (recentCues.current.length > 10) recentCues.current.shift();
-        cueLogRef.current.push({
-          time: elapsed,
-          cue,
-        });
+        cueLogRef.current.push({ time: elapsed, cue });
       }).catch(() => { claudeInFlight.current = false; });
     }
-  }, [exercise, updateRep, repCountRef, phaseRef, lastROM, outOfFrame, tts_]);
+  }, [exercise, updateRep, repCountRef, phaseRef, lastROM, lastFormScore, outOfFrame, tts_]);
 
   const { start, stop, status, errorMsg } = useLivePose({ onLandmarks: handleLandmarks });
 
@@ -285,6 +346,7 @@ function SessionScreen({ exercise, onEnd }) {
 
         <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ transform: 'scaleX(-1)' }} />
+        <canvas ref={overlayRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ transform: 'scaleX(-1)' }} />
 
         {/* Out of frame alert */}
         {outOfFrame && (
@@ -332,6 +394,21 @@ function SessionScreen({ exercise, onEnd }) {
           <div className="text-zinc-600 text-xs mt-0.5 uppercase tracking-wider">Reps</div>
         </div>
         <div className="w-px h-10 bg-zinc-800 flex-shrink-0" />
+        {formScore !== null && (
+          <>
+            <div className="flex-shrink-0 text-center min-w-[48px]">
+              <div className="text-xl font-bold leading-none transition-colors duration-300"
+                style={{
+                  color: formScore >= 85 ? '#4ade80' : formScore >= 60 ? '#eab308' : '#f87171',
+                  fontVariantNumeric: 'tabular-nums',
+                }}>
+                {formScore}%
+              </div>
+              <div className="text-zinc-600 text-xs mt-0.5 uppercase tracking-wider">Form</div>
+            </div>
+            <div className="w-px h-10 bg-zinc-800 flex-shrink-0" />
+          </>
+        )}
         <div className="flex-1 min-w-0">
           {currentCue
             ? <CueBubble cue={currentCue} />
