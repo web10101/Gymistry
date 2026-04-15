@@ -28,7 +28,7 @@ export default function Home({ onNavigate }) {
               border: '1px solid rgba(232, 255, 71, 0.2)',
             }}
           >
-            Phases 1, 2 + 3 Available
+            Phases 1–4 Available
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight mb-4">
             Train smarter with{' '}
@@ -41,7 +41,7 @@ export default function Home({ onNavigate }) {
         </div>
 
         {/* Feature cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full max-w-3xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-3xl">
           {/* Program Card */}
           <button
             onClick={() => onNavigate('intake')}
@@ -123,7 +123,7 @@ export default function Home({ onNavigate }) {
           {/* Live Trainer Card */}
           <button
             onClick={() => onNavigate('livetrainer')}
-            className="group relative card-glass rounded-2xl p-7 text-left hover:border-lime-400/40 transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-1"
+            className="group relative card-glass rounded-2xl p-7 text-left hover:border-lime-400/40 transition-all duration-300 hover:-translate-y-1"
             style={{ background: 'rgba(255,255,255,0.03)' }}
           >
             <div className="flex items-center gap-2 mb-4">
@@ -158,6 +158,43 @@ export default function Home({ onNavigate }) {
                 style={{ background: 'rgba(232,255,71,0.12)', color: '#e8ff47' }}
               >
                 Voice coaching
+              </span>
+            </div>
+            <div className="absolute bottom-5 right-5 text-zinc-600 group-hover:text-lime-400 transition-colors text-lg">
+              →
+            </div>
+          </button>
+
+          {/* Exercise Library Card */}
+          <button
+            onClick={() => onNavigate('library')}
+            className="group relative card-glass rounded-2xl p-7 text-left hover:border-lime-400/40 transition-all duration-300 hover:-translate-y-1"
+            style={{ background: 'rgba(255,255,255,0.03)' }}
+          >
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5"
+              style={{ background: 'rgba(232, 255, 71, 0.1)', border: '1px solid rgba(232,255,71,0.2)' }}
+            >
+              📚
+            </div>
+            <h2 className="text-lg font-bold text-white mb-2">Exercise Library</h2>
+            <p className="text-sm text-zinc-400 leading-relaxed mb-5">
+              Browse 290+ exercises with animated form breakdowns, coaching cues,
+              and common mistake corrections — organized by muscle group.
+            </p>
+            <div className="flex items-center gap-2">
+              <span
+                className="text-xs font-bold px-2.5 py-1 rounded-full"
+                style={{ background: 'rgba(232,255,71,0.12)', color: '#e8ff47' }}
+              >
+                290+ exercises
+              </span>
+              <span className="text-xs text-zinc-500">→</span>
+              <span
+                className="text-xs font-bold px-2.5 py-1 rounded-full"
+                style={{ background: 'rgba(232,255,71,0.12)', color: '#e8ff47' }}
+              >
+                AI form guides
               </span>
             </div>
             <div className="absolute bottom-5 right-5 text-zinc-600 group-hover:text-lime-400 transition-colors text-lg">
