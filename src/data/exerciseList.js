@@ -507,4 +507,76 @@ export const EXERCISE_LIST = [
   { id: 'hip-opener-flow',            name: 'Hip Opener Flow',                   muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
   { id: 'morning-mobility-flow',      name: 'Morning Mobility Flow',             muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
   { id: 'animal-flow',                name: 'Animal Flow',                       muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+
+  // ── BALANCE & STABILITY ───────────────────────────────────────────────────
+  // Single leg work
+  { id: 'single-leg-stance',          name: 'Single-Leg Stance',                 muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'tandem-stance',              name: 'Tandem Stance',                     muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-squat-hold',      name: 'Single-Leg Squat Hold',             muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-rdl-bw',          name: 'Bodyweight Single-Leg RDL',         muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-hip-hinge',       name: 'Single-Leg Hip Hinge',              muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-forward-reach',   name: 'Single-Leg Forward Reach',          muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-lateral-reach',   name: 'Single-Leg Lateral Reach',          muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'heel-to-toe-walk',           name: 'Heel-to-Toe Walk',                  muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Medium' },
+
+  // Proprioception drills
+  { id: 'eyes-closed-single-leg',     name: 'Eyes-Closed Single-Leg Balance',    muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'star-excursion-balance',     name: 'Star Excursion Balance',            muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-clock-reach',     name: 'Single-Leg Clock Reach',            muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'toe-tap-balance',            name: 'Toe Tap Balance Drill',             muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'tandem-walk',                name: 'Tandem Walk',                       muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Medium' },
+  { id: 'reactive-balance-catch',     name: 'Reactive Balance Catch',            muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Ball',            spaceNeeded: 'Small'  },
+  { id: 'perturbation-balance',       name: 'Perturbation Balance Drill',        muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+
+  // Unstable surface work (home-friendly)
+  { id: 'pillow-balance',             name: 'Pillow Single-Leg Balance',         muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'Pillow',          spaceNeeded: 'Small'  },
+  { id: 'stability-ball-plank',       name: 'Stability Ball Plank',              muscleGroup: 'Core',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'stability-ball-wall-squat',  name: 'Stability Ball Wall Squat',         muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'stability-ball-leg-curl',    name: 'Stability Ball Leg Curl',           muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'stir-the-pot',               name: 'Stir the Pot',                      muscleGroup: 'Core',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'bosu-squat',                 name: 'BOSU Ball Squat',                   muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'BOSU Ball',       spaceNeeded: 'Small'  },
+  { id: 'bosu-single-leg',            name: 'BOSU Single-Leg Stand',             muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'BOSU Ball',       spaceNeeded: 'Small'  },
+  { id: 'bosu-push-up',               name: 'BOSU Push-Up',                      muscleGroup: 'Chest',      category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'BOSU Ball',       spaceNeeded: 'Small'  },
+  { id: 'balance-board-squat',        name: 'Balance Board Squat',               muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Advanced',     equipmentNeeded: 'Balance Board',   spaceNeeded: 'Small'  },
+
+  // ── YOGA & BREATHWORK ─────────────────────────────────────────────────────
+  // Sun salutation variations (Sun Salutation A already exists as 'sun-salutation')
+  { id: 'sun-salutation-b',           name: 'Sun Salutation B',                  muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'half-sun-salutation',        name: 'Half Sun Salutation',               muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+
+  // Warrior flows
+  { id: 'warrior-i',                  name: 'Warrior I',                         muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'warrior-ii',                 name: 'Warrior II',                        muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'warrior-iii',                name: 'Warrior III',                       muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'reverse-warrior',            name: 'Reverse Warrior',                   muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'crescent-lunge-pose',        name: 'Crescent Lunge Pose',               muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'warrior-flow',               name: 'Warrior I to II Flow',              muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Standing poses
+  { id: 'tree-pose',                  name: 'Tree Pose',                         muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'chair-pose',                 name: 'Chair Pose',                        muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'triangle-pose',              name: 'Triangle Pose',                     muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'eagle-pose',                 name: 'Eagle Pose',                        muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'half-moon-pose',             name: 'Half Moon Pose',                    muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Restorative poses
+  { id: 'childs-pose',                name: "Child's Pose",                      muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'downward-dog',               name: 'Downward Dog',                      muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'cobra-pose',                 name: 'Cobra Pose',                        muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'bridge-pose',                name: 'Bridge Pose',                       muscleGroup: 'Glutes',     category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'boat-pose',                  name: 'Boat Pose',                         muscleGroup: 'Core',       category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'camel-pose',                 name: 'Camel Pose',                        muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'supine-twist',               name: 'Supine Spinal Twist',               muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'seated-forward-bend',        name: 'Seated Forward Bend',               muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'legs-up-wall',               name: 'Legs Up the Wall',                  muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'savasana',                   name: 'Savasana',                          muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Breathing techniques
+  { id: 'box-breathing',              name: 'Box Breathing',                     muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'diaphragmatic-breathing',    name: 'Diaphragmatic Breathing',           muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: '4-7-8-breathing',            name: '4-7-8 Breathing',                   muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'alternate-nostril-breathing',name: 'Alternate Nostril Breathing',       muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'breath-of-fire',             name: 'Breath of Fire',                    muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'ujjayi-breath',              name: 'Ujjayi Breath',                     muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'wim-hof-breathing',          name: 'Wim Hof Breathing',                 muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
 ];
