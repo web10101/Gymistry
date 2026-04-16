@@ -448,4 +448,63 @@ export const EXERCISE_LIST = [
   { id: 'band-standing-crunch',       name: 'Resistance Band Standing Crunch',   muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
   { id: 'band-russian-twist',         name: 'Resistance Band Russian Twist',     muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
   { id: 'band-anti-rotation-press',   name: 'Resistance Band Anti-Rotation Press',muscleGroup: 'Core',      category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // ── MOBILITY & FLEXIBILITY ────────────────────────────────────────────────
+  // Hip mobility
+  { id: '90-90-stretch',              name: '90/90 Hip Stretch',                 muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'pigeon-pose',                name: 'Pigeon Pose',                       muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'frog-stretch',               name: 'Frog Stretch',                      muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'hip-circle',                 name: 'Standing Hip Circle',               muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'leg-swing-lateral',          name: 'Lateral Leg Swing',                 muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'leg-swing-front-back',       name: 'Front-to-Back Leg Swing',           muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'deep-squat-hold',            name: 'Deep Squat Hold',                   muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'cossack-squat',              name: 'Cossack Squat',                     muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+
+  // Shoulder mobility
+  { id: 'shoulder-circle',            name: 'Shoulder Circle',                   muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'cross-body-shoulder-stretch',name: 'Cross-Body Shoulder Stretch',       muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'doorway-chest-stretch',      name: 'Doorway Chest Stretch',             muscleGroup: 'Chest',      category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'shoulder-dislocate',         name: 'Shoulder Dislocate',                muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'Dowel/Stick', spaceNeeded: 'Small'  },
+  { id: 'wall-slide',                 name: 'Wall Slide',                        muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'sleeper-stretch',            name: 'Sleeper Stretch',                   muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'overhead-shoulder-stretch',  name: 'Overhead Shoulder Stretch',         muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Thoracic mobility
+  { id: 'cat-cow',                    name: 'Cat-Cow',                           muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'thoracic-rotation',          name: 'Thoracic Rotation',                 muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'open-book',                  name: 'Open Book Stretch',                 muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'thread-the-needle',          name: 'Thread the Needle',                 muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'thoracic-foam-roll',         name: 'Thoracic Foam Roll Extension',      muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'Foam Roller', spaceNeeded: 'Small'  },
+  { id: 'seated-thoracic-rotation',   name: 'Seated Thoracic Rotation',          muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Hamstring flexibility
+  { id: 'standing-hamstring-stretch', name: 'Standing Hamstring Stretch',        muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'seated-hamstring-stretch',   name: 'Seated Hamstring Stretch',          muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'supine-hamstring-stretch',   name: 'Supine Hamstring Stretch',          muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'standing-forward-fold',      name: 'Standing Forward Fold',             muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'single-leg-forward-fold',    name: 'Single-Leg Forward Fold',           muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Hip flexor work
+  { id: 'low-lunge-stretch',          name: 'Low Lunge Hip Flexor Stretch',      muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'couch-stretch',              name: 'Couch Stretch',                     muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'standing-quad-stretch',      name: 'Standing Quad Stretch',             muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'lizard-pose',                name: 'Lizard Pose',                       muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'standing-psoas-stretch',     name: 'Standing Psoas Stretch',            muscleGroup: 'Core',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Ankle mobility
+  { id: 'ankle-circle',               name: 'Ankle Circle',                      muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'wall-calf-stretch',          name: 'Wall Calf Stretch',                 muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'soleus-stretch',             name: 'Bent-Knee Calf Stretch',            muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'ankle-dorsiflexion-stretch', name: 'Ankle Dorsiflexion Stretch',        muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'heel-drop-stretch',          name: 'Heel Drop Stretch',                 muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'Box/Step',    spaceNeeded: 'Small'  },
+
+  // Full body flows
+  { id: 'world-greatest-stretch',     name: "World's Greatest Stretch",          muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'sun-salutation',             name: 'Sun Salutation',                    muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'down-dog-to-cobra',          name: 'Down Dog to Cobra Flow',            muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'spiderman-lunge-flow',       name: 'Spiderman Lunge Flow',              muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'squat-to-stand',             name: 'Squat to Stand',                    muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'hip-opener-flow',            name: 'Hip Opener Flow',                   muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'morning-mobility-flow',      name: 'Morning Mobility Flow',             muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'animal-flow',                name: 'Animal Flow',                       muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
 ];
