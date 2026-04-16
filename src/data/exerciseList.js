@@ -666,4 +666,89 @@ export const EXERCISE_LIST = [
   { id: 'ankle-alphabet',             name: 'Ankle Alphabet',                    muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
   { id: 'serratus-wall-press',        name: 'Serratus Anterior Wall Press',      muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
   { id: 'y-t-w-exercise',             name: 'Y-T-W Exercise',                    muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // ── CHAIR & MINIMAL SPACE ─────────────────────────────────────────────────
+  // Chair upper body
+  { id: 'wall-push-up',               name: 'Wall Push-Up',                      muscleGroup: 'Chest',      category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'counter-push-up',            name: 'Counter/Desk Push-Up',              muscleGroup: 'Chest',      category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'chair-shoulder-press',       name: 'Seated Shoulder Press',             muscleGroup: 'Shoulders',  category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-bicep-curl',           name: 'Seated Bicep Curl',                 muscleGroup: 'Arms',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-shoulder-shrug',       name: 'Seated Shoulder Shrug',             muscleGroup: 'Back',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-arm-circle',           name: 'Seated Arm Circle',                 muscleGroup: 'Shoulders',  category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // Chair lower body
+  { id: 'chair-march',                name: 'Seated March',                      muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-knee-lift',            name: 'Seated Knee Lift',                  muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-leg-extension',        name: 'Seated Leg Extension (Bodyweight)', muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-ankle-pump',           name: 'Seated Ankle Pump',                 muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-toe-tap',              name: 'Seated Toe Tap',                    muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-inner-thigh-squeeze',  name: 'Seated Inner Thigh Squeeze',        muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-calf-raise',           name: 'Seated Calf Raise (Chair)',         muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-sit-to-stand',         name: 'Chair Sit-to-Stand',                muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // Chair core
+  { id: 'chair-torso-rotation',       name: 'Seated Torso Rotation',             muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-side-bend',            name: 'Seated Side Bend',                  muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-knee-to-chest',        name: 'Seated Knee-to-Chest',              muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-ab-crunch',            name: 'Seated Ab Crunch',                  muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-oblique-crunch',       name: 'Seated Oblique Crunch',             muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // Standing minimal space
+  { id: 'standing-march',             name: 'Standing March',                    muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-knee-lift',         name: 'Standing Knee Lift',                muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-side-leg-raise',    name: 'Standing Side Leg Raise',           muscleGroup: 'Glutes',     category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-back-leg-raise',    name: 'Standing Back Leg Raise',           muscleGroup: 'Glutes',     category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-side-bend',         name: 'Standing Side Bend',                muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-torso-twist',       name: 'Standing Torso Twist',              muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+
+  // Chair stretches
+  { id: 'chair-cat-cow',              name: 'Seated Cat-Cow',                    muscleGroup: 'Back',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-chest-opener',         name: 'Seated Chest Opener',               muscleGroup: 'Chest',      category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-wrist-stretch',        name: 'Seated Wrist and Forearm Stretch',  muscleGroup: 'Arms',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-figure-four',          name: 'Seated Figure-Four Stretch',        muscleGroup: 'Glutes',     category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-forward-fold',         name: 'Seated Chair Forward Fold',         muscleGroup: 'Back',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // ── PREGNANCY SAFE ────────────────────────────────────────────────────────
+  // Pelvic floor
+  { id: 'kegel',                      name: 'Kegel Exercise',                    muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'kegel-hold',                 name: 'Kegel Hold',                        muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'reverse-kegel',              name: 'Reverse Kegel',                     muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'pelvic-floor-bridge',        name: 'Pelvic Floor Bridge',               muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-pelvic-circles',    name: 'Pelvic Circles on Birth Ball',      muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'Birth Ball (opt)',  spaceNeeded: 'Small'  },
+
+  // Breathing work
+  { id: 'prenatal-breathing',         name: 'Prenatal Diaphragmatic Breathing',  muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'rib-cage-breathing',         name: 'Rib Cage Breathing',                muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-breath-awareness',  name: 'Prenatal Breath Awareness',         muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Trimester-appropriate movements
+  { id: 'prenatal-squat',             name: 'Prenatal Squat',                    muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'wall-squat-prenatal',        name: 'Supported Wall Squat (Prenatal)',   muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-sumo-squat',        name: 'Prenatal Sumo Squat',               muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-marching',          name: 'Prenatal Marching in Place',        muscleGroup: 'Cardio',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'modified-push-up-prenatal',  name: 'Modified Incline Push-Up (Prenatal)',muscleGroup: 'Chest',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'Wall/Counter',     spaceNeeded: 'Small'  },
+  { id: 'prenatal-side-plank',        name: 'Supported Side Plank (Prenatal)',   muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'all-fours-hip-circle',       name: 'All-Fours Hip Circle',              muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-hip-hinge',         name: 'Prenatal Hip Hinge',                muscleGroup: 'Back',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Hip opening
+  { id: 'butterfly-stretch',          name: 'Butterfly Stretch',                 muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'figure-four-stretch',        name: 'Figure-Four Stretch',               muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'modified-pigeon-pose',       name: 'Supported Pigeon Pose',             muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Intermediate', equipmentNeeded: 'Chair',            spaceNeeded: 'Small'  },
+  { id: 'prenatal-deep-squat',        name: 'Prenatal Deep Squat with Support',  muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-hip-opener',        name: 'Prenatal Hip Opener Flow',          muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Safe mobility
+  { id: 'prenatal-shoulder-roll',     name: 'Prenatal Shoulder Roll',            muscleGroup: 'Shoulders',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'gentle-neck-roll',           name: 'Gentle Neck Roll',                  muscleGroup: 'Shoulders',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'standing-cat-cow',           name: 'Standing Cat-Cow',                  muscleGroup: 'Back',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'standing-side-stretch',      name: 'Standing Side Stretch',             muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'seated-prenatal-twist',      name: 'Seated Gentle Twist (Prenatal)',    muscleGroup: 'Back',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-wrist-circle',      name: 'Prenatal Wrist Circle',             muscleGroup: 'Arms',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Pregnancy-safe core
+  { id: 'abdominal-drawing-in',       name: 'Abdominal Drawing-In (TVA)',        muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'modified-dead-bug',          name: 'Modified Dead Bug (Prenatal)',       muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'supported-plank-prenatal',   name: 'Supported Plank on Knees (Prenatal)',muscleGroup: 'Core',      category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'standing-wall-core',         name: 'Standing Core Against Wall',        muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
 ];
