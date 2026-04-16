@@ -390,4 +390,62 @@ export const EXERCISE_LIST = [
   { id: 'med-ball-rotational-throw',  name: 'Medicine Ball Rotational Throw',    muscleGroup: 'Core',       category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Medicine Ball',  spaceNeeded: 'Medium' },
   { id: 'plyo-hip-thrust',            name: 'Plyometric Hip Thrust',             muscleGroup: 'Glutes',     category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
   { id: 'tuck-jump-stick',            name: 'Tuck Jump to Squat Landing',        muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+
+  // ── RESISTANCE BAND ───────────────────────────────────────────────────────
+  // Chest
+  { id: 'band-chest-press',           name: 'Resistance Band Chest Press',       muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-incline-chest-press',   name: 'Resistance Band Incline Press',     muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-push-up',               name: 'Resistance Band Push-Up',           muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-crossover',             name: 'Resistance Band Crossover',         muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Back
+  { id: 'band-seated-row',            name: 'Resistance Band Seated Row',        muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-single-arm-row',        name: 'Resistance Band Single-Arm Row',    muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-lat-pulldown',          name: 'Resistance Band Lat Pulldown',      muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-face-pull',             name: 'Resistance Band Face Pull',         muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-deadlift',              name: 'Resistance Band Deadlift',          muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-good-morning',          name: 'Resistance Band Good Morning',      muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Shoulders
+  { id: 'band-shoulder-press',        name: 'Resistance Band Shoulder Press',    muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-lateral-raise',         name: 'Resistance Band Lateral Raise',     muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-front-raise',           name: 'Resistance Band Front Raise',       muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-rear-delt-fly',         name: 'Resistance Band Rear Delt Fly',     muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-upright-row',           name: 'Resistance Band Upright Row',       muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-external-rotation',     name: 'Resistance Band External Rotation', muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-internal-rotation',     name: 'Resistance Band Internal Rotation', muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Arms
+  { id: 'band-bicep-curl',            name: 'Resistance Band Bicep Curl',        muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-hammer-curl',           name: 'Resistance Band Hammer Curl',       muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-concentration-curl',    name: 'Resistance Band Concentration Curl',muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-reverse-curl',          name: 'Resistance Band Reverse Curl',      muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-tricep-pushdown',       name: 'Resistance Band Tricep Pushdown',   muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-overhead-tricep-ext',   name: 'Resistance Band Overhead Tricep Ext',muscleGroup: 'Arms',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-tricep-kickback',       name: 'Resistance Band Tricep Kickback',   muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Legs
+  { id: 'band-squat',                 name: 'Resistance Band Squat',             muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-romanian-deadlift',     name: 'Resistance Band Romanian Deadlift', muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-lunge',                 name: 'Resistance Band Lunge',             muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Medium' },
+  { id: 'band-lateral-lunge',         name: 'Resistance Band Lateral Lunge',     muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Medium' },
+  { id: 'band-leg-extension',         name: 'Resistance Band Leg Extension',     muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-hamstring-curl',        name: 'Resistance Band Hamstring Curl',    muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-standing-abduction',    name: 'Resistance Band Standing Abduction',muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-standing-adduction',    name: 'Resistance Band Standing Adduction',muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-calf-raise',            name: 'Resistance Band Calf Raise',        muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Glutes
+  { id: 'band-glute-kickback',        name: 'Resistance Band Glute Kickback',    muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-donkey-kick',           name: 'Resistance Band Donkey Kick',       muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-pull-through',          name: 'Resistance Band Pull-Through',      muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-seated-abduction',      name: 'Resistance Band Seated Abduction',  muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Core
+  { id: 'band-pallof-press',          name: 'Resistance Band Pallof Press',      muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-wood-chop',             name: 'Resistance Band Wood Chop',         muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-crunch',                name: 'Resistance Band Crunch',            muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-standing-crunch',       name: 'Resistance Band Standing Crunch',   muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-russian-twist',         name: 'Resistance Band Russian Twist',     muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-anti-rotation-press',   name: 'Resistance Band Anti-Rotation Press',muscleGroup: 'Core',      category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
 ];
