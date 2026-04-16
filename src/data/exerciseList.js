@@ -304,4 +304,53 @@ export const EXERCISE_LIST = [
   { id: 'inchworm',                    name: 'Inchworm',                          muscleGroup: 'Cardio' },
   { id: 'shadow-boxing',               name: 'Shadow Boxing',                     muscleGroup: 'Cardio' },
   { id: 'step-aerobics',               name: 'Step Aerobics',                     muscleGroup: 'Cardio' },
+
+  // ── HIIT & CARDIO ─────────────────────────────────────────────────────────
+  // Burpee variations
+  { id: 'half-burpee',                 name: 'Half Burpee',                       muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'push-up-burpee',              name: 'Push-Up Burpee',                    muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'tuck-jump-burpee',            name: 'Tuck Jump Burpee',                  muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'single-leg-burpee',           name: 'Single-Leg Burpee',                 muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'burpee-broad-jump',           name: 'Burpee to Broad Jump',              muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'burpee-box-jump',             name: 'Burpee Box Jump',                   muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Step',       spaceNeeded: 'Medium' },
+  { id: 'burpee-pull-up',              name: 'Burpee Pull-Up',                    muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Pull-Up Bar',    spaceNeeded: 'Medium' },
+  { id: 'dumbbell-burpee',             name: 'Dumbbell Burpee',                   muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Dumbbells',      spaceNeeded: 'Medium' },
+  { id: 'devil-press',                 name: 'Devil Press',                       muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Dumbbells',      spaceNeeded: 'Medium' },
+  { id: 'sprawl',                      name: 'Sprawl',                            muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+
+  // Jumping variations
+  { id: 'tuck-jump',                   name: 'Tuck Jump',                         muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'star-jump',                   name: 'Star Jump',                         muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'split-jump',                  name: 'Split Jump (Jumping Lunge)',         muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'pogo-jump',                   name: 'Pogo Jump',                         muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'vertical-jump',               name: 'Vertical Jump',                     muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'jump-180',                    name: '180-Degree Jump Squat',             muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'skater-jump',                 name: 'Skater Jump',                       muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'lateral-bound',               name: 'Lateral Bound',                     muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'single-leg-hop',              name: 'Single-Leg Hop',                    muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'depth-jump',                  name: 'Depth Jump',                        muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Step',       spaceNeeded: 'Medium' },
+  { id: 'lateral-box-jump',            name: 'Lateral Box Jump',                  muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',       spaceNeeded: 'Medium' },
+
+  // Mountain climber variations
+  { id: 'cross-body-mountain-climber', name: 'Cross-Body Mountain Climber',       muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'spiderman-mountain-climber',  name: 'Spider-Man Mountain Climber',       muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'slow-mountain-climber',       name: 'Slow-Tempo Mountain Climber',       muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'decline-mountain-climber',    name: 'Decline Mountain Climber',          muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Chair/Bench',    spaceNeeded: 'Small'  },
+  { id: 'sliding-mountain-climber',    name: 'Sliding Mountain Climber',          muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Sliders/Socks',  spaceNeeded: 'Small'  },
+
+  // Agility drills (home-friendly)
+  { id: 'in-and-out-jumps',            name: 'In-and-Out Jumps',                  muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'line-hops',                   name: 'Line Hops',                         muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'lateral-line-hops',           name: 'Lateral Line Hops',                 muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'side-to-side-hop',            name: 'Side-to-Side Hop',                  muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'ali-shuffle',                 name: 'Ali Shuffle',                       muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'quick-feet',                  name: 'Quick Feet Drill',                  muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'ickey-shuffle',               name: 'Ickey Shuffle',                     muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'carioca',                     name: 'Carioca',                           muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'four-corner-drill',           name: '4-Corner Box Drill',                muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 't-drill',                     name: 'T-Drill',                           muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'five-ten-five',               name: '5-10-5 Shuttle Run',                muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'diagonal-bound',              name: 'Diagonal Bound',                    muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'stutter-step',                name: 'Stutter Step',                      muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'speed-ladder-drill',          name: 'Speed Ladder Drill',                muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Speed Ladder',   spaceNeeded: 'Medium' },
 ];
