@@ -238,4 +238,180 @@ export const EXERCISE_LIST = [
   { id: 'cp-hf-one-leg',                 name: 'One-Leg Human Flag',                 muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Small'   },
   { id: 'cp-hf-straddle',                name: 'Straddle Human Flag',                muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Small'   },
   { id: 'cp-hf-full',                    name: 'Full Human Flag',                    muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Small'   },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // CORE
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  // ── PLANK VARIATIONS ──────────────────────────────────────────────────────────
+
+  { id: 'core-plank-forearm',            name: 'Forearm Plank',                      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Minimal' },
+  { id: 'core-plank-high',               name: 'High Plank',                         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-side-forearm',       name: 'Side Forearm Plank',                 muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-side-high',          name: 'Side High Plank',                    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-rkc',                name: 'RKC Plank',                          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Minimal' },
+  { id: 'core-plank-single-leg',         name: 'Single-Leg Plank',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-shoulder-taps',      name: 'Plank Shoulder Taps',                muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-hip-dips',           name: 'Plank Hip Dips',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-reach',              name: 'Plank with Reach',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-3-point',            name: '3-Point Plank',                      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-up-down',            name: 'Plank Up-Downs',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-body-saw',           name: 'Body Saw Plank',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Sliders'],           spaceNeeded: 'Small'   },
+  { id: 'core-plank-side-hip-lift',      name: 'Side Plank Hip Lift',                muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-side-rotation',      name: 'Side Plank with Rotation',           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-thread-needle',      name: 'Side Plank Thread-the-Needle',       muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-feet-elevated',      name: 'Feet-Elevated Plank',                muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Elevated Surface'],  spaceNeeded: 'Small'   },
+  { id: 'core-plank-weighted',           name: 'Weighted Plank',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Weight Plate'],      spaceNeeded: 'Minimal' },
+  { id: 'core-plank-stir-pot',           name: 'Stir the Pot',                       muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Stability Ball'],    spaceNeeded: 'Small'   },
+  { id: 'core-plank-rollout-slider',     name: 'Plank Rollout with Sliders',         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Sliders'],           spaceNeeded: 'Small'   },
+  { id: 'core-plank-side-star',          name: 'Star Side Plank',                    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-long-lever',         name: 'Long Lever Plank',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],              spaceNeeded: 'Minimal' },
+  { id: 'core-plank-single-arm',         name: 'Single-Arm Plank',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-plank-single-arm-leg',     name: 'Single-Arm Single-Leg Plank',        muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+
+  // ── HOLLOW BODY PROGRESSIONS ──────────────────────────────────────────────────
+
+  { id: 'core-hollow-back-press',        name: 'Supine Back Press',                  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-hollow-tuck',              name: 'Tuck Hollow Hold',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-hollow-single-leg',        name: 'Single-Leg Hollow Hold',             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-hollow-arms-sides',        name: 'Hollow Hold (Arms at Sides)',        muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-hollow-arms-overhead',     name: 'Hollow Hold (Arms Overhead)',        muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-hollow-rock',              name: 'Hollow Body Rock',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-hollow-weighted',          name: 'Weighted Hollow Hold',               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Weight Plate'],      spaceNeeded: 'Small'   },
+  { id: 'core-hollow-superman-roll',     name: 'Hollow-to-Superman Roll',            muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+
+  // ── FLEXION WORK: CRUNCHES, SIT-UPS & LEG RAISES ─────────────────────────────
+
+  { id: 'core-flex-crunch',              name: 'Crunch',                             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-reverse-crunch',      name: 'Reverse Crunch',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-sit-up',              name: 'Sit-Up',                             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-lying-leg-raise',     name: 'Lying Leg Raise',                    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-flutter-kick',        name: 'Flutter Kicks',                      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-scissor-kick',        name: 'Scissor Kicks',                      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-dead-bug',            name: 'Dead Bug',                           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-long-arm-crunch',     name: 'Long-Arm Crunch',                    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-stability-ball-crunch', name: 'Stability Ball Crunch',            muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Stability Ball'],    spaceNeeded: 'Small'   },
+  { id: 'core-flex-weighted-crunch',     name: 'Weighted Crunch',                    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Weight Plate'],      spaceNeeded: 'Small'   },
+  { id: 'core-flex-cable-crunch',        name: 'Cable Crunch',                       muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-flex-decline-crunch',      name: 'Decline Crunch',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Decline Bench'],     spaceNeeded: 'Small'   },
+  { id: 'core-flex-decline-sit-up',      name: 'Decline Sit-Up',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Decline Bench'],     spaceNeeded: 'Small'   },
+  { id: 'core-flex-half-v-up',           name: 'Half V-Up',                          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-v-up',                name: 'V-Up',                               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-toe-touch-crunch',    name: 'Toe-Touch Crunch',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-flex-ab-mat-sit-up',       name: 'Ab Mat Sit-Up',                      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Ab Mat'],            spaceNeeded: 'Small'   },
+
+  // ── TOES TO BAR PROGRESSIONS ──────────────────────────────────────────────────
+
+  { id: 'core-ttb-dead-hang',            name: 'Dead Hang (TTB Prep)',               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-scapular-retraction',  name: 'Scapular Retraction Hang',           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-hanging-knee-raise',   name: 'Hanging Knee Raise',                 muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-single-leg-raise',     name: 'Hanging Single-Leg Raise',           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-l-hang',               name: 'Hanging L Hold',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-leg-raise-parallel',   name: 'Hanging Leg Raise (to Parallel)',    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-windshield-wiper',     name: 'Hanging Windshield Wiper',           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-kipping-knee-raise',   name: 'Kipping Knee Raise',                 muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-kipping',              name: 'Kipping Toes-to-Bar',                muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-strict',               name: 'Strict Toes-to-Bar',                 muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-ttb-v-raise',              name: 'Hanging V-Raise',                    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+
+  // ── AB WHEEL VARIATIONS ───────────────────────────────────────────────────────
+
+  { id: 'core-wheel-kneeling',           name: 'Kneeling Ab Wheel Rollout',          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Ab Wheel'],          spaceNeeded: 'Medium'  },
+  { id: 'core-wheel-kneeling-partial',   name: 'Kneeling Partial Rollout',           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Ab Wheel'],          spaceNeeded: 'Small'   },
+  { id: 'core-wheel-standing-partial',   name: 'Standing Partial Ab Wheel Rollout',  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Ab Wheel'],          spaceNeeded: 'Medium'  },
+  { id: 'core-wheel-standing-full',      name: 'Standing Full Ab Wheel Rollout',     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Elite',        equipmentNeeded: ['Ab Wheel'],          spaceNeeded: 'Medium'  },
+  { id: 'core-wheel-lateral',            name: 'Lateral Ab Wheel Rollout',           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Ab Wheel'],          spaceNeeded: 'Medium'  },
+  { id: 'core-wheel-pike',               name: 'Ab Wheel Pike',                      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Ab Wheel'],          spaceNeeded: 'Small'   },
+  { id: 'core-wheel-one-arm',            name: 'One-Arm Ab Wheel Rollout',           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Elite',        equipmentNeeded: ['Ab Wheel'],          spaceNeeded: 'Medium'  },
+  { id: 'core-wheel-barbell-kneeling',   name: 'Barbell Rollout (Kneeling)',         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Barbell'],           spaceNeeded: 'Medium'  },
+  { id: 'core-wheel-barbell-standing',   name: 'Barbell Rollout (Standing)',         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Elite',        equipmentNeeded: ['Barbell'],           spaceNeeded: 'Medium'  },
+  { id: 'core-wheel-stability-ball',     name: 'Stability Ball Rollout',             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Stability Ball'],    spaceNeeded: 'Medium'  },
+
+  // ── DRAGON FLAG PROGRESSIONS ──────────────────────────────────────────────────
+
+  { id: 'core-dragon-shoulder-bridge',   name: 'Shoulder Bridge Hold',               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-dragon-tuck-hold',         name: 'Tuck Dragon Flag Hold',              muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-dragon-tuck-negative',     name: 'Tuck Dragon Flag Negative',          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-dragon-single-leg',        name: 'Single-Leg Dragon Flag',             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-dragon-straddle',          name: 'Straddle Dragon Flag',               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-dragon-full-negative',     name: 'Full Dragon Flag Negative',          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-dragon-full',              name: 'Full Dragon Flag',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Elite',        equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-dragon-raise',             name: 'Dragon Flag Raise',                  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Elite',        equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+
+  // ── L-SIT PROGRESSIONS ────────────────────────────────────────────────────────
+
+  { id: 'core-lsit-seated-leg-raise',    name: 'Seated Single-Leg Raise',            muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Minimal' },
+  { id: 'core-lsit-seated-both',         name: 'Seated Double-Leg Raise',            muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Minimal' },
+  { id: 'core-lsit-tuck-chairs',         name: 'Tuck L-Sit (on Chairs)',             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Two Sturdy Chairs'], spaceNeeded: 'Small'   },
+  { id: 'core-lsit-single-leg-chairs',   name: 'Single-Leg L-Sit (on Chairs)',       muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Two Sturdy Chairs'], spaceNeeded: 'Small'   },
+  { id: 'core-lsit-full-chairs',         name: 'Full L-Sit (on Chairs)',             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Two Sturdy Chairs'], spaceNeeded: 'Small'   },
+  { id: 'core-lsit-tuck-parallettes',    name: 'Tuck L-Sit (on Parallettes)',        muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Parallettes'],       spaceNeeded: 'Minimal' },
+  { id: 'core-lsit-single-parallettes',  name: 'Single-Leg L-Sit (on Parallettes)', muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Parallettes'],       spaceNeeded: 'Minimal' },
+  { id: 'core-lsit-full-parallettes',    name: 'Full L-Sit (on Parallettes)',        muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Parallettes'],       spaceNeeded: 'Minimal' },
+  { id: 'core-lsit-full-floor',          name: 'Full L-Sit on Floor',                muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lsit-on-bar',              name: 'L-Sit on Pull-Up Bar',               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+
+  // ── OBLIQUE WORK ──────────────────────────────────────────────────────────────
+
+  { id: 'core-obl-bicycle-crunch',       name: 'Bicycle Crunch',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-heel-touch',           name: 'Heel Touch',                         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-cross-body-crunch',    name: 'Cross-Body Crunch',                  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-russian-twist',        name: 'Russian Twist',                      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-russian-twist-wt',     name: 'Weighted Russian Twist',             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Weight Plate'],      spaceNeeded: 'Small'   },
+  { id: 'core-obl-side-crunch',          name: 'Side-Lying Crunch',                  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-standing-side-crunch', name: 'Standing Side Crunch',               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-v-up-twist',           name: 'V-Up with Twist',                    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-windmill',             name: 'Windmill',                           muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-copenhagen-plank',     name: 'Copenhagen Plank',                   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Elevated Surface'],  spaceNeeded: 'Small'   },
+  { id: 'core-obl-hanging-twist',        name: 'Hanging Oblique Knee Raise',         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],       spaceNeeded: 'Minimal' },
+  { id: 'core-obl-rolling-side-plank',   name: 'Rolling Side Plank',                 muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-obl-cable-woodchop-high',  name: 'High-to-Low Cable Wood Chop',        muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-obl-cable-woodchop-low',   name: 'Low-to-High Cable Wood Chop',        muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-obl-band-woodchop-high',   name: 'High-to-Low Band Wood Chop',         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Resistance Band'],   spaceNeeded: 'Small'   },
+  { id: 'core-obl-band-woodchop-low',    name: 'Low-to-High Band Wood Chop',         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Resistance Band'],   spaceNeeded: 'Small'   },
+
+  // ── LOWER BACK WORK ───────────────────────────────────────────────────────────
+
+  { id: 'core-lback-bird-dog',           name: 'Bird Dog',                           muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-bird-dog-crunch',    name: 'Bird Dog Crunch',                    muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-superman',           name: 'Superman Hold',                      muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-superman-alt',       name: 'Alternating Superman',               muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-prone-swimmer',      name: 'Prone Swimmer',                      muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-back-extension',     name: 'Back Extension (Floor)',             muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-back-ext-bench',     name: 'Back Extension (Bench)',             muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Bench'],             spaceNeeded: 'Small'   },
+  { id: 'core-lback-back-ext-45deg',     name: '45-Degree Back Extension',           muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['45-Degree Bench'],   spaceNeeded: 'Small'   },
+  { id: 'core-lback-reverse-hyper',      name: 'Reverse Hyperextension',             muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Elevated Surface'],  spaceNeeded: 'Small'   },
+  { id: 'core-lback-good-morning',       name: 'Good Morning (Bodyweight)',          muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-cat-cow',            name: 'Cat-Cow',                            muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-cobra',              name: 'Cobra Hold',                         muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-glute-bridge',       name: 'Glute Bridge (Spine Neutral)',       muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-lback-jefferson-curl',     name: 'Jefferson Curl',                     muscleGroup: 'Back', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+
+  // ── ROTATIONAL CORE WORK ──────────────────────────────────────────────────────
+
+  { id: 'core-rot-seated-rotation',      name: 'Seated Trunk Rotation',              muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Minimal' },
+  { id: 'core-rot-standing-rotation',    name: 'Standing Trunk Rotation',            muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-rot-lying-rotation',       name: 'Lying Trunk Rotation',               muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-rot-half-kneeling-rot',    name: 'Half-Kneeling Trunk Rotation',       muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-rot-band-woodchop',        name: 'Band Rotational Wood Chop',          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Resistance Band'],   spaceNeeded: 'Small'   },
+  { id: 'core-rot-cable-woodchop',       name: 'Cable Rotational Wood Chop',         muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-rot-med-ball-slam',        name: 'Rotational Medicine Ball Slam',      muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Medicine Ball'],     spaceNeeded: 'Medium'  },
+  { id: 'core-rot-med-ball-wall-throw',  name: 'Medicine Ball Rotational Wall Throw', muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Medicine Ball', 'Wall'], spaceNeeded: 'Medium' },
+  { id: 'core-rot-landmine-rotation',    name: 'Landmine Rotation',                  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Barbell', 'Landmine Attachment'], spaceNeeded: 'Small' },
+  { id: 'core-rot-russian-twist-feet-up', name: 'Russian Twist (Feet Elevated)',     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-rot-windshield-wiper',     name: 'Lying Windshield Wiper',             muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-rot-copenhagen-adduction', name: 'Copenhagen Adduction (Rotation)',    muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Elevated Surface'],  spaceNeeded: 'Small'   },
+
+  // ── ANTI-ROTATION WORK ────────────────────────────────────────────────────────
+
+  { id: 'core-antirot-pallof-press',     name: 'Pallof Press',                       muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-antirot-pallof-hold',      name: 'Pallof Press Hold',                  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-antirot-band-pallof',      name: 'Band Pallof Press',                  muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Beginner',     equipmentNeeded: ['Resistance Band'],   spaceNeeded: 'Small'   },
+  { id: 'core-antirot-kneeling-pallof',  name: 'Kneeling Pallof Press',              muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-antirot-pallof-overhead',  name: 'Pallof Press Overhead',              muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Cable Machine'],     spaceNeeded: 'Small'   },
+  { id: 'core-antirot-half-kneeling',    name: 'Half-Kneeling Anti-Rotation Hold',   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Resistance Band'],   spaceNeeded: 'Small'   },
+  { id: 'core-antirot-single-arm-plank', name: 'Single-Arm Plank (Anti-Rotation)',   muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],              spaceNeeded: 'Small'   },
+  { id: 'core-antirot-suitcase-carry',   name: 'Suitcase Carry',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Dumbbell'],          spaceNeeded: 'Large'   },
+  { id: 'core-antirot-single-arm-carry', name: 'Single-Arm Overhead Carry',          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Dumbbell'],          spaceNeeded: 'Large'   },
+  { id: 'core-antirot-stir-pot-adv',     name: 'Advanced Stir the Pot',              muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Stability Ball'],    spaceNeeded: 'Small'   },
 ];
