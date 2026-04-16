@@ -119,4 +119,123 @@ export const EXERCISE_LIST = [
   { id: 'bw-straight-bar-dip',           name: 'Straight Bar Dip',                   muscleGroup: 'Chest',     category: 'Bodyweight Strength', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],                   spaceNeeded: 'Minimal' },
   { id: 'bw-korean-dip',                 name: 'Korean Dip',                         muscleGroup: 'Shoulders', category: 'Bodyweight Strength', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],                   spaceNeeded: 'Minimal' },
   { id: 'bw-russian-dip',                name: 'Russian Dip',                        muscleGroup: 'Arms',      category: 'Bodyweight Strength', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],                   spaceNeeded: 'Minimal' },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // CALISTHENICS PROGRESSIONS
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  // ── PUSH-UP → PLANCHE ─────────────────────────────────────────────────────────
+
+  { id: 'cp-planche-wall-push-up',       name: 'Wall Push-Up (Planche Prep)',        muscleGroup: 'Chest',     category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Wall'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-planche-incline-push-up',    name: 'Incline Push-Up (Planche Prep)',     muscleGroup: 'Chest',     category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Elevated Surface'], spaceNeeded: 'Small' },
+  { id: 'cp-planche-push-up',            name: 'Push-Up (Planche Prep)',             muscleGroup: 'Chest',     category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-planche-diamond-push-up',    name: 'Diamond Push-Up (Planche Prep)',     muscleGroup: 'Arms',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-planche-decline-push-up',    name: 'Decline Push-Up (Planche Prep)',     muscleGroup: 'Chest',     category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Elevated Surface'], spaceNeeded: 'Small' },
+  { id: 'cp-planche-pike-push-up',       name: 'Pike Push-Up (Planche Prep)',        muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-planche-elevated-pike',      name: 'Elevated Pike Push-Up',              muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Elevated Surface'], spaceNeeded: 'Small' },
+  { id: 'cp-planche-lean',               name: 'Planche Lean',                       muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-pseudo-planche-push-up',     name: 'Pseudo Planche Push-Up',             muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-frog-stand',                 name: 'Frog Stand',                         muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-tuck-planche-hold',          name: 'Tuck Planche Hold',                  muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-tuck-planche-push-up',       name: 'Tuck Planche Push-Up',               muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-adv-tuck-planche-hold',      name: 'Advanced Tuck Planche Hold',         muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-adv-tuck-planche-push-up',   name: 'Advanced Tuck Planche Push-Up',      muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-straddle-planche-hold',      name: 'Straddle Planche Hold',              muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Small'   },
+  { id: 'cp-straddle-planche-push-up',   name: 'Straddle Planche Push-Up',           muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Small'   },
+  { id: 'cp-full-planche-hold',          name: 'Full Planche Hold',                  muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Small'   },
+  { id: 'cp-full-planche-push-up',       name: 'Full Planche Push-Up',               muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Small'   },
+
+  // ── PULL-UP → MUSCLE-UP ───────────────────────────────────────────────────────
+
+  { id: 'cp-mu-dead-hang',               name: 'Dead Hang',                          muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-scapular-pull-up',        name: 'Scapular Pull-Up',                   muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-negative-pull-up',        name: 'Negative Pull-Up',                   muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-jumping-pull-up',         name: 'Jumping Pull-Up',                    muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-band-assisted-pull-up',   name: 'Band-Assisted Pull-Up',              muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar', 'Resistance Band'], spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-pull-up',                 name: 'Pull-Up',                            muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-chest-to-bar-pull-up',    name: 'Chest-to-Bar Pull-Up',               muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-l-sit-pull-up',           name: 'L-Sit Pull-Up',                      muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-weighted-pull-up',        name: 'Weighted Pull-Up',                   muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-explosive-pull-up',       name: 'Explosive Pull-Up',                  muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-negative-muscle-up',      name: 'Muscle-Up Negative',                 muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-kipping-muscle-up',       name: 'Kipping Bar Muscle-Up',              muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-strict-bar-muscle-up',    name: 'Strict Bar Muscle-Up',               muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-ring-muscle-up',          name: 'Ring Muscle-Up',                     muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Gymnastics Rings'], spaceNeeded: 'Minimal' },
+  { id: 'cp-mu-strict-ring-muscle-up',   name: 'Strict Ring Muscle-Up',              muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Gymnastics Rings'], spaceNeeded: 'Minimal' },
+
+  // ── SQUAT → PISTOL ────────────────────────────────────────────────────────────
+
+  { id: 'cp-pistol-assisted-squat',      name: 'Assisted Squat (Support Hold)',      muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Doorframe'],     spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-bodyweight-squat',    name: 'Bodyweight Squat',                   muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-deep-squat-hold',     name: 'Deep Squat Hold',                    muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-box-squat',           name: 'Box Squat to Chair',                 muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Sturdy Chair'],  spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-split-squat',         name: 'Split Squat',                        muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['None'],          spaceNeeded: 'Medium'  },
+  { id: 'cp-pistol-bulgarian',           name: 'Bulgarian Split Squat',              muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Elevated Surface'], spaceNeeded: 'Medium' },
+  { id: 'cp-pistol-single-leg-box',      name: 'Single-Leg Box Squat',               muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Sturdy Chair'],  spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-skater-squat',        name: 'Skater Squat',                       muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-assisted',            name: 'Assisted Pistol Squat',              muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Doorframe'],     spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-shrimp',              name: 'Shrimp Squat',                       muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-full',                name: 'Pistol Squat',                       muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-weighted',            name: 'Weighted Pistol Squat',              muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-pistol-dragon-squat',        name: 'Dragon Squat',                       muscleGroup: 'Legs',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+
+  // ── HANDSTAND PROGRESSIONS ────────────────────────────────────────────────────
+
+  { id: 'cp-hs-plank-shoulder-taps',     name: 'Plank Shoulder Taps',                muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-hs-elevated-pike-hold',      name: 'Elevated Pike Hold',                 muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Elevated Surface'], spaceNeeded: 'Small' },
+  { id: 'cp-hs-wall-walk',               name: 'Wall Walk',                          muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Wall'],          spaceNeeded: 'Small'   },
+  { id: 'cp-hs-belly-to-wall',           name: 'Belly-to-Wall Handstand',            muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Wall'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-hs-back-to-wall',            name: 'Back-to-Wall Handstand',             muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Wall'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-hs-kick-up',                 name: 'Kick-Up to Wall Handstand',          muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Wall'],          spaceNeeded: 'Small'   },
+  { id: 'cp-hs-wall-hspu',               name: 'Wall Handstand Push-Up',             muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Wall'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-hs-deficit-wall-hspu',       name: 'Deficit Wall Handstand Push-Up',     muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Wall', 'Parallettes'], spaceNeeded: 'Minimal' },
+  { id: 'cp-hs-freestanding-hold',       name: 'Freestanding Handstand Hold',        muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-hs-handstand-walk',          name: 'Handstand Walk',                     muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Medium'  },
+  { id: 'cp-hs-freestanding-hspu',       name: 'Freestanding Handstand Push-Up',     muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['None'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-hs-press-to-handstand',      name: 'Press to Handstand',                 muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+
+  // ── L-SIT PROGRESSIONS ────────────────────────────────────────────────────────
+
+  { id: 'cp-lsit-seated-leg-raise',      name: 'Seated Single-Leg Raise',            muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],          spaceNeeded: 'Minimal' },
+  { id: 'cp-lsit-tuck-parallettes',      name: 'Tuck L-Sit on Parallettes',          muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-lsit-single-leg-parallel',   name: 'Single-Leg L-Sit on Parallettes',    muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-lsit-full-parallettes',      name: 'Full L-Sit on Parallettes',          muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-lsit-full-floor',            name: 'Full L-Sit on Floor',                muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-lsit-on-bar',               name: 'L-Sit on Pull-Up Bar',               muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-lsit-l-to-v-transition',     name: 'L-Sit to V-Sit Transition',          muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-lsit-v-sit',                 name: 'V-Sit',                              muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-lsit-manna',                 name: 'Manna',                              muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Parallettes'],   spaceNeeded: 'Minimal' },
+
+  // ── FRONT LEVER PROGRESSION ───────────────────────────────────────────────────
+
+  { id: 'cp-fl-dead-hang',               name: 'Dead Hang (Front Lever Prep)',        muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-fl-tuck',                    name: 'Tuck Front Lever',                   muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-fl-advanced-tuck',           name: 'Advanced Tuck Front Lever',          muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-fl-one-leg',                 name: 'One-Leg Front Lever',                muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-fl-straddle',                name: 'Straddle Front Lever',               muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+  { id: 'cp-fl-full',                    name: 'Full Front Lever Hold',              muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+  { id: 'cp-fl-raise',                   name: 'Front Lever Raise',                  muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+  { id: 'cp-fl-pull-up',                 name: 'Front Lever Pull-Up',                muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+  { id: 'cp-fl-row',                     name: 'Front Lever Row',                    muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+
+  // ── BACK LEVER PROGRESSION ────────────────────────────────────────────────────
+
+  { id: 'cp-bl-german-hang',             name: 'German Hang',                        muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-bl-skin-the-cat',            name: 'Skin the Cat',                       muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-bl-tuck',                    name: 'Tuck Back Lever',                    muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-bl-advanced-tuck',           name: 'Advanced Tuck Back Lever',           muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Minimal' },
+  { id: 'cp-bl-one-leg',                 name: 'One-Leg Back Lever',                 muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+  { id: 'cp-bl-straddle',                name: 'Straddle Back Lever',                muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+  { id: 'cp-bl-full',                    name: 'Full Back Lever',                    muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+  { id: 'cp-bl-press',                   name: 'Back Lever Press',                   muscleGroup: 'Back',      category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Pull-Up Bar'],   spaceNeeded: 'Small'   },
+
+  // ── HUMAN FLAG PROGRESSION ────────────────────────────────────────────────────
+
+  { id: 'cp-hf-side-plank',              name: 'Side Plank (Human Flag Prep)',        muscleGroup: 'Core',      category: 'Calisthenics Progressions', difficultyLevel: 'Beginner',     equipmentNeeded: ['None'],          spaceNeeded: 'Small'   },
+  { id: 'cp-hf-vertical-push',           name: 'Vertical Push on Pole',              muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Intermediate', equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Minimal' },
+  { id: 'cp-hf-tuck',                    name: 'Tuck Human Flag',                    muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Minimal' },
+  { id: 'cp-hf-advanced-tuck',           name: 'Advanced Tuck Human Flag',           muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Minimal' },
+  { id: 'cp-hf-one-leg',                 name: 'One-Leg Human Flag',                 muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Advanced',     equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Small'   },
+  { id: 'cp-hf-straddle',                name: 'Straddle Human Flag',                muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Small'   },
+  { id: 'cp-hf-full',                    name: 'Full Human Flag',                    muscleGroup: 'Shoulders', category: 'Calisthenics Progressions', difficultyLevel: 'Elite',        equipmentNeeded: ['Vertical Pole'], spaceNeeded: 'Small'   },
 ];
