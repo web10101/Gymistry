@@ -353,4 +353,41 @@ export const EXERCISE_LIST = [
   { id: 'diagonal-bound',              name: 'Diagonal Bound',                    muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
   { id: 'stutter-step',                name: 'Stutter Step',                      muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
   { id: 'speed-ladder-drill',          name: 'Speed Ladder Drill',                muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Speed Ladder',   spaceNeeded: 'Medium' },
+
+  // ── PLYOMETRICS ───────────────────────────────────────────────────────────
+  // Explosive push-up variations
+  { id: 'clap-push-up',               name: 'Clap Push-Up',                      muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'double-clap-push-up',        name: 'Double Clap Push-Up',               muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'chest-tap-push-up',          name: 'Chest Tap Push-Up',                 muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'superman-push-up',           name: 'Superman Push-Up',                  muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'explosive-push-up',          name: 'Explosive Push-Up',                 muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'side-to-side-plyo-push-up',  name: 'Side-to-Side Plyometric Push-Up',   muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'staggered-plyo-push-up',     name: 'Staggered Plyometric Push-Up',      muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'plyo-push-up-box',           name: 'Plyometric Push-Up on Box',         muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Step',       spaceNeeded: 'Small'  },
+
+  // Jump variations
+  { id: 'ankle-hop',                  name: 'Ankle Hop',                         muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'power-skip',                 name: 'Power Skip',                        muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'bounding',                   name: 'Bounding',                          muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'single-leg-broad-jump',      name: 'Single-Leg Broad Jump',             muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'continuous-broad-jump',      name: 'Continuous Broad Jumps',            muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'rotational-jump',            name: 'Rotational Jump',                   muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'hurdle-jump',                name: 'Hurdle Jump',                       muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Object',     spaceNeeded: 'Medium' },
+  { id: 'broad-jump-stick',           name: 'Broad Jump with Stick Landing',     muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'triple-hop',                 name: 'Triple Hop',                        muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'seated-box-jump',            name: 'Seated Box Jump',                   muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Chair',      spaceNeeded: 'Small'  },
+  { id: 'single-leg-vertical-jump',   name: 'Single-Leg Vertical Jump',          muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+
+  // Power movements (home-friendly)
+  { id: 'squat-jump-hold',            name: 'Squat Jump with Landing Hold',      muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'reactive-squat-jump',        name: 'Reactive Squat Jump',               muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'plyo-lunge-jump',            name: 'Plyometric Lunge Jump',             muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'plyo-step-up',               name: 'Plyometric Step-Up',                muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',       spaceNeeded: 'Small'  },
+  { id: 'depth-drop',                 name: 'Depth Drop',                        muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',       spaceNeeded: 'Small'  },
+  { id: 'lateral-bound-stick',        name: 'Lateral Bound to Stick Landing',    muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'med-ball-overhead-slam',     name: 'Medicine Ball Overhead Slam',       muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Medicine Ball',  spaceNeeded: 'Small'  },
+  { id: 'med-ball-chest-pass',        name: 'Medicine Ball Chest Pass',          muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Medicine Ball',  spaceNeeded: 'Medium' },
+  { id: 'med-ball-rotational-throw',  name: 'Medicine Ball Rotational Throw',    muscleGroup: 'Core',       category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Medicine Ball',  spaceNeeded: 'Medium' },
+  { id: 'plyo-hip-thrust',            name: 'Plyometric Hip Thrust',             muscleGroup: 'Glutes',     category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'tuck-jump-stick',            name: 'Tuck Jump to Squat Landing',        muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
 ];
