@@ -579,4 +579,91 @@ export const EXERCISE_LIST = [
   { id: 'breath-of-fire',             name: 'Breath of Fire',                    muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
   { id: 'ujjayi-breath',              name: 'Ujjayi Breath',                     muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
   { id: 'wim-hof-breathing',          name: 'Wim Hof Breathing',                 muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // ── ANIMAL FLOW ───────────────────────────────────────────────────────────
+  // Bear crawl variations (bear-crawl already exists under Cardio)
+  { id: 'bear-hold',                  name: 'Bear Hold',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'bear-crawl-lateral',         name: 'Lateral Bear Crawl',                muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'bear-crawl-backward',        name: 'Backward Bear Crawl',               muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'bear-shoulder-tap-crawl',    name: 'Bear Crawl Shoulder Tap',           muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+
+  // Crab walk variations
+  { id: 'crab-walk',                  name: 'Crab Walk',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'crab-walk-lateral',          name: 'Lateral Crab Walk',                 muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'crab-reach',                 name: 'Crab Reach',                        muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'crab-kick',                  name: 'Crab Kick',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+
+  // Ape movements
+  { id: 'ape',                        name: 'Ape',                               muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'ape-reach',                  name: 'Ape Reach',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'ape-jump',                   name: 'Ape Jump',                          muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+
+  // Beast movements
+  { id: 'beast-hold',                 name: 'Beast Hold',                        muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'beast-crawl',                name: 'Beast Crawl',                       muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'beast-wave',                 name: 'Beast Wave',                        muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'beast-reach',                name: 'Beast Reach',                       muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'loaded-beast',               name: 'Loaded Beast',                      muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+
+  // Scorpion
+  { id: 'scorpion',                   name: 'Scorpion',                          muscleGroup: 'Core',       category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'rear-scorpion',              name: 'Rear Scorpion',                     muscleGroup: 'Core',       category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'scorpion-kick',              name: 'Scorpion Kick',                     muscleGroup: 'Core',       category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+
+  // Ground-based flow movements
+  { id: 'side-kickthrough',           name: 'Side Kickthrough',                  muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'underswitch',                name: 'Underswitch',                       muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'kong',                       name: 'Kong',                              muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'leopard-crawl',              name: 'Leopard Crawl',                     muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'lizard-crawl',               name: 'Lizard Crawl',                      muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'sit-out',                    name: 'Sit-Out',                           muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'hip-escape',                 name: 'Hip Escape (Shrimping)',            muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'frogger-jump',               name: 'Frogger Jump',                      muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+
+  // ── REHAB & PREHAB ────────────────────────────────────────────────────────
+  // Rotator cuff work
+  { id: 'side-lying-external-rotation',name: 'Side-Lying External Rotation',    muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-external-rotation-90', name: 'Prone External Rotation at 90°',   muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'empty-can',                  name: 'Empty Can',                         muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'full-can',                   name: 'Full Can',                          muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'scapular-push-up',           name: 'Scapular Push-Up',                  muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'wall-angel',                 name: 'Wall Angel',                        muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Knee stability
+  { id: 'terminal-knee-extension',    name: 'Terminal Knee Extension',           muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band',       spaceNeeded: 'Small'  },
+  { id: 'quad-set',                   name: 'Quad Set',                          muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'short-arc-quad',             name: 'Short Arc Quad',                    muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'lateral-step-down',          name: 'Lateral Step Down',                 muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',              spaceNeeded: 'Small'  },
+  { id: 'vmo-squeeze',                name: 'VMO Squeeze',                       muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Hip stability
+  { id: 'hip-hike',                   name: 'Hip Hike',                          muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'side-lying-hip-abduction',   name: 'Side-Lying Hip Abduction',          muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-hip-extension-rehab',  name: 'Prone Hip Extension',               muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'single-leg-heel-tap',        name: 'Single-Leg Heel Tap',               muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'hip-adduction-squeeze',      name: 'Hip Adduction Squeeze',             muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'Ball/Pillow',           spaceNeeded: 'Small'  },
+  { id: 'hip-90-90-transition',       name: 'Hip 90/90 Transition',              muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Lower back care
+  { id: 'pelvic-tilt',                name: 'Pelvic Tilt',                       muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-press-up',             name: 'Prone Press-Up',                    muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'knee-to-chest-stretch',      name: 'Knee-to-Chest Stretch',             muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'lumbar-rotation-stretch',    name: 'Lumbar Rotation Stretch',           muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: '90-90-hip-lift',             name: '90/90 Hip Lift',                    muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-lying-rest',           name: 'Prone Lying Rest',                  muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Neck and shoulder tension relief
+  { id: 'chin-tuck',                  name: 'Chin Tuck',                         muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'neck-lateral-stretch',       name: 'Neck Lateral Stretch',              muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'neck-rotation-stretch',      name: 'Neck Rotation Stretch',             muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'levator-scapulae-stretch',   name: 'Levator Scapulae Stretch',          muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'upper-trap-stretch',         name: 'Upper Trapezius Stretch',           muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'thoracic-extension-chair',   name: 'Thoracic Extension Over Chair',     muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',                 spaceNeeded: 'Small'  },
+
+  // Injury prevention
+  { id: 'short-foot-exercise',        name: 'Short Foot Exercise',               muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'toe-spread',                 name: 'Toe Spread and Grip',               muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'ankle-alphabet',             name: 'Ankle Alphabet',                    muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'serratus-wall-press',        name: 'Serratus Anterior Wall Press',      muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'y-t-w-exercise',             name: 'Y-T-W Exercise',                    muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
 ];
