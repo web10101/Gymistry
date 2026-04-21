@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { Check } from 'lucide-react';
 
 function TextInput({ question, value, onChange, onSubmit }) {
   const ref = useRef(null);
   useEffect(() => { ref.current?.focus(); }, []);
+
   return (
     <div className="flex flex-col gap-4">
       <input
@@ -12,14 +14,14 @@ function TextInput({ question, value, onChange, onSubmit }) {
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && value?.trim() && onSubmit()}
         placeholder={question.placeholder}
-        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors"
+        className="input-field text-lg"
       />
       <button
         onClick={onSubmit}
         disabled={!value?.trim()}
-        className="btn-primary self-start px-8 py-3.5 rounded-xl text-sm font-bold tracking-wide disabled:opacity-30 disabled:pointer-events-none"
+        className="btn-primary"
       >
-        Continue →
+        Continue
       </button>
     </div>
   );
@@ -28,7 +30,8 @@ function TextInput({ question, value, onChange, onSubmit }) {
 function NumberInput({ question, value, onChange, onSubmit }) {
   const ref = useRef(null);
   useEffect(() => { ref.current?.focus(); }, []);
-  const num = Number(value);
+
+  const num   = Number(value);
   const valid =
     value !== '' &&
     value !== undefined &&
@@ -48,28 +51,27 @@ function NumberInput({ question, value, onChange, onSubmit }) {
           placeholder={question.placeholder}
           min={question.min}
           max={question.max}
-          className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors"
+          className="input-field text-lg"
           style={{ MozAppearance: 'textfield' }}
         />
         {question.unit && (
-          <span className="text-zinc-400 font-medium whitespace-nowrap">{question.unit}</span>
+          <span className="text-sm font-medium whitespace-nowrap flex-shrink-0" style={{ color: '#888888' }}>
+            {question.unit}
+          </span>
         )}
       </div>
-      <button
-        onClick={onSubmit}
-        disabled={!valid}
-        className="btn-primary self-start px-8 py-3.5 rounded-xl text-sm font-bold tracking-wide disabled:opacity-30 disabled:pointer-events-none"
-      >
-        Continue →
+      <button onClick={onSubmit} disabled={!valid} className="btn-primary">
+        Continue
       </button>
     </div>
   );
 }
 
 function NumberUnitInput({ question, value, unit, onValueChange, onUnitChange, onSubmit }) {
-  const ref = useRef(null);
+  const ref   = useRef(null);
   useEffect(() => { ref.current?.focus(); }, []);
-  const num = Number(value);
+
+  const num   = Number(value);
   const valid = value !== '' && value !== undefined && !isNaN(num) && num > 0;
 
   return (
@@ -82,31 +84,31 @@ function NumberUnitInput({ question, value, unit, onValueChange, onUnitChange, o
           onChange={(e) => onValueChange(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && valid && onSubmit()}
           placeholder={question.placeholder}
-          className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors"
+          className="input-field text-lg flex-1"
           style={{ MozAppearance: 'textfield' }}
         />
-        <div className="flex rounded-xl overflow-hidden border border-zinc-700">
+        <div
+          className="flex rounded-xl overflow-hidden flex-shrink-0"
+          style={{ border: '1.5px solid #333333' }}
+        >
           {question.units.map((u) => (
             <button
               key={u}
               onClick={() => onUnitChange(u)}
-              className={`px-5 py-4 text-sm font-bold transition-all ${
+              className="px-4 text-sm font-bold transition-all"
+              style={
                 unit === u
-                  ? 'bg-lime-400 text-zinc-900'
-                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-              }`}
+                  ? { background: '#00ff87', color: '#000000' }
+                  : { background: '#1a1a1a', color: '#888888' }
+              }
             >
               {u}
             </button>
           ))}
         </div>
       </div>
-      <button
-        onClick={onSubmit}
-        disabled={!valid}
-        className="btn-primary self-start px-8 py-3.5 rounded-xl text-sm font-bold tracking-wide disabled:opacity-30 disabled:pointer-events-none"
-      >
-        Continue →
+      <button onClick={onSubmit} disabled={!valid} className="btn-primary">
+        Continue
       </button>
     </div>
   );
@@ -114,28 +116,33 @@ function NumberUnitInput({ question, value, unit, onValueChange, onUnitChange, o
 
 function SingleSelect({ question, value, onChange, onSubmit }) {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {question.options.map((opt) => (
+    <div className="flex flex-col gap-3">
+      {question.options.map((opt) => {
+        const isSelected = value === opt.value;
+        return (
           <button
             key={opt.value}
             onClick={() => {
               onChange(opt.value);
-              // Auto-advance after a brief moment
-              setTimeout(() => onSubmit(opt.value), 180);
+              setTimeout(() => onSubmit(opt.value), 160);
             }}
-            className={`option-card flex items-center gap-3 rounded-xl px-4 py-4 text-left ${
-              value === opt.value ? 'selected' : ''
-            }`}
+            className="option-card flex items-center gap-4 px-5 py-4 text-left w-full"
+            style={
+              isSelected
+                ? { background: 'rgba(0,255,135,0.08)', borderColor: '#00ff87' }
+                : {}
+            }
           >
             <span className="text-2xl flex-shrink-0">{opt.icon}</span>
-            <span className="text-sm font-medium text-zinc-200">{opt.label}</span>
-            {value === opt.value && (
-              <span className="ml-auto text-lime-400 text-lg">✓</span>
+            <span className="text-base font-medium text-white flex-1">{opt.label}</span>
+            {isSelected && (
+              <span className="ml-auto flex-shrink-0">
+                <Check size={18} style={{ color: '#00ff87' }} />
+              </span>
             )}
           </button>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 }
@@ -156,35 +163,43 @@ function MultiSelect({ question, value = [], onChange, onSubmit }) {
     }
   };
 
-  const isSelected = (optVal) => value.includes(optVal);
-  const canProceed = value.length > 0;
+  const isSelected  = (optVal) => value.includes(optVal);
+  const canProceed  = value.length > 0;
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-xs text-zinc-500 uppercase tracking-widest">Select all that apply</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {question.options.map((opt) => (
+    <div className="flex flex-col gap-3">
+      <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: '#555555' }}>
+        Select all that apply
+      </p>
+      {question.options.map((opt) => {
+        const sel = isSelected(opt.value);
+        return (
           <button
             key={opt.value}
             onClick={() => toggle(opt.value)}
-            className={`option-card flex items-center gap-3 rounded-xl px-4 py-4 text-left ${
-              isSelected(opt.value) ? 'selected' : ''
-            }`}
+            className="option-card flex items-center gap-4 px-5 py-4 text-left w-full"
+            style={
+              sel
+                ? { background: 'rgba(0,255,135,0.08)', borderColor: '#00ff87' }
+                : {}
+            }
           >
             <span className="text-2xl flex-shrink-0">{opt.icon}</span>
-            <span className="text-sm font-medium text-zinc-200">{opt.label}</span>
-            {isSelected(opt.value) && (
-              <span className="ml-auto text-lime-400 text-lg">✓</span>
+            <span className="text-base font-medium text-white flex-1">{opt.label}</span>
+            {sel && (
+              <span className="ml-auto flex-shrink-0">
+                <Check size={18} style={{ color: '#00ff87' }} />
+              </span>
             )}
           </button>
-        ))}
-      </div>
+        );
+      })}
       <button
         onClick={onSubmit}
         disabled={!canProceed}
-        className="btn-primary self-start px-8 py-3.5 rounded-xl text-sm font-bold tracking-wide disabled:opacity-30 disabled:pointer-events-none"
+        className="btn-primary mt-1"
       >
-        Continue →
+        Continue
       </button>
     </div>
   );
@@ -199,27 +214,24 @@ function TextareaInput({ question, value, onChange, onSubmit }) {
         placeholder={question.placeholder}
         rows={4}
         autoFocus
-        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-base placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors resize-none"
+        className="input-field resize-none text-base leading-relaxed"
+        style={{ paddingTop: 16, paddingBottom: 16 }}
       />
-      <button
-        onClick={onSubmit}
-        className="btn-primary self-start px-8 py-3.5 rounded-xl text-sm font-bold tracking-wide"
-      >
-        {question.optional && !value?.trim() ? 'Skip →' : 'Continue →'}
+      <button onClick={onSubmit} className="btn-primary">
+        {question.optional && !value?.trim() ? 'Skip' : 'Continue'}
       </button>
     </div>
   );
 }
 
-export default function QuestionCard({
-  question,
-  answers,
-  questionNumber,
-  onAnswer,
-}) {
+export default function QuestionCard({ question, answers, questionNumber, onAnswer }) {
   const [localValue, setLocalValue] = useState(() => {
     const field = question.field;
-    return answers[field] ?? (question.type === 'multiselect' ? [] : question.type === 'number_unit' ? '' : '');
+    return answers[field] ?? (
+      question.type === 'multiselect' ? [] :
+      question.type === 'number_unit' ? '' :
+      ''
+    );
   });
   const [localUnit, setLocalUnit] = useState(
     () => answers[question.field_unit] || question.defaultUnit || ''
@@ -231,35 +243,33 @@ export default function QuestionCard({
       : question.trainerText;
 
   const handleSubmit = (overrideValue) => {
-    const val = overrideValue !== undefined ? overrideValue : localValue;
+    const val    = overrideValue !== undefined ? overrideValue : localValue;
     const update = { [question.field]: val };
-    if (question.field_unit) {
-      update[question.field_unit] = localUnit;
-    }
+    if (question.field_unit) update[question.field_unit] = localUnit;
     onAnswer(update);
   };
 
   return (
     <div className="slide-up w-full">
-      {/* Question number badge */}
-      <div className="flex items-center gap-2 mb-4">
-        <span
-          className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-zinc-900"
-          style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+      {/* Step indicator */}
+      <div className="flex items-center gap-2 mb-5">
+        <div
+          className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold text-black flex-shrink-0"
+          style={{ background: '#00ff87' }}
         >
           {questionNumber}
-        </span>
-        <span className="text-xs text-zinc-500 uppercase tracking-widest font-medium">
+        </div>
+        <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#555555' }}>
           Your trainer asks
         </span>
       </div>
 
-      {/* Trainer question */}
-      <h2 className="text-xl sm:text-2xl font-semibold text-white mb-6 leading-snug">
+      {/* Question text */}
+      <h2 className="text-2xl font-bold text-white mb-7 leading-snug">
         {trainerText}
       </h2>
 
-      {/* Input based on type */}
+      {/* Input */}
       {question.type === 'text' && (
         <TextInput
           question={question}

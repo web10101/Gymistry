@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { getExerciseInfo } from '../api/exerciseInfo';
 
 // ── Skeleton animation constants ──────────────────────────────────────────────
@@ -24,13 +25,13 @@ const CONNECTIONS = [
   ['rHip','rKnee'],   ['rKnee','rAnkle'],
 ];
 
-const PHASE_MS = 1800; // ms per phase transition
+const PHASE_MS = 1800;
 
 function lerp(a, b, t) { return a + (b - a) * t; }
 function smoothstep(t) { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); }
 
 function lerpJoints(from, to, t) {
-  const s = smoothstep(t);
+  const s   = smoothstep(t);
   const out = {};
   for (const k of JOINT_KEYS) {
     if (!from?.[k] || !to?.[k]) continue;
@@ -41,35 +42,31 @@ function lerpJoints(from, to, t) {
 
 function drawSkeleton(ctx, joints, W, H, { lineColor, nodeColor, criticals = [], errors = [], glowScale = 1 }) {
   ctx.clearRect(0, 0, W, H);
-
   for (const [a, b] of CONNECTIONS) {
     if (!joints[a] || !joints[b]) continue;
     const isErr = errors.includes(a) || errors.includes(b);
     ctx.beginPath();
     ctx.moveTo(joints[a][0] * W, joints[a][1] * H);
     ctx.lineTo(joints[b][0] * W, joints[b][1] * H);
-    ctx.strokeStyle = isErr ? 'rgba(239,68,68,0.85)' : lineColor;
+    ctx.strokeStyle = isErr ? 'rgba(255,68,68,0.85)' : lineColor;
     ctx.lineWidth   = 2.2;
     ctx.lineCap     = 'round';
     ctx.stroke();
   }
-
   for (const k of JOINT_KEYS) {
     if (!joints[k]) continue;
-    const x  = joints[k][0] * W;
-    const y  = joints[k][1] * H;
+    const x      = joints[k][0] * W;
+    const y      = joints[k][1] * H;
     const isCrit = criticals.includes(k);
     const isErr  = errors.includes(k);
     const r      = (isCrit || isErr) ? 5 : 3.5;
-    const color  = isErr ? '#ef4444' : isCrit ? '#e8ff47' : nodeColor;
-
+    const color  = isErr ? '#ff4444' : isCrit ? '#00ff87' : nodeColor;
     if (isCrit || isErr) {
       ctx.beginPath();
       ctx.arc(x, y, r * 2.8 * glowScale, 0, Math.PI * 2);
-      ctx.fillStyle = isErr ? 'rgba(239,68,68,0.22)' : 'rgba(232,255,71,0.22)';
+      ctx.fillStyle = isErr ? 'rgba(255,68,68,0.2)' : 'rgba(0,255,135,0.18)';
       ctx.fill();
     }
-
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fillStyle = color;
@@ -77,7 +74,7 @@ function drawSkeleton(ctx, joints, W, H, { lineColor, nodeColor, criticals = [],
   }
 }
 
-// ── SkeletonPair: two canvases side by side ───────────────────────────────────
+// ── Skeleton pair ─────────────────────────────────────────────────────────────
 
 function SkeletonPair({ phases, errorPose, criticalJoints }) {
   const goodRef = useRef(null);
@@ -90,7 +87,6 @@ function SkeletonPair({ phases, errorPose, criticalJoints }) {
     const gc = goodRef.current;
     const ec = errRef.current;
     if (!gc || !ec) return;
-
     const gctx = gc.getContext('2d');
     const ectx = ec.getContext('2d');
     t0Ref.current = null;
@@ -101,28 +97,26 @@ function SkeletonPair({ phases, errorPose, criticalJoints }) {
       const W = gc.width;
       const H = gc.height;
 
-      // ── Correct form: cycle through phases ──
-      const total    = phases.length * PHASE_MS;
-      const cycle    = elapsed % total;
-      const idx      = Math.floor(cycle / PHASE_MS);
-      const phaseT   = (cycle % PHASE_MS) / PHASE_MS;
-      const nextIdx  = (idx + 1) % phases.length;
-      const joints   = lerpJoints(phases[idx].joints, phases[nextIdx].joints, phaseT);
-      const glow     = 1 + 0.18 * Math.sin(elapsed / 620);
+      const total   = phases.length * PHASE_MS;
+      const cycle   = elapsed % total;
+      const idx     = Math.floor(cycle / PHASE_MS);
+      const phaseT  = (cycle % PHASE_MS) / PHASE_MS;
+      const nextIdx = (idx + 1) % phases.length;
+      const joints  = lerpJoints(phases[idx].joints, phases[nextIdx].joints, phaseT);
+      const glow    = 1 + 0.18 * Math.sin(elapsed / 620);
 
       drawSkeleton(gctx, joints, W, H, {
-        lineColor:  'rgba(74,222,128,0.82)',
-        nodeColor:  '#4ade80',
+        lineColor:  'rgba(0,255,135,0.75)',
+        nodeColor:  '#00ff87',
         criticals:  criticalJoints || [],
         glowScale:  glow,
       });
 
-      // ── Error pose: static with pulsing error joints ──
       if (errorPose?.joints) {
         const errGlow = 1 + 0.28 * Math.sin(elapsed / 440);
         drawSkeleton(ectx, errorPose.joints, W, H, {
-          lineColor:  'rgba(239,68,68,0.78)',
-          nodeColor:  '#f87171',
+          lineColor:  'rgba(255,68,68,0.75)',
+          nodeColor:  '#ff6666',
           errors:     errorPose.errorJoints || [],
           glowScale:  errGlow,
         });
@@ -140,8 +134,8 @@ function SkeletonPair({ phases, errorPose, criticalJoints }) {
       {/* Correct form */}
       <div>
         <div
-          className="rounded-xl overflow-hidden mb-2"
-          style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.15)' }}
+          className="rounded-2xl overflow-hidden mb-2"
+          style={{ background: 'rgba(0,255,135,0.03)', border: '1px solid rgba(0,255,135,0.12)' }}
         >
           <canvas
             ref={goodRef}
@@ -150,11 +144,11 @@ function SkeletonPair({ phases, errorPose, criticalJoints }) {
             style={{ width: '100%', height: 'auto', display: 'block' }}
           />
         </div>
-        <p className="text-xs text-center font-semibold" style={{ color: '#4ade80' }}>
+        <p className="text-xs text-center font-semibold" style={{ color: '#00ff87' }}>
           Correct Form
         </p>
         {phases?.length > 0 && (
-          <p className="text-xs text-center text-zinc-600 mt-0.5">
+          <p className="text-xs text-center mt-0.5" style={{ color: '#444444' }}>
             {phases.map((p) => p.name).join(' → ')}
           </p>
         )}
@@ -163,8 +157,8 @@ function SkeletonPair({ phases, errorPose, criticalJoints }) {
       {/* Common mistake */}
       <div>
         <div
-          className="rounded-xl overflow-hidden mb-2"
-          style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.15)' }}
+          className="rounded-2xl overflow-hidden mb-2"
+          style={{ background: 'rgba(255,68,68,0.03)', border: '1px solid rgba(255,68,68,0.12)' }}
         >
           <canvas
             ref={errRef}
@@ -173,11 +167,11 @@ function SkeletonPair({ phases, errorPose, criticalJoints }) {
             style={{ width: '100%', height: 'auto', display: 'block' }}
           />
         </div>
-        <p className="text-xs text-center font-semibold" style={{ color: '#f87171' }}>
+        <p className="text-xs text-center font-semibold" style={{ color: '#ff6666' }}>
           Common Mistake
         </p>
         {errorPose?.description && (
-          <p className="text-xs text-center text-zinc-600 mt-0.5 leading-snug">
+          <p className="text-xs text-center mt-0.5 leading-snug" style={{ color: '#444444' }}>
             {errorPose.description}
           </p>
         )}
@@ -186,15 +180,12 @@ function SkeletonPair({ phases, errorPose, criticalJoints }) {
   );
 }
 
-// ── Content sections ──────────────────────────────────────────────────────────
+// ── Section ───────────────────────────────────────────────────────────────────
 
 function Section({ label, children }) {
   return (
-    <div className="mb-7">
-      <p
-        className="text-xs font-bold uppercase tracking-widest mb-3"
-        style={{ color: '#e8ff47' }}
-      >
+    <div className="mb-8">
+      <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#00ff87' }}>
         {label}
       </p>
       {children}
@@ -206,21 +197,29 @@ function Section({ label, children }) {
 
 function LoadingState() {
   return (
-    <div className="animate-pulse">
+    <div>
       {/* Canvas placeholders */}
       <div className="grid grid-cols-2 gap-3 mb-8">
         {[0, 1].map((i) => (
           <div key={i}>
-            <div className="rounded-xl bg-zinc-900 mb-2" style={{ aspectRatio: '220/280' }} />
-            <div className="h-2.5 bg-zinc-800 rounded mx-auto w-20 mb-1" />
-            <div className="h-2 bg-zinc-900 rounded mx-auto w-28" />
+            <div
+              className="rounded-2xl skeleton mb-2"
+              style={{ aspectRatio: '220/280' }}
+            />
+            <div className="skeleton-green h-2.5 rounded mx-auto w-24 mb-1" />
+            <div className="skeleton h-2 rounded mx-auto w-28" />
           </div>
         ))}
       </div>
+
       {/* Text placeholders */}
-      <div className="space-y-3">
-        {[75, 90, 60, 80, 55, 70].map((w, i) => (
-          <div key={i} className="h-3 bg-zinc-800 rounded" style={{ width: `${w}%` }} />
+      <div className="space-y-4">
+        {[75, 90, 60, 82, 55, 70, 88].map((w, i) => (
+          <div
+            key={i}
+            className="skeleton h-3 rounded"
+            style={{ width: `${w}%` }}
+          />
         ))}
       </div>
     </div>
@@ -249,40 +248,52 @@ export default function ExerciseDetail({ exercise, onBack }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="flex items-center justify-between px-5 py-4 border-b border-zinc-900 sticky top-0 z-10 bg-zinc-950/95 backdrop-blur">
+      {/* Sticky header */}
+      <header
+        className="flex items-center justify-between px-5 py-4 sticky top-0 z-10"
+        style={{ background: 'rgba(10,10,10,0.97)', borderBottom: '1px solid #222222', backdropFilter: 'blur(12px)' }}
+      >
         <button
           onClick={onBack}
-          className="text-zinc-500 hover:text-zinc-300 transition-colors text-sm flex items-center gap-1.5"
+          className="flex items-center gap-1.5 transition-colors"
+          style={{ color: '#555555' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#555555'; }}
         >
-          ← Library
+          <ArrowLeft size={18} strokeWidth={2} />
+          <span className="text-sm font-medium">Library</span>
         </button>
-        <span className="text-xs text-zinc-500 font-medium">{exercise.muscleGroup}</span>
+        <span
+          className="text-xs font-semibold px-2.5 py-1 rounded-full"
+          style={{ background: 'rgba(0,255,135,0.08)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.15)' }}
+        >
+          {exercise.muscleGroup}
+        </span>
       </header>
 
-      <main className="flex-1 max-w-2xl mx-auto w-full px-5 py-8">
+      <main className="flex-1 mx-auto w-full px-5 py-8" style={{ maxWidth: 520 }}>
         {/* Title */}
         <div className="mb-8">
-          <p className="text-xs text-zinc-600 uppercase tracking-widest mb-2">
-            {exercise.muscleGroup}
-          </p>
-          <h1 className="text-2xl font-extrabold text-white leading-tight">
+          <h1 className="text-2xl font-extrabold text-white leading-tight tracking-tight">
             {exercise.name}
           </h1>
+          <p className="text-sm mt-1" style={{ color: '#555555' }}>{exercise.muscleGroup}</p>
         </div>
 
-        {/* States */}
         {loading && <LoadingState />}
 
         {error && (
-          <div className="px-4 py-3 rounded-xl bg-red-950/40 border border-red-800 text-red-300 text-sm mb-6">
+          <div
+            className="px-4 py-3 rounded-xl text-sm mb-6"
+            style={{ background: 'rgba(255,68,68,0.08)', border: '1px solid rgba(255,68,68,0.25)', color: '#ff8888' }}
+          >
             Failed to load: {error}
           </div>
         )}
 
         {data && (
           <div className="fade-in">
-            {/* Skeleton animations */}
+            {/* Animated skeleton canvases */}
             <SkeletonPair
               phases={data.phases}
               errorPose={data.errorPose}
@@ -292,7 +303,9 @@ export default function ExerciseDetail({ exercise, onBack }) {
             {/* What It Trains */}
             {content?.whatItTrains && (
               <Section label="What It Trains">
-                <p className="text-sm text-zinc-300 leading-relaxed">{content.whatItTrains}</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#aaaaaa' }}>
+                  {content.whatItTrains}
+                </p>
               </Section>
             )}
 
@@ -301,14 +314,14 @@ export default function ExerciseDetail({ exercise, onBack }) {
               <Section label="How To Do It">
                 <ol className="space-y-3">
                   {content.howToDoIt.map((step, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-zinc-300">
+                    <li key={i} className="flex gap-3 text-sm">
                       <span
-                        className="font-bold tabular-nums flex-shrink-0 w-5 text-right"
-                        style={{ color: '#e8ff47' }}
+                        className="font-extrabold tabular-nums flex-shrink-0 w-5 text-right"
+                        style={{ color: '#00ff87' }}
                       >
                         {i + 1}.
                       </span>
-                      <span className="leading-relaxed">{step}</span>
+                      <span className="leading-relaxed" style={{ color: '#aaaaaa' }}>{step}</span>
                     </li>
                   ))}
                 </ol>
@@ -320,13 +333,9 @@ export default function ExerciseDetail({ exercise, onBack }) {
               <Section label="Coaching Cues">
                 <div className="space-y-2">
                   {content.coachingCues.map((cue, i) => (
-                    <div
-                      key={i}
-                      className="flex items-start gap-2 text-sm font-semibold"
-                      style={{ color: '#e8ff47' }}
-                    >
-                      <span className="opacity-50 mt-0.5">›</span>
-                      <span>{cue}</span>
+                    <div key={i} className="flex items-start gap-2.5 text-sm font-semibold" style={{ color: '#00ff87' }}>
+                      <ChevronRight size={14} className="flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                      <span className="leading-snug">{cue}</span>
                     </div>
                   ))}
                 </div>
@@ -336,10 +345,10 @@ export default function ExerciseDetail({ exercise, onBack }) {
             {/* Common Mistakes */}
             {content?.commonMistakes?.length > 0 && (
               <Section label="Common Mistakes">
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   {content.commonMistakes.map((m, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-sm text-zinc-300">
-                      <span className="flex-shrink-0 mt-0.5" style={{ color: '#f87171' }}>✕</span>
+                    <div key={i} className="flex items-start gap-2.5 text-sm" style={{ color: '#aaaaaa' }}>
+                      <span className="flex-shrink-0 font-bold mt-0.5" style={{ color: '#ff4444' }}>✕</span>
                       <span className="leading-relaxed">{m}</span>
                     </div>
                   ))}

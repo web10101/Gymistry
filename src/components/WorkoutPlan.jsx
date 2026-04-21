@@ -1,25 +1,26 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Printer, RefreshCw } from 'lucide-react';
 
 const mdComponents = {
   h1: ({ children }) => (
-    <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-8 mb-4 leading-tight">
+    <h1 className="text-2xl font-extrabold text-white mt-8 mb-4 leading-tight tracking-tight">
       {children}
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="text-lg sm:text-xl font-bold mt-8 mb-3 pb-2 border-b border-zinc-800"
-      style={{ color: '#e8ff47' }}>
+    <h2
+      className="text-lg font-bold mt-8 mb-3 pb-2"
+      style={{ color: '#00ff87', borderBottom: '1px solid #222222' }}
+    >
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="text-base sm:text-lg font-semibold text-white mt-6 mb-3">
-      {children}
-    </h3>
+    <h3 className="text-base font-semibold text-white mt-6 mb-3">{children}</h3>
   ),
   p: ({ children }) => (
-    <p className="text-zinc-300 text-sm sm:text-base leading-relaxed mb-3">
+    <p className="text-sm leading-relaxed mb-3" style={{ color: '#aaaaaa' }}>
       {children}
     </p>
   ),
@@ -27,74 +28,92 @@ const mdComponents = {
     <ul className="list-none space-y-2 mb-4 pl-0">{children}</ul>
   ),
   li: ({ children }) => (
-    <li className="flex items-start gap-2 text-sm text-zinc-300">
-      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-lime-400 flex-shrink-0" />
-      <span>{children}</span>
+    <li className="flex items-start gap-2.5 text-sm" style={{ color: '#aaaaaa' }}>
+      <span
+        className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0"
+        style={{ background: '#00ff87' }}
+      />
+      <span className="leading-relaxed">{children}</span>
     </li>
   ),
   strong: ({ children }) => (
     <strong className="font-semibold text-white">{children}</strong>
   ),
   em: ({ children }) => (
-    <em className="text-zinc-400 not-italic">{children}</em>
+    <em style={{ color: '#888888' }} className="not-italic">{children}</em>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="border-l-2 border-lime-400 pl-4 my-4 text-zinc-400 italic text-sm">
+    <blockquote
+      className="pl-4 my-4 italic text-sm"
+      style={{ borderLeft: '2px solid #00ff87', color: '#888888' }}
+    >
       {children}
     </blockquote>
   ),
-  hr: () => <hr className="border-zinc-800 my-6" />,
+  hr: () => <hr style={{ borderColor: '#222222' }} className="my-6" />,
   table: ({ children }) => (
-    <div className="overflow-x-auto my-4 rounded-xl border border-zinc-800">
+    <div className="overflow-x-auto my-4 rounded-xl" style={{ border: '1px solid #222222' }}>
       <table className="w-full text-sm">{children}</table>
     </div>
   ),
   thead: ({ children }) => (
-    <thead className="bg-zinc-900">{children}</thead>
+    <thead style={{ background: '#111111' }}>{children}</thead>
   ),
   th: ({ children }) => (
-    <th className="px-4 py-3 text-left text-xs font-semibold text-zinc-400 uppercase tracking-wider border-b border-zinc-800">
+    <th
+      className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider"
+      style={{ color: '#888888', borderBottom: '1px solid #222222' }}
+    >
       {children}
     </th>
   ),
   tbody: ({ children }) => (
-    <tbody className="divide-y divide-zinc-800/50">{children}</tbody>
+    <tbody>{children}</tbody>
   ),
   tr: ({ children }) => (
-    <tr className="hover:bg-zinc-800/30 transition-colors">{children}</tr>
+    <tr style={{ borderBottom: '1px solid #1a1a1a' }}>{children}</tr>
   ),
   td: ({ children }) => (
-    <td className="px-4 py-3 text-zinc-300">{children}</td>
+    <td className="px-4 py-3" style={{ color: '#cccccc' }}>{children}</td>
   ),
   code: ({ inline, children }) =>
     inline ? (
-      <code className="text-lime-400 bg-zinc-900 px-1.5 py-0.5 rounded text-xs font-mono">
+      <code
+        className="px-1.5 py-0.5 rounded text-xs font-mono"
+        style={{ color: '#00ff87', background: '#111111' }}
+      >
         {children}
       </code>
     ) : (
-      <pre className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 overflow-x-auto my-4">
-        <code className="text-zinc-300 text-xs font-mono">{children}</code>
+      <pre
+        className="rounded-xl p-4 overflow-x-auto my-4"
+        style={{ background: '#111111', border: '1px solid #222222' }}
+      >
+        <code className="text-xs font-mono" style={{ color: '#aaaaaa' }}>{children}</code>
       </pre>
     ),
 };
 
 export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
   return (
-    <div className="fade-in w-full max-w-3xl mx-auto">
+    <div className="fade-in w-full">
       {/* Header bar */}
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-zinc-800">
+      <div
+        className="flex items-center justify-between mb-6 pb-5"
+        style={{ borderBottom: '1px solid #222222' }}
+      >
         <div className="flex items-center gap-3">
           <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+            className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-black text-base flex-shrink-0"
+            style={{ background: '#00ff87' }}
           >
-            💪
+            G
           </div>
           <div>
-            <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium">
+            <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#555555' }}>
               Your Program
             </p>
-            <p className="text-white font-semibold text-sm">
+            <p className="text-white font-bold text-sm">
               {isStreaming ? (
                 <span className="flex items-center gap-2">
                   Generating
@@ -102,10 +121,8 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
                     {[0, 1, 2].map((i) => (
                       <span
                         key={i}
-                        className="inline-block w-1 h-1 rounded-full bg-lime-400"
-                        style={{
-                          animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
-                        }}
+                        className="inline-block w-1.5 h-1.5 rounded-full"
+                        style={{ background: '#00ff87', animation: `bounceDot 1.2s ease-in-out ${i * 0.2}s infinite` }}
                       />
                     ))}
                   </span>
@@ -118,19 +135,24 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
         </div>
 
         {!isStreaming && (
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <button
               onClick={() => window.print()}
-              className="px-4 py-2 rounded-lg border border-zinc-700 text-zinc-400 text-xs font-medium hover:border-zinc-500 hover:text-white transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all"
+              style={{ border: '1px solid #333333', color: '#888888' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; e.currentTarget.style.borderColor = '#555555'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#888888'; e.currentTarget.style.borderColor = '#333333'; }}
             >
-              Print / Save PDF
+              <Printer size={13} />
+              Print
             </button>
             <button
               onClick={onRestart}
-              className="px-4 py-2 rounded-lg text-xs font-bold transition-all"
-              style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)', color: '#0a0a0a' }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all"
+              style={{ background: '#00ff87', color: '#000000' }}
             >
-              New Program
+              <RefreshCw size={13} />
+              New
             </button>
           </div>
         )}
@@ -139,23 +161,19 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
       {/* Streaming indicator */}
       {isStreaming && (
         <div
-          className="mb-4 px-4 py-2.5 rounded-lg text-xs font-medium flex items-center gap-2"
-          style={{
-            background: 'rgba(232, 255, 71, 0.08)',
-            border: '1px solid rgba(232, 255, 71, 0.2)',
-            color: '#e8ff47',
-          }}
+          className="mb-5 px-4 py-2.5 rounded-xl text-xs font-medium flex items-center gap-2.5"
+          style={{ background: 'rgba(0,255,135,0.06)', border: '1px solid rgba(0,255,135,0.18)', color: '#00ff87' }}
         >
           <div
-            className="w-2 h-2 rounded-full"
-            style={{ background: '#e8ff47', animation: 'pulse 1s ease-in-out infinite' }}
+            className="w-2 h-2 rounded-full flex-shrink-0"
+            style={{ background: '#00ff87', animation: 'pulse 1s ease-in-out infinite' }}
           />
           Your personalized program is being generated in real time…
         </div>
       )}
 
       {/* Markdown plan */}
-      <div className="prose max-w-none">
+      <div>
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
           {plan}
         </ReactMarkdown>
@@ -165,38 +183,38 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
       {!isStreaming && (
         <div
           className="mt-10 p-6 rounded-2xl text-center"
-          style={{
-            background: 'rgba(232, 255, 71, 0.06)',
-            border: '1px solid rgba(232, 255, 71, 0.15)',
-          }}
+          style={{ background: 'rgba(0,255,135,0.04)', border: '1px solid rgba(0,255,135,0.12)' }}
         >
-          <p className="text-zinc-300 text-sm mb-4">
+          <p className="text-sm mb-5 leading-relaxed" style={{ color: '#888888' }}>
             Ready to train? Save or print this plan and start your first session.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <button
               onClick={() => window.print()}
-              className="px-6 py-3 rounded-xl border border-zinc-700 text-sm font-medium text-zinc-300 hover:border-zinc-500 transition-all"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-all"
+              style={{ border: '1px solid #333333', color: '#aaaaaa' }}
             >
+              <Printer size={15} />
               Save as PDF
             </button>
             <button
               onClick={onRestart}
-              className="btn-primary px-6 py-3 rounded-xl text-sm"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all"
+              style={{ background: '#00ff87', color: '#000000', border: 'none' }}
             >
-              Generate a New Program
+              <RefreshCw size={15} />
+              New Program
             </button>
           </div>
         </div>
       )}
 
       <style>{`
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
         }
         @media print {
-          .no-print { display: none !important; }
           body { background: white; color: black; }
         }
       `}</style>

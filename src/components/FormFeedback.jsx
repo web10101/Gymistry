@@ -1,11 +1,12 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Printer, RefreshCw } from 'lucide-react';
 
 const mdComponents = {
   h2: ({ children }) => (
     <h2
-      className="text-base sm:text-lg font-bold mt-8 mb-3 pb-2 border-b border-zinc-800 flex items-center gap-2"
-      style={{ color: '#e8ff47' }}
+      className="text-base font-bold mt-8 mb-3 pb-2"
+      style={{ color: '#00ff87', borderBottom: '1px solid #222222' }}
     >
       {children}
     </h2>
@@ -14,29 +15,33 @@ const mdComponents = {
     <h3 className="text-sm font-semibold text-white mt-5 mb-2">{children}</h3>
   ),
   p: ({ children }) => (
-    <p className="text-zinc-300 text-sm leading-relaxed mb-3">{children}</p>
+    <p className="text-sm leading-relaxed mb-3" style={{ color: '#aaaaaa' }}>
+      {children}
+    </p>
   ),
   ul: ({ children }) => <ul className="space-y-2 mb-4">{children}</ul>,
   ol: ({ children }) => <ol className="space-y-3 mb-4 list-none pl-0">{children}</ol>,
   li: ({ children, ...props }) => {
-    // ordered list items
     if (props.index !== undefined) {
       return (
-        <li className="flex gap-3 text-sm text-zinc-300">
+        <li className="flex gap-3 text-sm" style={{ color: '#aaaaaa' }}>
           <span
-            className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-zinc-900"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+            className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-extrabold text-black"
+            style={{ background: '#00ff87' }}
           >
             {props.index + 1}
           </span>
-          <span>{children}</span>
+          <span className="leading-relaxed">{children}</span>
         </li>
       );
     }
     return (
-      <li className="flex items-start gap-2 text-sm text-zinc-300">
-        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-lime-400 flex-shrink-0" />
-        <span>{children}</span>
+      <li className="flex items-start gap-2.5 text-sm" style={{ color: '#aaaaaa' }}>
+        <span
+          className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0"
+          style={{ background: '#00ff87' }}
+        />
+        <span className="leading-relaxed">{children}</span>
       </li>
     );
   },
@@ -45,30 +50,33 @@ const mdComponents = {
   ),
   blockquote: ({ children }) => (
     <blockquote
-      className="border-l-2 pl-4 my-4 italic text-sm"
-      style={{ borderColor: '#e8ff47', color: '#a3a3a3' }}
+      className="pl-4 my-4 italic text-sm"
+      style={{ borderLeft: '2px solid #00ff87', color: '#888888' }}
     >
       {children}
     </blockquote>
   ),
-  hr: () => <hr className="border-zinc-800 my-6" />,
+  hr: () => <hr style={{ borderColor: '#222222' }} className="my-6" />,
   table: ({ children }) => (
-    <div className="overflow-x-auto my-4 rounded-xl border border-zinc-800">
+    <div className="overflow-x-auto my-4 rounded-xl" style={{ border: '1px solid #222222' }}>
       <table className="w-full text-xs">{children}</table>
     </div>
   ),
-  thead: ({ children }) => <thead className="bg-zinc-900">{children}</thead>,
+  thead: ({ children }) => <thead style={{ background: '#111111' }}>{children}</thead>,
   th: ({ children }) => (
-    <th className="px-3 py-2.5 text-left text-xs font-semibold text-zinc-400 uppercase tracking-wider border-b border-zinc-800">
+    <th
+      className="px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wider"
+      style={{ color: '#888888', borderBottom: '1px solid #222222' }}
+    >
       {children}
     </th>
   ),
-  tbody: ({ children }) => <tbody className="divide-y divide-zinc-800/40">{children}</tbody>,
+  tbody: ({ children }) => <tbody>{children}</tbody>,
   tr: ({ children }) => (
-    <tr className="hover:bg-zinc-800/20 transition-colors">{children}</tr>
+    <tr style={{ borderBottom: '1px solid #1a1a1a' }}>{children}</tr>
   ),
   td: ({ children }) => (
-    <td className="px-3 py-2.5 text-zinc-300">{children}</td>
+    <td className="px-3 py-2.5" style={{ color: '#cccccc' }}>{children}</td>
   ),
 };
 
@@ -76,10 +84,10 @@ function PoseDataSummary({ poseData }) {
   if (!poseData) return null;
 
   const rows = [
-    { label: 'Left Knee', data: poseData.summary.leftKnee },
+    { label: 'Left Knee',  data: poseData.summary.leftKnee  },
     { label: 'Right Knee', data: poseData.summary.rightKnee },
-    { label: 'Left Hip', data: poseData.summary.leftHip },
-    { label: 'Right Hip', data: poseData.summary.rightHip },
+    { label: 'Left Hip',   data: poseData.summary.leftHip   },
+    { label: 'Right Hip',  data: poseData.summary.rightHip  },
     { label: 'Torso Lean', data: poseData.summary.torsoLean },
   ].filter((r) => r.data);
 
@@ -87,39 +95,39 @@ function PoseDataSummary({ poseData }) {
 
   return (
     <div
-      className="mb-6 rounded-xl overflow-hidden"
-      style={{ border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}
+      className="mb-6 rounded-2xl overflow-hidden"
+      style={{ border: '1px solid #222222', background: '#111111' }}
     >
       <div
-        className="px-4 py-3 flex items-center gap-2 border-b"
-        style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}
+        className="px-4 py-3 flex items-center gap-2"
+        style={{ borderBottom: '1px solid #222222', background: '#0f0f0f' }}
       >
-        <span className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+        <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#555555' }}>
           Pose Data · {poseData.framesAnalyzed} frames · {poseData.duration}s
         </span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-5">
         {rows.map(({ label, data }) => (
           <div key={label} className="text-center">
-            <p className="text-2xl font-extrabold text-white">{data.avg}°</p>
-            <p className="text-xs text-zinc-500 mt-0.5">{label} avg</p>
-            <p className="text-xs text-zinc-700">{data.min}° – {data.max}°</p>
+            <p className="text-2xl font-extrabold text-white tabular-nums">{data.avg}°</p>
+            <p className="text-xs mt-0.5" style={{ color: '#888888' }}>{label} avg</p>
+            <p className="text-xs mt-0.5" style={{ color: '#444444' }}>{data.min}° – {data.max}°</p>
           </div>
         ))}
       </div>
       {asymmetries.length > 0 && (
         <div
-          className="px-4 py-3 border-t flex flex-wrap gap-2"
-          style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+          className="px-4 py-3 flex flex-wrap gap-2"
+          style={{ borderTop: '1px solid #222222' }}
         >
           {asymmetries.map(([joint, diff]) => (
             <span
               key={joint}
-              className="text-xs px-2.5 py-1 rounded-full"
+              className="text-xs px-2.5 py-1 rounded-full font-medium"
               style={{
-                background: diff > 15 ? 'rgba(239,68,68,0.1)' : 'rgba(234,179,8,0.1)',
-                color: diff > 15 ? '#fca5a5' : '#fde047',
-                border: `1px solid ${diff > 15 ? 'rgba(239,68,68,0.2)' : 'rgba(234,179,8,0.2)'}`,
+                background: diff > 15 ? 'rgba(255,68,68,0.08)' : 'rgba(255,170,0,0.08)',
+                color:      diff > 15 ? '#ff8888' : '#ffcc55',
+                border:     `1px solid ${diff > 15 ? 'rgba(255,68,68,0.2)' : 'rgba(255,170,0,0.2)'}`,
               }}
             >
               {joint}: {diff}° asymmetry
@@ -135,35 +143,41 @@ export default function FormFeedback({ feedback, isStreaming, exercise, poseData
   return (
     <div className="fade-in w-full">
       {/* Title bar */}
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-zinc-800">
+      <div
+        className="flex items-center justify-between mb-6 pb-5"
+        style={{ borderBottom: '1px solid #222222' }}
+      >
         <div className="flex items-center gap-3">
           <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+            className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-black text-sm flex-shrink-0"
+            style={{ background: '#00ff87' }}
           >
-            📐
+            ◈
           </div>
           <div>
-            <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium">
+            <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#555555' }}>
               Form Analysis
             </p>
-            <p className="text-white font-semibold text-sm">{exercise}</p>
+            <p className="text-white font-bold text-sm">{exercise}</p>
           </div>
         </div>
         {!isStreaming && (
           <div className="flex gap-2">
             <button
               onClick={() => window.print()}
-              className="px-3 py-2 rounded-lg border border-zinc-700 text-zinc-400 text-xs font-medium hover:border-zinc-500 hover:text-white transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all"
+              style={{ border: '1px solid #333333', color: '#888888' }}
             >
-              Save PDF
+              <Printer size={13} />
+              PDF
             </button>
             <button
               onClick={onReset}
-              className="px-4 py-2 rounded-lg text-xs font-bold"
-              style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)', color: '#0a0a0a' }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold"
+              style={{ background: '#00ff87', color: '#000000' }}
             >
-              New Video
+              <RefreshCw size={13} />
+              New
             </button>
           </div>
         )}
@@ -172,22 +186,18 @@ export default function FormFeedback({ feedback, isStreaming, exercise, poseData
       {/* Streaming banner */}
       {isStreaming && (
         <div
-          className="mb-5 px-4 py-2.5 rounded-lg text-xs font-medium flex items-center gap-2"
-          style={{
-            background: 'rgba(232,255,71,0.06)',
-            border: '1px solid rgba(232,255,71,0.15)',
-            color: '#e8ff47',
-          }}
+          className="mb-5 px-4 py-2.5 rounded-xl text-xs font-medium flex items-center gap-2.5"
+          style={{ background: 'rgba(0,255,135,0.06)', border: '1px solid rgba(0,255,135,0.18)', color: '#00ff87' }}
         >
           <div
             className="w-2 h-2 rounded-full flex-shrink-0"
-            style={{ background: '#e8ff47', animation: 'pulse 1s ease-in-out infinite' }}
+            style={{ background: '#00ff87', animation: 'pulse 1s ease-in-out infinite' }}
           />
           Analyzing your form in real time…
         </div>
       )}
 
-      {/* Pose data summary cards */}
+      {/* Pose data summary */}
       <PoseDataSummary poseData={poseData} />
 
       {/* Markdown feedback */}
@@ -200,31 +210,39 @@ export default function FormFeedback({ feedback, isStreaming, exercise, poseData
       {/* Done CTA */}
       {!isStreaming && (
         <div
-          className="mt-10 p-5 rounded-2xl text-center"
-          style={{
-            background: 'rgba(232,255,71,0.04)',
-            border: '1px solid rgba(232,255,71,0.12)',
-          }}
+          className="mt-10 p-6 rounded-2xl text-center"
+          style={{ background: 'rgba(0,255,135,0.04)', border: '1px solid rgba(0,255,135,0.12)' }}
         >
-          <p className="text-zinc-400 text-sm mb-4">
+          <p className="text-sm mb-5 leading-relaxed" style={{ color: '#888888' }}>
             Apply these cues in your next session and film again to track improvement.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <button
               onClick={() => window.print()}
-              className="px-5 py-2.5 rounded-xl border border-zinc-700 text-sm font-medium text-zinc-300 hover:border-zinc-500 transition-all"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all"
+              style={{ border: '1px solid #333333', color: '#aaaaaa' }}
             >
+              <Printer size={15} />
               Save as PDF
             </button>
             <button
               onClick={onReset}
-              className="btn-primary px-5 py-2.5 rounded-xl text-sm"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold"
+              style={{ background: '#00ff87', color: '#000000' }}
             >
+              <RefreshCw size={15} />
               Analyze Another Video
             </button>
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+      `}</style>
     </div>
   );
 }

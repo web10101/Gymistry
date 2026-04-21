@@ -1,34 +1,35 @@
 import { useState, useRef, useCallback } from 'react';
+import { ArrowLeft, Upload, X, Play, Dumbbell, ChevronRight } from 'lucide-react';
 import { analyzePoseFromVideo } from '../hooks/usePoseAnalysis';
 import { analyzeForm } from '../api/formAnalysis';
 import FormFeedback from './FormFeedback';
 
 const EXERCISES = [
-  { value: 'Squat', icon: '🏋️', label: 'Squat' },
-  { value: 'Deadlift', icon: '🔩', label: 'Deadlift' },
-  { value: 'Bench Press', icon: '🪑', label: 'Bench Press' },
-  { value: 'Overhead Press', icon: '⬆️', label: 'Overhead Press' },
-  { value: 'Pull-up / Chin-up', icon: '🔝', label: 'Pull-up' },
-  { value: 'Push-up', icon: '🤜', label: 'Push-up' },
-  { value: 'Romanian Deadlift', icon: '🦵', label: 'Romanian DL' },
-  { value: 'Lunge', icon: '🚶', label: 'Lunge' },
-  { value: 'Barbell Row', icon: '↔️', label: 'Barbell Row' },
-  { value: 'Hip Thrust', icon: '🍑', label: 'Hip Thrust' },
-  { value: 'Plank', icon: '🧱', label: 'Plank' },
-  { value: 'Other', icon: '✏️', label: 'Other…' },
+  { value: 'Squat',              label: 'Squat'        },
+  { value: 'Deadlift',           label: 'Deadlift'     },
+  { value: 'Bench Press',        label: 'Bench Press'  },
+  { value: 'Overhead Press',     label: 'OHP'          },
+  { value: 'Pull-up / Chin-up',  label: 'Pull-up'      },
+  { value: 'Push-up',            label: 'Push-up'      },
+  { value: 'Romanian Deadlift',  label: 'Romanian DL'  },
+  { value: 'Lunge',              label: 'Lunge'        },
+  { value: 'Barbell Row',        label: 'Row'          },
+  { value: 'Hip Thrust',         label: 'Hip Thrust'   },
+  { value: 'Plank',              label: 'Plank'        },
+  { value: 'Other',              label: 'Other…'       },
 ];
 
 const STAGES = {
   UPLOAD: 'upload',
-  POSE: 'pose',
+  POSE:   'pose',
   CLAUDE: 'claude',
-  DONE: 'done',
+  DONE:   'done',
 };
 
-// ─── Upload Zone ────────────────────────────────────────────────────────────
+// ─── Upload Zone ──────────────────────────────────────────────────────────────
 
 function UploadZone({ onFile }) {
-  const inputRef = useRef(null);
+  const inputRef          = useRef(null);
   const [dragging, setDragging] = useState(false);
 
   const handleFile = (file) => {
@@ -48,11 +49,12 @@ function UploadZone({ onFile }) {
       onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
       onDragLeave={() => setDragging(false)}
       onDrop={onDrop}
-      className="relative rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-4 p-10 text-center"
+      className="relative flex flex-col items-center justify-center gap-5 cursor-pointer transition-all duration-200 rounded-2xl"
       style={{
-        borderColor: dragging ? '#e8ff47' : 'rgba(255,255,255,0.12)',
-        background: dragging ? 'rgba(232,255,71,0.04)' : 'rgba(255,255,255,0.02)',
-        minHeight: 200,
+        border:     `2px dashed ${dragging ? '#00ff87' : '#333333'}`,
+        background: dragging ? 'rgba(0,255,135,0.03)' : '#0f0f0f',
+        minHeight:  220,
+        padding:    40,
       }}
     >
       <input
@@ -62,16 +64,26 @@ function UploadZone({ onFile }) {
         className="hidden"
         onChange={(e) => handleFile(e.target.files[0])}
       />
-      <div className="text-4xl">{dragging ? '📂' : '🎬'}</div>
-      <div>
-        <p className="text-white font-semibold text-sm mb-1">
-          {dragging ? 'Drop it here' : 'Drag & drop your video'}
-        </p>
-        <p className="text-zinc-500 text-xs">or click to browse · MP4, MOV, WebM</p>
-      </div>
+
       <div
-        className="text-xs font-semibold px-4 py-2 rounded-lg"
-        style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
+        className="w-14 h-14 rounded-2xl flex items-center justify-center"
+        style={{ background: 'rgba(0,255,135,0.08)', border: '1px solid rgba(0,255,135,0.2)' }}
+      >
+        <Upload size={24} style={{ color: '#00ff87' }} />
+      </div>
+
+      <div className="text-center">
+        <p className="text-white font-semibold text-base mb-1">
+          {dragging ? 'Drop to upload' : 'Drag your video here'}
+        </p>
+        <p className="text-xs" style={{ color: '#555555' }}>
+          or click to browse · MP4, MOV, WebM
+        </p>
+      </div>
+
+      <div
+        className="text-xs font-semibold px-5 py-2.5 rounded-xl"
+        style={{ background: 'rgba(0,255,135,0.08)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
       >
         Choose File
       </div>
@@ -84,22 +96,29 @@ function UploadZone({ onFile }) {
 function VideoPreview({ file, onClear }) {
   const url = URL.createObjectURL(file);
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-zinc-800">
+    <div className="relative rounded-2xl overflow-hidden" style={{ border: '1px solid #222222' }}>
       <video
         src={url}
         controls
-        className="w-full max-h-64 object-contain bg-black"
-        onLoadStart={() => {}}
+        className="w-full max-h-64 object-contain"
+        style={{ background: '#000000' }}
       />
       <button
         onClick={onClear}
-        className="absolute top-2 right-2 w-7 h-7 rounded-full bg-zinc-900/90 border border-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center text-xs transition-colors"
+        className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all"
+        style={{ background: 'rgba(10,10,10,0.9)', border: '1px solid #333333', color: '#888888' }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = '#888888'; }}
       >
-        ✕
+        <X size={14} />
       </button>
-      <div className="px-4 py-2.5 bg-zinc-900/80 flex items-center gap-2">
-        <span className="text-xs text-zinc-400 truncate">{file.name}</span>
-        <span className="text-xs text-zinc-600 ml-auto flex-shrink-0">
+      <div
+        className="px-4 py-2.5 flex items-center gap-2"
+        style={{ background: '#0f0f0f', borderTop: '1px solid #222222' }}
+      >
+        <Play size={12} style={{ color: '#555555' }} />
+        <span className="text-xs truncate flex-1" style={{ color: '#888888' }}>{file.name}</span>
+        <span className="text-xs flex-shrink-0" style={{ color: '#444444' }}>
           {(file.size / 1024 / 1024).toFixed(1)} MB
         </span>
       </div>
@@ -111,26 +130,31 @@ function VideoPreview({ file, onClear }) {
 
 function ExercisePicker({ value, onChange }) {
   const [custom, setCustom] = useState('');
+
   return (
     <div>
-      <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">
+      <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#555555' }}>
         Which exercise?
       </p>
-      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-        {EXERCISES.map((ex) => (
-          <button
-            key={ex.value}
-            onClick={() => onChange(ex.value === 'Other' ? '' : ex.value)}
-            className={`option-card flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-center transition-all ${
-              value === ex.value || (ex.value === 'Other' && value === '') ? 'selected' : ''
-            }`}
-          >
-            <span className="text-xl">{ex.icon}</span>
-            <span className="text-xs font-medium text-zinc-300 leading-tight">{ex.label}</span>
-          </button>
-        ))}
+      <div className="grid grid-cols-3 gap-2">
+        {EXERCISES.map((ex) => {
+          const isSelected = value === ex.value || (ex.value === 'Other' && value === '');
+          return (
+            <button
+              key={ex.value}
+              onClick={() => onChange(ex.value === 'Other' ? '' : ex.value)}
+              className="flex items-center justify-center rounded-xl px-3 py-3 text-center transition-all text-sm font-medium"
+              style={
+                isSelected
+                  ? { background: 'rgba(0,255,135,0.08)', border: '1.5px solid #00ff87', color: '#00ff87' }
+                  : { background: '#111111', border: '1.5px solid #222222', color: '#888888' }
+              }
+            >
+              {ex.label}
+            </button>
+          );
+        })}
       </div>
-      {/* Custom input when "Other" selected */}
       {(value === '' || !EXERCISES.find(e => e.value === value)) && (
         <input
           autoFocus
@@ -138,39 +162,40 @@ function ExercisePicker({ value, onChange }) {
           value={custom}
           onChange={(e) => { setCustom(e.target.value); onChange(e.target.value); }}
           placeholder="Type exercise name…"
-          className="mt-3 w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors"
+          className="input-field mt-3"
+          style={{ fontSize: 14 }}
         />
       )}
     </div>
   );
 }
 
-// ─── Processing Screen ─────────────────────────────────────────────────────
+// ─── Processing Screen ────────────────────────────────────────────────────────
 
 function ProcessingScreen({ stage, progress }) {
-  const isPose = stage === STAGES.POSE;
+  const isPose   = stage === STAGES.POSE;
   const isClaude = stage === STAGES.CLAUDE;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
-      {/* Spinner */}
+    <div className="flex flex-col items-center justify-center min-h-[55vh] text-center px-5">
+      {/* Animated icon */}
       <div className="relative mb-8">
         <div
-          className="w-16 h-16 rounded-full flex items-center justify-center text-2xl pulse-glow"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+          className="w-20 h-20 rounded-2xl flex items-center justify-center pulse-glow"
+          style={{ background: '#111111', border: '1px solid #222222' }}
         >
-          {isPose ? '📐' : '🧠'}
+          <Dumbbell size={32} style={{ color: '#00ff87' }} />
         </div>
         <div
-          className="absolute inset-0 rounded-full border-2 border-transparent"
-          style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }}
+          className="absolute inset-0 rounded-2xl border-2 border-transparent"
+          style={{ borderTopColor: '#00ff87', animation: 'spin 1.2s linear infinite' }}
         />
       </div>
 
       <h2 className="text-xl font-bold text-white mb-2">
         {isPose ? 'Analyzing your movement' : 'Your trainer is reviewing'}
       </h2>
-      <p className="text-zinc-500 text-sm mb-8 max-w-xs">
+      <p className="text-sm mb-8 max-w-[260px] leading-relaxed" style={{ color: '#888888' }}>
         {isPose
           ? progress.message || 'Running pose estimation across video frames…'
           : 'Generating detailed coaching feedback…'}
@@ -178,60 +203,45 @@ function ProcessingScreen({ stage, progress }) {
 
       {/* Progress bar (pose stage only) */}
       {isPose && (
-        <div className="w-full max-w-xs">
-          <div className="flex justify-between text-xs text-zinc-600 mb-2">
+        <div className="w-full max-w-[280px]">
+          <div className="flex justify-between text-xs mb-2" style={{ color: '#555555' }}>
             <span>Pose estimation</span>
-            <span>{progress.pct ?? 0}%</span>
+            <span className="tabular-nums">{progress.pct ?? 0}%</span>
           </div>
-          <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#1a1a1a' }}>
             <div
               className="h-full rounded-full transition-all duration-300"
-              style={{
-                width: `${progress.pct ?? 0}%`,
-                background: 'linear-gradient(90deg, #b8f400, #e8ff47)',
-              }}
+              style={{ width: `${progress.pct ?? 0}%`, background: '#00ff87' }}
             />
           </div>
         </div>
       )}
 
-      {/* Claude streaming dots */}
       {isClaude && (
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-2">
           {[0, 1, 2].map((i) => (
             <div
               key={i}
               className="w-2 h-2 rounded-full"
-              style={{
-                background: '#e8ff47',
-                animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
-              }}
+              style={{ background: '#00ff87', animation: `bounceDot 1.2s ease-in-out ${i * 0.2}s infinite` }}
             />
           ))}
         </div>
       )}
-
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); opacity: 0.4; }
-          50% { transform: translateY(-6px); opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 }
 
-// ─── Main FormCheck Component ─────────────────────────────────────────────
+// ─── Main FormCheck Component ─────────────────────────────────────────────────
 
 export default function FormCheck({ onBack }) {
-  const [stage, setStage] = useState(STAGES.UPLOAD);
+  const [stage,     setStage]    = useState(STAGES.UPLOAD);
   const [videoFile, setVideoFile] = useState(null);
-  const [exercise, setExercise] = useState(null);
-  const [progress, setProgress] = useState({ pct: 0, message: '' });
-  const [feedback, setFeedback] = useState('');
-  const [poseData, setPoseData] = useState(null);
-  const [error, setError] = useState(null);
+  const [exercise,  setExercise]  = useState(null);
+  const [progress,  setProgress]  = useState({ pct: 0, message: '' });
+  const [feedback,  setFeedback]  = useState('');
+  const [poseData,  setPoseData]  = useState(null);
+  const [error,     setError]     = useState(null);
 
   const canAnalyze = videoFile && exercise && exercise.trim().length > 0;
 
@@ -241,18 +251,12 @@ export default function FormCheck({ onBack }) {
     setFeedback('');
 
     try {
-      // Stage 1: MediaPipe pose analysis
       setStage(STAGES.POSE);
-      const data = await analyzePoseFromVideo(videoFile, (prog) => {
-        setProgress(prog);
-      });
+      const data = await analyzePoseFromVideo(videoFile, (prog) => setProgress(prog));
       setPoseData(data);
 
-      // Stage 2: Claude form analysis
       setStage(STAGES.CLAUDE);
-      await analyzeForm(data, exercise, (partial) => {
-        setFeedback(partial);
-      });
+      await analyzeForm(data, exercise, (partial) => setFeedback(partial));
 
       setStage(STAGES.DONE);
     } catch (err) {
@@ -274,39 +278,42 @@ export default function FormCheck({ onBack }) {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="flex items-center justify-between px-5 py-4 border-b border-zinc-900">
+      <header
+        className="flex items-center justify-between px-5 py-4 sticky top-0 z-10"
+        style={{ background: 'rgba(10,10,10,0.97)', borderBottom: '1px solid #222222', backdropFilter: 'blur(12px)' }}
+      >
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="text-zinc-500 hover:text-zinc-300 transition-colors text-sm flex items-center gap-1.5"
+            className="flex items-center gap-1.5 transition-colors"
+            style={{ color: '#555555' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#555555'; }}
           >
-            ← Back
+            <ArrowLeft size={18} strokeWidth={2} />
           </button>
-          <div className="w-px h-4 bg-zinc-800" />
-          <div className="flex items-center gap-2">
-            <span className="text-base">🎥</span>
-            <span className="font-semibold text-white text-sm">Form Check</span>
-          </div>
+          <div className="w-px h-4" style={{ background: '#333333' }} />
+          <span className="font-semibold text-white text-sm">Form Check</span>
         </div>
         {(stage === STAGES.DONE || feedback) && (
           <button
             onClick={handleReset}
-            className="text-xs font-bold px-4 py-2 rounded-lg transition-all"
-            style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
+            className="text-xs font-bold px-3 py-1.5 rounded-lg transition-all"
+            style={{ background: 'rgba(0,255,135,0.08)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
           >
             New Analysis
           </button>
         )}
       </header>
 
-      {/* Processing screens */}
+      {/* Processing */}
       {(stage === STAGES.POSE || stage === STAGES.CLAUDE) && !feedback && (
         <ProcessingScreen stage={stage} progress={progress} />
       )}
 
-      {/* Done / feedback — show as soon as streaming starts */}
+      {/* Feedback view */}
       {feedback && (
-        <div className="flex-1 px-5 py-8 max-w-3xl mx-auto w-full">
+        <div className="flex-1 px-5 py-8 max-w-[680px] mx-auto w-full">
           <FormFeedback
             feedback={feedback}
             isStreaming={stage !== STAGES.DONE}
@@ -319,29 +326,30 @@ export default function FormCheck({ onBack }) {
 
       {/* Upload stage */}
       {stage === STAGES.UPLOAD && (
-        <main className="flex-1 px-5 py-8 max-w-2xl mx-auto w-full">
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold text-white mb-2">Form Check</h1>
-            <p className="text-zinc-400 text-sm">
-              Upload a video of your set. AI analyzes your joint angles and gives
-              you professional coaching feedback.
+        <main className="flex-1 px-5 py-8 mx-auto w-full" style={{ maxWidth: 480 }}>
+          <div className="mb-7">
+            <h1 className="text-2xl font-extrabold text-white mb-2 tracking-tight">Form Check</h1>
+            <p className="text-sm leading-relaxed" style={{ color: '#888888' }}>
+              Upload a video of your set. AI analyzes joint angles and gives you professional coaching feedback.
             </p>
           </div>
 
           {/* Error */}
           {error && (
-            <div className="mb-5 px-4 py-3 rounded-xl bg-red-950/40 border border-red-800 text-red-300 text-sm">
-              <strong>Error:</strong> {error}
+            <div
+              className="mb-5 px-4 py-3 rounded-xl text-sm"
+              style={{ background: 'rgba(255,68,68,0.08)', border: '1px solid rgba(255,68,68,0.25)', color: '#ff8888' }}
+            >
+              <strong style={{ color: '#ff4444' }}>Error:</strong> {error}
             </div>
           )}
 
-          {/* Upload / preview */}
+          {/* Upload / Preview */}
           <div className="mb-6">
-            {videoFile ? (
-              <VideoPreview file={videoFile} onClear={() => setVideoFile(null)} />
-            ) : (
-              <UploadZone onFile={setVideoFile} />
-            )}
+            {videoFile
+              ? <VideoPreview file={videoFile} onClear={() => setVideoFile(null)} />
+              : <UploadZone onFile={setVideoFile} />
+            }
           </div>
 
           {/* Exercise picker */}
@@ -351,17 +359,24 @@ export default function FormCheck({ onBack }) {
 
           {/* Tips */}
           <div
-            className="mb-8 p-4 rounded-xl text-sm"
-            style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+            className="mb-8 p-4 rounded-2xl"
+            style={{ background: '#0f0f0f', border: '1px solid #1e1e1e' }}
           >
-            <p className="text-zinc-400 font-medium mb-2 text-xs uppercase tracking-widest">
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#444444' }}>
               Tips for best results
             </p>
-            <ul className="space-y-1.5 text-zinc-500 text-xs">
-              <li className="flex gap-2"><span className="text-lime-400">→</span> Film from the side or slight angle so joints are visible</li>
-              <li className="flex gap-2"><span className="text-lime-400">→</span> Full body in frame — head to feet</li>
-              <li className="flex gap-2"><span className="text-lime-400">→</span> 5–30 seconds is ideal (1–3 reps)</li>
-              <li className="flex gap-2"><span className="text-lime-400">→</span> Good lighting helps accuracy</li>
+            <ul className="space-y-2">
+              {[
+                'Film from the side so joints are clearly visible',
+                'Keep your full body in frame — head to feet',
+                '5–30 seconds is ideal (1–3 reps)',
+                'Good lighting improves accuracy',
+              ].map((tip) => (
+                <li key={tip} className="flex gap-2.5 text-xs" style={{ color: '#666666' }}>
+                  <ChevronRight size={12} className="flex-shrink-0 mt-0.5" style={{ color: '#00ff87' }} />
+                  {tip}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -369,9 +384,10 @@ export default function FormCheck({ onBack }) {
           <button
             onClick={handleAnalyze}
             disabled={!canAnalyze}
-            className="btn-primary w-full py-4 rounded-xl text-sm font-bold tracking-wide disabled:opacity-30 disabled:pointer-events-none"
+            className="btn-primary"
           >
-            Analyze My Form →
+            Analyze My Form
+            <ChevronRight size={18} />
           </button>
         </main>
       )}

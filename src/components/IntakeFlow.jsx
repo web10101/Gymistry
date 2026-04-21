@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { ArrowLeft } from 'lucide-react';
 import { QUESTIONS, TOTAL_QUESTIONS } from '../data/questions';
 import { generateWorkoutPlan } from '../api/claude';
 import QuestionCard from './QuestionCard';
@@ -7,19 +8,19 @@ import LoadingState from './LoadingState';
 import WorkoutPlan from './WorkoutPlan';
 
 const PHASES = {
-  INTAKE: 'intake',
+  INTAKE:     'intake',
   GENERATING: 'generating',
-  PLAN: 'plan',
+  PLAN:       'plan',
 };
 
 export default function IntakeFlow({ onBack }) {
-  const [phase, setPhase] = useState(PHASES.INTAKE);
+  const [phase, setPhase]               = useState(PHASES.INTAKE);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [plan, setPlan] = useState('');
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [error, setError] = useState(null);
-  const [animating, setAnimating] = useState(false);
+  const [answers, setAnswers]           = useState({});
+  const [plan, setPlan]                 = useState('');
+  const [isStreaming, setIsStreaming]   = useState(false);
+  const [error, setError]               = useState(null);
+  const [animating, setAnimating]       = useState(false);
 
   const currentQuestion = QUESTIONS[currentIndex];
 
@@ -37,7 +38,6 @@ export default function IntakeFlow({ onBack }) {
           setAnimating(false);
         }, 50);
       } else {
-        // All questions answered — generate the plan
         setPhase(PHASES.GENERATING);
         setPlan('');
         setError(null);
@@ -52,7 +52,7 @@ export default function IntakeFlow({ onBack }) {
         } catch (err) {
           setError(err.message);
           setIsStreaming(false);
-          setPhase(PHASES.INTAKE); // go back so user can retry
+          setPhase(PHASES.INTAKE);
         }
       }
     },
@@ -60,9 +60,7 @@ export default function IntakeFlow({ onBack }) {
   );
 
   const handleBack = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((i) => i - 1);
-    }
+    if (currentIndex > 0) setCurrentIndex((i) => i - 1);
   };
 
   const handleRestart = () => {
@@ -74,22 +72,18 @@ export default function IntakeFlow({ onBack }) {
     setIsStreaming(false);
   };
 
-  // --- PLAN VIEW ---
+  /* ── Plan view ── */
   if (phase === PHASES.PLAN || (phase === PHASES.GENERATING && plan)) {
     return (
       <div className="min-h-screen px-4 py-8">
-        <div className="max-w-3xl mx-auto">
-          <WorkoutPlan
-            plan={plan}
-            isStreaming={isStreaming}
-            onRestart={handleRestart}
-          />
+        <div className="max-w-[680px] mx-auto">
+          <WorkoutPlan plan={plan} isStreaming={isStreaming} onRestart={handleRestart} />
         </div>
       </div>
     );
   }
 
-  // --- GENERATING (no content yet) ---
+  /* ── Generating (no content yet) ── */
   if (phase === PHASES.GENERATING) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
@@ -98,57 +92,52 @@ export default function IntakeFlow({ onBack }) {
     );
   }
 
-  // --- INTAKE ---
+  /* ── Intake ── */
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Top bar */}
-      <header className="flex items-center justify-between px-5 py-4 border-b border-zinc-900">
-        <div className="flex items-center gap-2.5">
-          <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-black text-zinc-900"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
-          >
-            G
-          </div>
-          <button
-            onClick={onBack}
-            className="font-bold text-white tracking-tight text-sm hover:text-lime-400 transition-colors"
-          >
-            Gymistry
-          </button>
-        </div>
-
-        {currentIndex > 0 && (
-          <button
-            onClick={handleBack}
-            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
-          >
-            ← Back
-          </button>
-        )}
-      </header>
-
-      {/* Progress */}
-      <div className="px-5 pt-5 pb-2 max-w-2xl w-full mx-auto">
+    <div className="min-h-screen flex flex-col mx-auto" style={{ maxWidth: 480 }}>
+      {/* Progress bar — full width at top */}
+      <div className="pt-0">
         <ProgressBar current={currentIndex + 1} total={TOTAL_QUESTIONS} />
       </div>
 
+      {/* Top bar */}
+      <header className="flex items-center justify-between px-5 py-4">
+        <button
+          onClick={currentIndex > 0 ? handleBack : onBack}
+          className="flex items-center gap-1.5 transition-colors"
+          style={{ color: '#555555' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#555555'; }}
+        >
+          <ArrowLeft size={18} strokeWidth={2} />
+          <span className="text-sm font-medium">Back</span>
+        </button>
+
+        <span className="text-xs font-medium tabular-nums" style={{ color: '#555555' }}>
+          {currentIndex + 1} / {TOTAL_QUESTIONS}
+        </span>
+      </header>
+
       {/* Error banner */}
       {error && (
-        <div className="mx-5 mt-3 max-w-2xl w-full mx-auto px-4 py-3 rounded-xl bg-red-950/50 border border-red-800 text-red-300 text-sm">
-          <strong>Error:</strong> {error}
+        <div
+          className="mx-5 mb-4 px-4 py-3 rounded-xl text-sm flex items-center justify-between"
+          style={{ background: 'rgba(255,68,68,0.08)', border: '1px solid rgba(255,68,68,0.25)', color: '#ff8888' }}
+        >
+          <span><strong style={{ color: '#ff4444' }}>Error:</strong> {error}</span>
           <button
             onClick={() => setError(null)}
-            className="ml-3 text-red-400 hover:text-red-200 underline text-xs"
+            className="text-xs underline ml-3 flex-shrink-0"
+            style={{ color: '#ff6666' }}
           >
             Dismiss
           </button>
         </div>
       )}
 
-      {/* Main question area */}
-      <main className="flex-1 flex items-start justify-center px-5 pt-10 pb-16">
-        <div className="w-full max-w-2xl" key={currentIndex}>
+      {/* Question area — centered vertically */}
+      <main className="flex-1 flex items-start justify-center px-5 pt-8 pb-16">
+        <div className="w-full" key={currentIndex}>
           <QuestionCard
             question={currentQuestion}
             answers={answers}
