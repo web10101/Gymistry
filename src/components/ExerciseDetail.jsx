@@ -289,8 +289,8 @@ export default function ExerciseDetail({ exercise, onBack }) {
       body: JSON.stringify({ exerciseName: exercise.name }),
     })
       .then((res) => res.json())
-      .then((d) => { setVideoId(d.videoId || null); setVideoLoading(false); })
-      .catch(() => { setVideoLoading(false); });
+      .then((d) => { console.log('[youtube-search response]', d); setVideoId(d.videoId || null); setVideoLoading(false); })
+      .catch((e) => { console.log('[youtube-search error]', e); setVideoLoading(false); });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise.id]);
 

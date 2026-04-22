@@ -50,16 +50,15 @@ export default async function handler(req) {
   try {
     const searchRes = await fetch(searchUrl);
     const searchData = await searchRes.json();
-    console.log('[youtube-search] status:', searchRes.status, 'body:', JSON.stringify(searchData).slice(0, 300));
     if (!searchRes.ok) {
-      return new Response(JSON.stringify({ videoId: null }), {
+      return new Response(JSON.stringify({ videoId: null, _debug: { ytStatus: searchRes.status, ytError: searchData } }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
     videoIds = (searchData.items || []).map((item) => item.id?.videoId).filter(Boolean);
-  } catch {
-    return new Response(JSON.stringify({ videoId: null }), {
+  } catch (e) {
+    return new Response(JSON.stringify({ videoId: null, _debug: { fetchError: e?.message } }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
