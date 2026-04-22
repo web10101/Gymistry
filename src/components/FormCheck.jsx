@@ -3,21 +3,7 @@ import { ArrowLeft, Upload, X, Play, Dumbbell, ChevronRight } from 'lucide-react
 import { analyzePoseFromVideo } from '../hooks/usePoseAnalysis';
 import { analyzeForm } from '../api/formAnalysis';
 import FormFeedback from './FormFeedback';
-
-const EXERCISES = [
-  { value: 'Squat',              label: 'Squat'        },
-  { value: 'Deadlift',           label: 'Deadlift'     },
-  { value: 'Bench Press',        label: 'Bench Press'  },
-  { value: 'Overhead Press',     label: 'OHP'          },
-  { value: 'Pull-up / Chin-up',  label: 'Pull-up'      },
-  { value: 'Push-up',            label: 'Push-up'      },
-  { value: 'Romanian Deadlift',  label: 'Romanian DL'  },
-  { value: 'Lunge',              label: 'Lunge'        },
-  { value: 'Barbell Row',        label: 'Row'          },
-  { value: 'Hip Thrust',         label: 'Hip Thrust'   },
-  { value: 'Plank',              label: 'Plank'        },
-  { value: 'Other',              label: 'Other…'       },
-];
+import ExerciseSelector from './ExerciseSelector';
 
 const STAGES = {
   UPLOAD: 'upload',
@@ -126,49 +112,6 @@ function VideoPreview({ file, onClear }) {
   );
 }
 
-// ─── Exercise Picker ──────────────────────────────────────────────────────────
-
-function ExercisePicker({ value, onChange }) {
-  const [custom, setCustom] = useState('');
-
-  return (
-    <div>
-      <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#555555' }}>
-        Which exercise?
-      </p>
-      <div className="grid grid-cols-3 gap-2">
-        {EXERCISES.map((ex) => {
-          const isSelected = value === ex.value || (ex.value === 'Other' && value === '');
-          return (
-            <button
-              key={ex.value}
-              onClick={() => onChange(ex.value === 'Other' ? '' : ex.value)}
-              className="flex items-center justify-center rounded-xl px-3 py-3 text-center transition-all text-sm font-medium"
-              style={
-                isSelected
-                  ? { background: 'rgba(0,255,135,0.08)', border: '1.5px solid #00ff87', color: '#00ff87' }
-                  : { background: '#111111', border: '1.5px solid #222222', color: '#888888' }
-              }
-            >
-              {ex.label}
-            </button>
-          );
-        })}
-      </div>
-      {(value === '' || !EXERCISES.find(e => e.value === value)) && (
-        <input
-          autoFocus
-          type="text"
-          value={custom}
-          onChange={(e) => { setCustom(e.target.value); onChange(e.target.value); }}
-          placeholder="Type exercise name…"
-          className="input-field mt-3"
-          style={{ fontSize: 14 }}
-        />
-      )}
-    </div>
-  );
-}
 
 // ─── Processing Screen ────────────────────────────────────────────────────────
 
@@ -354,7 +297,7 @@ export default function FormCheck({ onBack }) {
 
           {/* Exercise picker */}
           <div className="mb-8">
-            <ExercisePicker value={exercise} onChange={setExercise} />
+            <ExerciseSelector mode="formcheck" value={exercise} onChange={setExercise} />
           </div>
 
           {/* Tips */}

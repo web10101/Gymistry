@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { ChevronRight, X } from 'lucide-react';
-import { LIVE_EXERCISES, CAMERA_GUIDES } from '../data/exerciseGuides';
+import { CAMERA_GUIDES } from '../data/exerciseGuides';
+import ExerciseSelector, { isStaticHoldByName } from './ExerciseSelector';
 import {
   useLivePose,
   extractAnglesFromLandmarks,
@@ -12,6 +13,8 @@ import { useRepCounter, PHASE } from '../hooks/useRepCounter';
 import { getCoachingCue, TTSQueue } from '../api/liveCoaching';
 import EnvironmentCheck from './EnvironmentCheck';
 
+const LAST_EX_KEY = 'gymistry_last_exercise';
+
 let tts = null;
 function getTTS() {
   if (!tts) tts = new TTSQueue();
@@ -21,8 +24,14 @@ function getTTS() {
 // ─── Setup screen ─────────────────────────────────────────────────────────────
 
 function SetupScreen({ onContinue, onBack }) {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(() => localStorage.getItem(LAST_EX_KEY) || null);
   const guide = selected ? CAMERA_GUIDES[selected] : null;
+
+  const handleContinue = () => {
+    if (!selected) return;
+    localStorage.setItem(LAST_EX_KEY, selected);
+    onContinue(selected);
+  };
 
   return (
     <div className="flex-1 px-5 py-8 mx-auto w-full" style={{ maxWidth: 480 }}>
@@ -33,33 +42,8 @@ function SetupScreen({ onContinue, onBack }) {
         </p>
       </div>
 
-      <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#555555' }}>
-        Select exercise
-      </p>
-      <div className="grid grid-cols-3 gap-2.5 mb-6">
-        {LIVE_EXERCISES.map((ex) => {
-          const isSelected = selected === ex.value;
-          return (
-            <button
-              key={ex.value}
-              onClick={() => setSelected(ex.value)}
-              className="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-center transition-all"
-              style={
-                isSelected
-                  ? { background: 'rgba(0,255,135,0.08)', border: '1.5px solid #00ff87' }
-                  : { background: '#111111', border: '1.5px solid #222222' }
-              }
-            >
-              <span className="text-xl">{ex.icon}</span>
-              <span
-                className="text-xs font-medium leading-tight"
-                style={{ color: isSelected ? '#00ff87' : '#888888' }}
-              >
-                {ex.label}
-              </span>
-            </button>
-          );
-        })}
+      <div className="mb-6">
+        <ExerciseSelector mode="livetrainer" value={selected} onChange={setSelected} />
       </div>
 
       {guide && (
@@ -94,7 +78,7 @@ function SetupScreen({ onContinue, onBack }) {
       )}
 
       <button
-        onClick={() => onContinue(selected)}
+        onClick={handleContinue}
         disabled={!selected}
         className="btn-primary"
       >
@@ -141,6 +125,9 @@ function SessionScreen({ exercise, onEnd }) {
   const [currentCue,  setCurrentCue]  = useState('');
   const [isMoving,    setIsMoving]     = useState(false);
   const [outOfFrame,  setOutOfFrame]   = useState(false);
+  const [elapsed,     setElapsed]      = useState(0);
+
+  const isTimer = isStaticHoldByName(exercise);
 
   const anglesRef         = useRef(null);
   const prevLandmarksRef  = useRef(null);
@@ -155,6 +142,15 @@ function SessionScreen({ exercise, onEnd }) {
 
   const { repCount, repCountRef, phase, phaseRef, lastROM, update: updateRep } = useRepCounter(exercise);
   const tts_ = getTTS();
+
+  // Elapsed timer for static holds
+  useEffect(() => {
+    if (!isTimer) return;
+    const id = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - sessionStartRef.current) / 1000));
+    }, 100);
+    return () => clearInterval(id);
+  }, [isTimer]);
 
   const handleLandmarks = useCallback((landmarks) => {
     if (!landmarks) {
@@ -175,19 +171,21 @@ function SessionScreen({ exercise, onEnd }) {
     prevLandmarksRef.current = landmarks;
     setIsMoving(moving);
 
-    const { newRep } = updateRep(angles);
-    if (newRep !== null) {
-      tts_.speak(String(newRep), 'high');
-      cueLogRef.current.push({ time: Math.floor((Date.now() - sessionStartRef.current) / 1000), cue: `Rep ${newRep}` });
+    if (!isTimer) {
+      const { newRep } = updateRep(angles);
+      if (newRep !== null) {
+        tts_.speak(String(newRep), 'high');
+        cueLogRef.current.push({ time: Math.floor((Date.now() - sessionStartRef.current) / 1000), cue: `Rep ${newRep}` });
+      }
     }
 
     const now     = Date.now();
-    const elapsed = Math.floor((now - sessionStartRef.current) / 1000);
+    const elapsedSec = Math.floor((now - sessionStartRef.current) / 1000);
     const shouldCall =
       !claudeInFlight.current &&
       now - lastClaudeTime.current > 2200 &&
-      elapsed > 2 &&
-      (moving || elapsed < 6);
+      elapsedSec > 2 &&
+      (moving || elapsedSec < 6);
 
     if (shouldCall) {
       lastClaudeTime.current = now;
@@ -200,7 +198,7 @@ function SessionScreen({ exercise, onEnd }) {
         phase:          phaseRef.current,
         lastROM,
         recentCues:     recentCues.current.slice(-4),
-        secondsElapsed: elapsed,
+        secondsElapsed: elapsedSec,
       }).then((cue) => {
         claudeInFlight.current = false;
         if (!cue) return;
@@ -209,10 +207,10 @@ function SessionScreen({ exercise, onEnd }) {
         setCurrentCue(cue);
         recentCues.current.push(cue);
         if (recentCues.current.length > 10) recentCues.current.shift();
-        cueLogRef.current.push({ time: elapsed, cue });
+        cueLogRef.current.push({ time: elapsedSec, cue });
       }).catch(() => { claudeInFlight.current = false; });
     }
-  }, [exercise, updateRep, repCountRef, phaseRef, lastROM, outOfFrame, tts_]);
+  }, [exercise, isTimer, updateRep, repCountRef, phaseRef, lastROM, outOfFrame, tts_]);
 
   const { start, stop, status, errorMsg } = useLivePose({ onLandmarks: handleLandmarks });
 
@@ -230,8 +228,11 @@ function SessionScreen({ exercise, onEnd }) {
     stop();
     tts_.cancel();
     const duration = Math.floor((Date.now() - sessionStartRef.current) / 1000);
-    onEnd({ exercise, reps: repCountRef.current, duration, cueLog: cueLogRef.current });
+    onEnd({ exercise, reps: repCountRef.current, duration, cueLog: cueLogRef.current, isTimer });
   };
+
+  const timerMins = Math.floor(elapsed / 60);
+  const timerSecs = elapsed % 60;
 
   return (
     <div className="flex flex-col h-screen select-none" style={{ background: '#000000' }}>
@@ -240,16 +241,18 @@ function SessionScreen({ exercise, onEnd }) {
         className="absolute top-0 left-0 right-0 z-20 flex items-start justify-between px-4 pt-12 pb-8"
         style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%)' }}
       >
-        {/* Rep counter — top left */}
+        {/* Rep counter or hold timer — top left */}
         <div>
           <div
             className="text-5xl font-extrabold leading-none tabular-nums"
             style={{ color: '#00ff87', textShadow: '0 0 20px rgba(0,255,135,0.4)' }}
           >
-            {repCount}
+            {isTimer
+              ? `${timerMins}:${String(timerSecs).padStart(2, '0')}`
+              : repCount}
           </div>
           <div className="text-xs font-semibold uppercase tracking-widest mt-1" style={{ color: 'rgba(0,255,135,0.6)' }}>
-            Reps
+            {isTimer ? 'Hold Time' : 'Reps'}
           </div>
         </div>
 
@@ -327,7 +330,7 @@ function SessionScreen({ exercise, onEnd }) {
           </div>
         )}
 
-        {/* Movement pill — top of camera area */}
+        {/* Movement pill */}
         <div
           className="absolute top-4 right-4 z-10 text-xs px-2.5 py-1 rounded-full font-semibold"
           style={{
@@ -341,14 +344,12 @@ function SessionScreen({ exercise, onEnd }) {
       </div>
 
       {/* Bottom coaching cue — dark pill */}
-      <div
-        className="absolute bottom-6 left-4 right-4 z-20 flex items-center justify-center"
-      >
+      <div className="absolute bottom-6 left-4 right-4 z-20 flex items-center justify-center">
         <div
           className="px-5 py-3.5 rounded-2xl max-w-sm w-full text-center"
           style={{
-            background:   'rgba(0,0,0,0.78)',
-            border:       '1px solid rgba(255,255,255,0.1)',
+            background:     'rgba(0,0,0,0.78)',
+            border:         '1px solid rgba(255,255,255,0.1)',
             backdropFilter: 'blur(12px)',
           }}
         >
@@ -356,7 +357,9 @@ function SessionScreen({ exercise, onEnd }) {
             ? <CueBubble cue={currentCue} />
             : (
               <p className="text-sm italic" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                {status === 'active' ? 'Begin your first rep…' : 'Starting camera…'}
+                {status === 'active'
+                  ? (isTimer ? 'Hold your position…' : 'Begin your first rep…')
+                  : 'Starting camera…'}
               </p>
             )
           }
@@ -369,10 +372,20 @@ function SessionScreen({ exercise, onEnd }) {
 // ─── Summary screen ───────────────────────────────────────────────────────────
 
 function SummaryScreen({ result, onBack, onRestart }) {
-  const { exercise, reps, duration, cueLog } = result;
+  const { exercise, reps, duration, cueLog, isTimer } = result;
   const mins = Math.floor(duration / 60);
   const secs = duration % 60;
   const coachingCues = cueLog.filter(({ cue }) => !cue.startsWith('Rep '));
+
+  const statCards = isTimer
+    ? [
+        { label: 'Hold Time',    value: `${Math.floor(duration / 60)}:${String(duration % 60).padStart(2, '0')}` },
+        { label: 'Session Time', value: `${mins}:${String(secs).padStart(2, '0')}` },
+      ]
+    : [
+        { label: 'Reps Completed', value: reps },
+        { label: 'Session Time',   value: `${mins}:${String(secs).padStart(2, '0')}` },
+      ];
 
   return (
     <div className="flex-1 px-5 py-8 mx-auto w-full fade-in" style={{ maxWidth: 480 }}>
@@ -389,10 +402,7 @@ function SummaryScreen({ result, onBack, onRestart }) {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 mb-8">
-        {[
-          { label: 'Reps Completed', value: reps },
-          { label: 'Session Time',   value: `${mins}:${String(secs).padStart(2, '0')}` },
-        ].map(({ label, value }) => (
+        {statCards.map(({ label, value }) => (
           <div
             key={label}
             className="rounded-2xl p-5 text-center"
