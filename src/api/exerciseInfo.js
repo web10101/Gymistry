@@ -1,10 +1,6 @@
 const MODEL = 'claude-haiku-4-5-20251001';
 
-// In-memory cache: exercise.id → parsed data object.
-// Lives for the duration of the browser session.
 const cache = new Map();
-
-// ── Prompt ────────────────────────────────────────────────────────────────────
 
 function buildPrompt({ name, muscleGroup }) {
   return `You are a biomechanics and coaching expert. Provide data for the exercise "${name}" (primary group: ${muscleGroup}).
@@ -55,14 +51,22 @@ Joint coordinate rules:
 Return ONLY the raw JSON object.`;
 }
 
-// ── Fetch ─────────────────────────────────────────────────────────────────────
-
 export async function getExerciseInfo(exercise) {
   if (cache.has(exercise.id)) return cache.get(exercise.id);
 
-  const res = await fetch('/api/exercise-info', {
+  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error('No API key found. Create a .env file with VITE_ANTHROPIC_API_KEY=your_key');
+  }
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true',
+    },
     body: JSON.stringify({
       model: MODEL,
       max_tokens: 2000,
@@ -78,7 +82,6 @@ export async function getExerciseInfo(exercise) {
   const json = await res.json();
   const text = json?.content?.[0]?.text?.trim() ?? '';
 
-  // Strip accidental markdown code fences if Claude adds them
   const clean = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
   const data  = JSON.parse(clean);
 
