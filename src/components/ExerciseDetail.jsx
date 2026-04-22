@@ -204,19 +204,6 @@ function Section({ label, children }) {
 
 // ── YouTube video embed ───────────────────────────────────────────────────────
 
-function VideoSkeleton() {
-  return (
-    <div
-      className="w-full rounded-xl mb-8 animate-pulse"
-      style={{
-        aspectRatio: '16/9',
-        background: 'rgba(24,24,27,0.9)',
-        border: '1px solid rgba(39,39,42,0.8)',
-      }}
-    />
-  );
-}
-
 function YouTubeEmbed({ videoId }) {
   return (
     <div
@@ -289,8 +276,8 @@ export default function ExerciseDetail({ exercise, onBack }) {
       body: JSON.stringify({ exerciseName: exercise.name }),
     })
       .then((res) => res.json())
-      .then((d) => { console.log('[youtube-search response]', d); setVideoId(d.videoId || null); setVideoLoading(false); })
-      .catch((e) => { console.log('[youtube-search error]', e); setVideoLoading(false); });
+      .then((d) => { setVideoId(d.videoId || null); setVideoLoading(false); })
+      .catch(() => { setVideoLoading(false); });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise.id]);
 
@@ -311,7 +298,6 @@ export default function ExerciseDetail({ exercise, onBack }) {
 
       <main className="flex-1 max-w-2xl mx-auto w-full px-5 py-8">
         {/* YouTube tutorial video */}
-        {videoLoading && <VideoSkeleton />}
         {!videoLoading && videoId && <YouTubeEmbed videoId={videoId} />}
 
         {/* Title */}

@@ -1,7 +1,7 @@
 const MODEL = 'claude-haiku-4-5-20251001';
+const LS_PREFIX = 'gymistry_ex_';
 
-// In-memory cache: exercise.id → parsed data object.
-// Lives for the duration of the browser session.
+// In-memory cache for this session; localStorage persists across sessions.
 const cache = new Map();
 
 // ── Prompt ────────────────────────────────────────────────────────────────────
@@ -60,6 +60,15 @@ Return ONLY the raw JSON object.`;
 export async function getExerciseInfo(exercise) {
   if (cache.has(exercise.id)) return cache.get(exercise.id);
 
+  try {
+    const stored = localStorage.getItem(LS_PREFIX + exercise.id);
+    if (stored) {
+      const data = JSON.parse(stored);
+      cache.set(exercise.id, data);
+      return data;
+    }
+  } catch { /* ignore localStorage errors */ }
+
   const res = await fetch('/api/exercise-info', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -83,5 +92,6 @@ export async function getExerciseInfo(exercise) {
   const data  = JSON.parse(clean);
 
   cache.set(exercise.id, data);
+  try { localStorage.setItem(LS_PREFIX + exercise.id, JSON.stringify(data)); } catch { /* ignore */ }
   return data;
 }

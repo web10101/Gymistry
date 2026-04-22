@@ -51,14 +51,14 @@ export default async function handler(req) {
     const searchRes = await fetch(searchUrl);
     const searchData = await searchRes.json();
     if (!searchRes.ok) {
-      return new Response(JSON.stringify({ videoId: null, _debug: { ytStatus: searchRes.status, ytError: searchData } }), {
+      return new Response(JSON.stringify({ videoId: null }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
     videoIds = (searchData.items || []).map((item) => item.id?.videoId).filter(Boolean);
-  } catch (e) {
-    return new Response(JSON.stringify({ videoId: null, _debug: { fetchError: e?.message } }), {
+  } catch {
+    return new Response(JSON.stringify({ videoId: null }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
