@@ -3,8 +3,8 @@ import { useState } from 'react';
 function rp(g, sel, hov, setHov, onSelect) {
   const on = sel === g || hov === g;
   return {
-    fill:           on ? (sel === g ? 'rgba(232,255,71,0.28)' : 'rgba(232,255,71,0.13)') : 'rgba(255,255,255,0.055)',
-    stroke:         on ? '#e8ff47' : 'rgba(255,255,255,0.16)',
+    fill:           on ? (sel === g ? 'rgba(0,255,135,0.28)' : 'rgba(0,255,135,0.13)') : 'rgba(255,255,255,0.055)',
+    stroke:         on ? '#00ff87' : 'rgba(255,255,255,0.16)',
     strokeWidth:    on ? 1.3 : 0.7,
     strokeLinejoin: 'round',
     strokeLinecap:  'round',
@@ -170,7 +170,7 @@ export default function BodyMap({ selected, onSelect }) {
             onMouseLeave={() => setHovered(null)}
             className="text-xs px-4 py-1.5 rounded-full font-semibold transition-all"
             style={selected === g
-              ? { background: 'rgba(232,255,71,0.16)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.4)' }
+              ? { background: 'rgba(0,255,135,0.16)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.4)' }
               : { background: 'rgba(255,255,255,0.04)', color: '#52525b', border: '1px solid rgba(255,255,255,0.08)' }}
           >
             {lb}
@@ -189,7 +189,7 @@ export default function BodyMap({ selected, onSelect }) {
 
       {/* Active label */}
       <div className="h-5 mt-2 text-center">
-        {label && <p className="text-xs font-bold tracking-widest uppercase" style={{ color: '#e8ff47' }}>{label}</p>}
+        {label && <p className="text-xs font-bold tracking-widest uppercase" style={{ color: '#00ff87' }}>{label}</p>}
       </div>
     </div>
   );

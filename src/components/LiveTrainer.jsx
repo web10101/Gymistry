@@ -233,7 +233,7 @@ function SessionScreen({ exercise, isHold, onEnd }) {
       <div className="relative flex-1 overflow-hidden bg-black">
         {status === 'loading' && (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-zinc-950">
-            <div className="w-12 h-12 rounded-full border-2 border-transparent" style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }} />
+            <div className="w-12 h-12 rounded-full border-2 border-transparent" style={{ borderTopColor: '#00ff87', animation: 'spin 1s linear infinite' }} />
             <p className="text-zinc-400 text-sm">Starting camera…</p>
           </div>
         )}
@@ -291,7 +291,7 @@ function SessionScreen({ exercise, isHold, onEnd }) {
           {isHold ? (
             <>
               <div className="text-3xl font-extrabold leading-none"
-                style={{ color: '#e8ff47', fontVariantNumeric: 'tabular-nums' }}>
+                style={{ color: '#00ff87', fontVariantNumeric: 'tabular-nums' }}>
                 {String(Math.floor(elapsedSec / 60)).padStart(2, '0')}:{String(elapsedSec % 60).padStart(2, '0')}
               </div>
               <div className="text-zinc-600 text-xs mt-0.5 uppercase tracking-wider">Hold</div>
@@ -299,7 +299,7 @@ function SessionScreen({ exercise, isHold, onEnd }) {
           ) : (
             <>
               <div className="text-4xl font-extrabold leading-none"
-                style={{ color: '#e8ff47', fontVariantNumeric: 'tabular-nums' }}>
+                style={{ color: '#00ff87', fontVariantNumeric: 'tabular-nums' }}>
                 {repCount}
               </div>
               <div className="text-zinc-600 text-xs mt-0.5 uppercase tracking-wider">Reps</div>
@@ -339,7 +339,7 @@ function SummaryScreen({ result, onBack, onRestart }) {
     <div className="flex-1 px-5 py-8 max-w-2xl mx-auto w-full fade-in">
       <div className="text-center mb-8">
         <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4"
-          style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}>
+          style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}>
           🏆
         </div>
         <h1 className="text-2xl font-bold text-white mb-1">Session Complete</h1>
@@ -354,7 +354,7 @@ function SummaryScreen({ result, onBack, onRestart }) {
           { label: 'Session Time', value: `${mins}:${String(secs).padStart(2, '0')}` },
         ].map(({ label, value }) => (
           <div key={label} className="rounded-2xl p-5 text-center"
-            style={{ background: 'rgba(232,255,71,0.06)', border: '1px solid rgba(232,255,71,0.12)' }}>
+            style={{ background: 'rgba(0,255,135,0.06)', border: '1px solid rgba(0,255,135,0.12)' }}>
             <p className="text-3xl font-extrabold text-white mb-1">{value}</p>
             <p className="text-xs text-zinc-500 uppercase tracking-wider">{label}</p>
           </div>
@@ -442,7 +442,7 @@ export default function LiveTrainer({ onBack }) {
             </div>
           </div>
           <div className="text-xs px-2.5 py-1 rounded-full font-bold"
-            style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}>
+            style={{ background: 'rgba(0,255,135,0.1)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}>
             {stage === STAGES.VALIDATION ? 'CHECKING' : 'LIVE'}
           </div>
         </header>

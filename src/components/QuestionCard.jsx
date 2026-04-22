@@ -12,7 +12,7 @@ function TextInput({ question, value, onChange, onSubmit }) {
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && value?.trim() && onSubmit()}
         placeholder={question.placeholder}
-        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors"
+        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors"
       />
       <button
         onClick={onSubmit}
@@ -48,7 +48,7 @@ function NumberInput({ question, value, onChange, onSubmit }) {
           placeholder={question.placeholder}
           min={question.min}
           max={question.max}
-          className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors"
+          className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors"
           style={{ MozAppearance: 'textfield' }}
         />
         {question.unit && (
@@ -82,7 +82,7 @@ function NumberUnitInput({ question, value, unit, onValueChange, onUnitChange, o
           onChange={(e) => onValueChange(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && valid && onSubmit()}
           placeholder={question.placeholder}
-          className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors"
+          className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors"
           style={{ MozAppearance: 'textfield' }}
         />
         <div className="flex rounded-xl overflow-hidden border border-zinc-700">
@@ -131,7 +131,7 @@ function SingleSelect({ question, value, onChange, onSubmit }) {
             <span className="text-2xl flex-shrink-0">{opt.icon}</span>
             <span className="text-sm font-medium text-zinc-200">{opt.label}</span>
             {value === opt.value && (
-              <span className="ml-auto text-lime-400 text-lg">✓</span>
+              <span className="ml-auto text-[#00ff87] text-lg">✓</span>
             )}
           </button>
         ))}
@@ -174,7 +174,7 @@ function MultiSelect({ question, value = [], onChange, onSubmit }) {
             <span className="text-2xl flex-shrink-0">{opt.icon}</span>
             <span className="text-sm font-medium text-zinc-200">{opt.label}</span>
             {isSelected(opt.value) && (
-              <span className="ml-auto text-lime-400 text-lg">✓</span>
+              <span className="ml-auto text-[#00ff87] text-lg">✓</span>
             )}
           </button>
         ))}
@@ -199,7 +199,7 @@ function TextareaInput({ question, value, onChange, onSubmit }) {
         placeholder={question.placeholder}
         rows={4}
         autoFocus
-        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-base placeholder-zinc-600 focus:outline-none focus:border-lime-400 transition-colors resize-none"
+        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-base placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors resize-none"
       />
       <button
         onClick={onSubmit}
@@ -245,7 +245,7 @@ export default function QuestionCard({
       <div className="flex items-center gap-2 mb-4">
         <span
           className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-zinc-900"
-          style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+          style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}
         >
           {questionNumber}
         </span>

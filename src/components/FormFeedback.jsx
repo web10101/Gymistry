@@ -5,7 +5,7 @@ const mdComponents = {
   h2: ({ children }) => (
     <h2
       className="text-base sm:text-lg font-bold mt-8 mb-3 pb-2 border-b border-zinc-800 flex items-center gap-2"
-      style={{ color: '#e8ff47' }}
+      style={{ color: '#00ff87' }}
     >
       {children}
     </h2>
@@ -25,7 +25,7 @@ const mdComponents = {
         <li className="flex gap-3 text-sm text-zinc-300">
           <span
             className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-zinc-900"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+            style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}
           >
             {props.index + 1}
           </span>
@@ -46,7 +46,7 @@ const mdComponents = {
   blockquote: ({ children }) => (
     <blockquote
       className="border-l-2 pl-4 my-4 italic text-sm"
-      style={{ borderColor: '#e8ff47', color: '#a3a3a3' }}
+      style={{ borderColor: '#00ff87', color: '#a3a3a3' }}
     >
       {children}
     </blockquote>
@@ -139,7 +139,7 @@ export default function FormFeedback({ feedback, isStreaming, exercise, poseData
         <div className="flex items-center gap-3">
           <div
             className="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+            style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}
           >
             📐
           </div>
@@ -161,7 +161,7 @@ export default function FormFeedback({ feedback, isStreaming, exercise, poseData
             <button
               onClick={onReset}
               className="px-4 py-2 rounded-lg text-xs font-bold"
-              style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)', color: '#0a0a0a' }}
+              style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)', color: '#0a0a0a' }}
             >
               New Video
             </button>
@@ -174,14 +174,14 @@ export default function FormFeedback({ feedback, isStreaming, exercise, poseData
         <div
           className="mb-5 px-4 py-2.5 rounded-lg text-xs font-medium flex items-center gap-2"
           style={{
-            background: 'rgba(232,255,71,0.06)',
-            border: '1px solid rgba(232,255,71,0.15)',
-            color: '#e8ff47',
+            background: 'rgba(0,255,135,0.06)',
+            border: '1px solid rgba(0,255,135,0.15)',
+            color: '#00ff87',
           }}
         >
           <div
             className="w-2 h-2 rounded-full flex-shrink-0"
-            style={{ background: '#e8ff47', animation: 'pulse 1s ease-in-out infinite' }}
+            style={{ background: '#00ff87', animation: 'pulse 1s ease-in-out infinite' }}
           />
           Analyzing your form in real time…
         </div>
@@ -202,8 +202,8 @@ export default function FormFeedback({ feedback, isStreaming, exercise, poseData
         <div
           className="mt-10 p-5 rounded-2xl text-center"
           style={{
-            background: 'rgba(232,255,71,0.04)',
-            border: '1px solid rgba(232,255,71,0.12)',
+            background: 'rgba(0,255,135,0.04)',
+            border: '1px solid rgba(0,255,135,0.12)',
           }}
         >
           <p className="text-zinc-400 text-sm mb-4">

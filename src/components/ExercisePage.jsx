@@ -12,7 +12,7 @@ const DIFFICULTY_COLOR = {
 const mdComponents = {
   h2: ({ children }) => (
     <h2 className="text-base sm:text-lg font-bold mt-8 mb-3 pb-2 border-b border-zinc-800"
-      style={{ color: '#e8ff47' }}>
+      style={{ color: '#00ff87' }}>
       {children}
     </h2>
   ),
@@ -26,7 +26,7 @@ const mdComponents = {
   ol: ({ children }) => <ol className="space-y-2 mb-4 list-none pl-0 counter-reset-item">{children}</ol>,
   li: ({ children }) => (
     <li className="flex items-start gap-2.5 text-sm text-zinc-300">
-      <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#e8ff47' }} />
+      <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#00ff87' }} />
       <span>{children}</span>
     </li>
   ),
@@ -35,7 +35,7 @@ const mdComponents = {
   blockquote: ({ children }) => (
     <blockquote
       className="border-l-2 pl-4 my-3 text-sm font-medium"
-      style={{ borderColor: '#e8ff47', color: '#e8ff47' }}
+      style={{ borderColor: '#00ff87', color: '#00ff87' }}
     >
       {children}
     </blockquote>
@@ -129,7 +129,7 @@ export default function ExercisePage({ exercise, onBack }) {
                   <span
                     key={m}
                     className="text-xs font-medium px-2.5 py-1 rounded-full"
-                    style={{ background: 'rgba(232,255,71,0.08)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
+                    style={{ background: 'rgba(0,255,135,0.08)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
                   >
                     {m}
                   </span>
@@ -173,9 +173,9 @@ export default function ExercisePage({ exercise, onBack }) {
             {loading && (
               <div
                 className="mb-4 px-4 py-2.5 rounded-lg text-xs font-medium flex items-center gap-2"
-                style={{ background: 'rgba(232,255,71,0.06)', border: '1px solid rgba(232,255,71,0.15)', color: '#e8ff47' }}
+                style={{ background: 'rgba(0,255,135,0.06)', border: '1px solid rgba(0,255,135,0.15)', color: '#00ff87' }}
               >
-                <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#e8ff47', animation: 'pulse 1s ease-in-out infinite' }} />
+                <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#00ff87', animation: 'pulse 1s ease-in-out infinite' }} />
                 Generating expert guide…
               </div>
             )}

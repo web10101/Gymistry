@@ -61,12 +61,12 @@ function drawSkeleton(ctx, joints, W, H, { lineColor, nodeColor, criticals = [],
     const isCrit = criticals.includes(k);
     const isErr  = errors.includes(k);
     const r      = (isCrit || isErr) ? 5 : 3.5;
-    const color  = isErr ? '#ef4444' : isCrit ? '#e8ff47' : nodeColor;
+    const color  = isErr ? '#ef4444' : isCrit ? '#00ff87' : nodeColor;
 
     if (isCrit || isErr) {
       ctx.beginPath();
       ctx.arc(x, y, r * 2.8 * glowScale, 0, Math.PI * 2);
-      ctx.fillStyle = isErr ? 'rgba(239,68,68,0.22)' : 'rgba(232,255,71,0.22)';
+      ctx.fillStyle = isErr ? 'rgba(239,68,68,0.22)' : 'rgba(0,255,135,0.22)';
       ctx.fill();
     }
 
@@ -193,7 +193,7 @@ function Section({ label, children }) {
     <div className="mb-7">
       <p
         className="text-xs font-bold uppercase tracking-widest mb-3"
-        style={{ color: '#e8ff47' }}
+        style={{ color: '#00ff87' }}
       >
         {label}
       </p>
@@ -343,7 +343,7 @@ export default function ExerciseDetail({ exercise, onBack }) {
                     <li key={i} className="flex gap-3 text-sm text-zinc-300">
                       <span
                         className="font-bold tabular-nums flex-shrink-0 w-5 text-right"
-                        style={{ color: '#e8ff47' }}
+                        style={{ color: '#00ff87' }}
                       >
                         {i + 1}.
                       </span>
@@ -362,7 +362,7 @@ export default function ExerciseDetail({ exercise, onBack }) {
                     <div
                       key={i}
                       className="flex items-start gap-2 text-sm font-semibold"
-                      style={{ color: '#e8ff47' }}
+                      style={{ color: '#00ff87' }}
                     >
                       <span className="opacity-50 mt-0.5">›</span>
                       <span>{cue}</span>

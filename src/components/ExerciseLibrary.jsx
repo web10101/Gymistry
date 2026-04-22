@@ -23,11 +23,11 @@ function ExerciseCard({ exercise, onClick }) {
   return (
     <button
       onClick={() => onClick(exercise)}
-      className="group card-glass rounded-2xl p-5 text-left hover:border-lime-400/30 transition-all duration-200 hover:-translate-y-0.5 w-full"
+      className="group card-glass rounded-2xl p-5 text-left hover:border-[#00ff87]/30 transition-all duration-200 hover:-translate-y-0.5 w-full"
     >
       <div className="flex items-start justify-between gap-2 mb-3">
         <div>
-          <h3 className="text-sm font-bold text-white group-hover:text-lime-400 transition-colors leading-tight">
+          <h3 className="text-sm font-bold text-white group-hover:text-[#00ff87] transition-colors leading-tight">
             {exercise.name}
           </h3>
           <p className="text-xs text-zinc-500 mt-0.5">{exercise.muscles.primary.join(' · ')}</p>
@@ -98,7 +98,7 @@ export default function ExerciseLibrary({ onSelect, onBack }) {
         </div>
         <span
           className="text-xs font-bold px-2.5 py-1 rounded-full"
-          style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
+          style={{ background: 'rgba(0,255,135,0.1)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
         >
           {EXERCISES.length} exercises
         </span>
@@ -113,7 +113,7 @@ export default function ExerciseLibrary({ onSelect, onBack }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search exercises, muscles, equipment…"
-            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-lime-400/50 transition-colors"
+            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[#00ff87]/50 transition-colors"
           />
           {search && (
             <button
@@ -134,7 +134,7 @@ export default function ExerciseLibrary({ onSelect, onBack }) {
               className="flex-shrink-0 text-xs font-semibold px-3.5 py-2 rounded-full transition-all"
               style={
                 activeCategory === cat
-                  ? { background: 'linear-gradient(135deg, #e8ff47, #b8f400)', color: '#0a0a0a' }
+                  ? { background: 'linear-gradient(135deg, #00ff87, #00cc6a)', color: '#0a0a0a' }
                   : { background: 'rgba(255,255,255,0.05)', color: '#71717a', border: '1px solid rgba(255,255,255,0.08)' }
               }
             >
@@ -164,7 +164,7 @@ export default function ExerciseLibrary({ onSelect, onBack }) {
             <p className="text-zinc-400 text-sm">No exercises found for "{search}"</p>
             <button
               onClick={() => { setSearch(''); setActiveCategory('All'); }}
-              className="mt-4 text-xs text-lime-400 hover:text-lime-300 underline"
+              className="mt-4 text-xs text-[#00ff87] hover:text-lime-300 underline"
             >
               Clear filters
             </button>

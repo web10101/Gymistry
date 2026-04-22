@@ -36,8 +36,8 @@ function UploadZone({ onFile }) {
       onDrop={onDrop}
       className="relative rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-4 p-10 text-center"
       style={{
-        borderColor: dragging ? '#e8ff47' : 'rgba(255,255,255,0.12)',
-        background: dragging ? 'rgba(232,255,71,0.04)' : 'rgba(255,255,255,0.02)',
+        borderColor: dragging ? '#00ff87' : 'rgba(255,255,255,0.12)',
+        background: dragging ? 'rgba(0,255,135,0.04)' : 'rgba(255,255,255,0.02)',
         minHeight: 200,
       }}
     >
@@ -57,7 +57,7 @@ function UploadZone({ onFile }) {
       </div>
       <div
         className="text-xs font-semibold px-4 py-2 rounded-lg"
-        style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
+        style={{ background: 'rgba(0,255,135,0.1)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
       >
         Choose File
       </div>
@@ -111,7 +111,7 @@ function ProcessingScreen({ stage, progress }) {
         </div>
         <div
           className="absolute inset-0 rounded-full border-2 border-transparent"
-          style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }}
+          style={{ borderTopColor: '#00ff87', animation: 'spin 1s linear infinite' }}
         />
       </div>
 
@@ -136,7 +136,7 @@ function ProcessingScreen({ stage, progress }) {
               className="h-full rounded-full transition-all duration-300"
               style={{
                 width: `${progress.pct ?? 0}%`,
-                background: 'linear-gradient(90deg, #b8f400, #e8ff47)',
+                background: 'linear-gradient(90deg, #00cc6a, #00ff87)',
               }}
             />
           </div>
@@ -151,7 +151,7 @@ function ProcessingScreen({ stage, progress }) {
               key={i}
               className="w-2 h-2 rounded-full"
               style={{
-                background: '#e8ff47',
+                background: '#00ff87',
                 animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
               }}
             />
@@ -240,7 +240,7 @@ export default function FormCheck({ onBack }) {
           <button
             onClick={handleReset}
             className="text-xs font-bold px-4 py-2 rounded-lg transition-all"
-            style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
+            style={{ background: 'rgba(0,255,135,0.1)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
           >
             New Analysis
           </button>
@@ -299,7 +299,7 @@ export default function FormCheck({ onBack }) {
                 <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">Exercise</p>
                 <div
                   className="flex items-center justify-between rounded-xl px-4 py-3"
-                  style={{ background: 'rgba(232,255,71,0.06)', border: '1px solid rgba(232,255,71,0.15)' }}
+                  style={{ background: 'rgba(0,255,135,0.06)', border: '1px solid rgba(0,255,135,0.15)' }}
                 >
                   <span className="text-sm font-semibold text-white">{exercise}</span>
                   <button
@@ -327,10 +327,10 @@ export default function FormCheck({ onBack }) {
               Tips for best results
             </p>
             <ul className="space-y-1.5 text-zinc-500 text-xs">
-              <li className="flex gap-2"><span className="text-lime-400">→</span> Film from the side or slight angle so joints are visible</li>
-              <li className="flex gap-2"><span className="text-lime-400">→</span> Full body in frame — head to feet</li>
-              <li className="flex gap-2"><span className="text-lime-400">→</span> 5–30 seconds is ideal (1–3 reps)</li>
-              <li className="flex gap-2"><span className="text-lime-400">→</span> Good lighting helps accuracy</li>
+              <li className="flex gap-2"><span className="text-[#00ff87]">→</span> Film from the side or slight angle so joints are visible</li>
+              <li className="flex gap-2"><span className="text-[#00ff87]">→</span> Full body in frame — head to feet</li>
+              <li className="flex gap-2"><span className="text-[#00ff87]">→</span> 5–30 seconds is ideal (1–3 reps)</li>
+              <li className="flex gap-2"><span className="text-[#00ff87]">→</span> Good lighting helps accuracy</li>
             </ul>
           </div>
 

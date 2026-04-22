@@ -32,7 +32,7 @@ function getEquipment(name) {
 
 const DIFF_STYLE = {
   Beginner:     { background: 'rgba(74,222,128,0.12)',  color: '#4ade80', border: '1px solid rgba(74,222,128,0.25)' },
-  Intermediate: { background: 'rgba(232,255,71,0.10)',  color: '#e8ff47', border: '1px solid rgba(232,255,71,0.25)' },
+  Intermediate: { background: 'rgba(0,255,135,0.10)',  color: '#00ff87', border: '1px solid rgba(0,255,135,0.25)' },
   Advanced:     { background: 'rgba(251,146,60,0.12)',  color: '#fb923c', border: '1px solid rgba(251,146,60,0.25)' },
   Elite:        { background: 'rgba(239,68,68,0.12)',   color: '#f87171', border: '1px solid rgba(239,68,68,0.25)' },
 };
@@ -110,7 +110,7 @@ export default function ExerciseSelector({ mode, onSelect }) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search exercises…"
-          className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-lime-400/50 transition-colors"
+          className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[#00ff87]/50 transition-colors"
         />
         {search && (
           <button
@@ -128,7 +128,7 @@ export default function ExerciseSelector({ mode, onSelect }) {
             onClick={() => setSelectedGroup(g)}
             className="flex-shrink-0 text-xs px-3 py-1.5 rounded-full font-medium transition-all"
             style={selectedGroup === g
-              ? { background: 'rgba(232,255,71,0.14)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.35)' }
+              ? { background: 'rgba(0,255,135,0.14)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.35)' }
               : { background: 'rgba(255,255,255,0.04)', color: '#a1a1aa', border: '1px solid rgba(255,255,255,0.08)' }}
           >
             {g}
@@ -148,7 +148,7 @@ export default function ExerciseSelector({ mode, onSelect }) {
           <span>
             Equipment
             {selectedEquip.length > 0 && (
-              <span style={{ color: '#e8ff47' }}> · {selectedEquip.length} selected</span>
+              <span style={{ color: '#00ff87' }}> · {selectedEquip.length} selected</span>
             )}
           </span>
           <span className="text-zinc-600 text-base leading-none">{equipOpen ? '−' : '+'}</span>
@@ -161,13 +161,13 @@ export default function ExerciseSelector({ mode, onSelect }) {
                 onClick={() => toggleEquip(eq)}
                 className="flex items-center gap-2 text-xs py-2 px-3 rounded-lg text-left transition-all"
                 style={selectedEquip.includes(eq)
-                  ? { background: 'rgba(232,255,71,0.14)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.35)' }
+                  ? { background: 'rgba(0,255,135,0.14)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.35)' }
                   : { background: 'rgba(255,255,255,0.04)', color: '#a1a1aa', border: '1px solid rgba(255,255,255,0.07)' }}
               >
                 <span
                   className="w-4 h-4 rounded flex-shrink-0 flex items-center justify-center text-[9px] font-bold"
                   style={selectedEquip.includes(eq)
-                    ? { background: '#e8ff47', color: '#0a0a0a' }
+                    ? { background: '#00ff87', color: '#0a0a0a' }
                     : { border: '1px solid rgba(255,255,255,0.15)', color: 'transparent' }}
                 >✓</span>
                 {eq}
@@ -193,11 +193,11 @@ export default function ExerciseSelector({ mode, onSelect }) {
                 onClick={() => handleSelect(ex)}
                 className="group text-left rounded-xl p-3 transition-all hover:-translate-y-0.5"
                 style={{
-                  background: isLast ? 'rgba(232,255,71,0.06)' : 'rgba(255,255,255,0.03)',
-                  border: isLast ? '1px solid rgba(232,255,71,0.2)' : '1px solid rgba(255,255,255,0.07)',
+                  background: isLast ? 'rgba(0,255,135,0.06)' : 'rgba(255,255,255,0.03)',
+                  border: isLast ? '1px solid rgba(0,255,135,0.2)' : '1px solid rgba(255,255,255,0.07)',
                 }}
               >
-                <p className="text-xs font-semibold text-white leading-snug group-hover:text-lime-400 transition-colors mb-2">
+                <p className="text-xs font-semibold text-white leading-snug group-hover:text-[#00ff87] transition-colors mb-2">
                   {ex.name}
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -218,7 +218,7 @@ export default function ExerciseSelector({ mode, onSelect }) {
       ) : (
         <div className="text-center py-12">
           <p className="text-zinc-400 text-sm">No exercises found</p>
-          <button onClick={clearAll} className="mt-3 text-xs underline" style={{ color: '#e8ff47' }}>
+          <button onClick={clearAll} className="mt-3 text-xs underline" style={{ color: '#00ff87' }}>
             Clear filters
           </button>
         </div>

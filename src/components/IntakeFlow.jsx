@@ -106,13 +106,13 @@ export default function IntakeFlow({ onBack }) {
         <div className="flex items-center gap-2.5">
           <div
             className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-black text-zinc-900"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+            style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}
           >
             G
           </div>
           <button
             onClick={onBack}
-            className="font-bold text-white tracking-tight text-sm hover:text-lime-400 transition-colors"
+            className="font-bold text-white tracking-tight text-sm hover:text-[#00ff87] transition-colors"
           >
             Gymistry
           </button>

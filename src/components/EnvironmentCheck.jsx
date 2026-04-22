@@ -163,7 +163,7 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
     for (const [si, ei] of SKELETON_PAIRS) {
       const s = landmarks[si], e = landmarks[ei];
       if (!s || !e || (s.visibility ?? 1) < 0.4 || (e.visibility ?? 1) < 0.4) continue;
-      ctx.strokeStyle = 'rgba(232,255,71,0.5)';
+      ctx.strokeStyle = 'rgba(0,255,135,0.5)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(s.x * w, s.y * h);
@@ -176,7 +176,7 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
       const conf = lm.visibility ?? 1;
       ctx.beginPath();
       ctx.arc(lm.x * w, lm.y * h, 5, 0, 2 * Math.PI);
-      ctx.fillStyle = conf > 0.7 ? '#e8ff47' : '#f59e0b';
+      ctx.fillStyle = conf > 0.7 ? '#00ff87' : '#f59e0b';
       ctx.fill();
     }
   }, []);
@@ -324,7 +324,7 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
       <div className="relative flex-1 bg-black min-h-[40vh] lg:min-h-0">
         {cameraStatus === 'loading' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-            <div className="w-10 h-10 rounded-full border-2 border-transparent" style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }} />
+            <div className="w-10 h-10 rounded-full border-2 border-transparent" style={{ borderTopColor: '#00ff87', animation: 'spin 1s linear infinite' }} />
             <p className="text-zinc-500 text-sm">Starting camera…</p>
           </div>
         )}
@@ -358,13 +358,13 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
         <div>
           <div className="flex justify-between text-xs mb-1.5">
             <span className="text-zinc-500">Checks passing</span>
-            <span className="font-bold" style={{ color: allPass ? '#4ade80' : '#e8ff47' }}>{passCount}/{checks.length}</span>
+            <span className="font-bold" style={{ color: allPass ? '#4ade80' : '#00ff87' }}>{passCount}/{checks.length}</span>
           </div>
           <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${(passCount / checks.length) * 100}%`,
-                background: allPass ? 'linear-gradient(90deg, #4ade80, #22c55e)' : 'linear-gradient(90deg, #b8f400, #e8ff47)',
+                background: allPass ? 'linear-gradient(90deg, #4ade80, #22c55e)' : 'linear-gradient(90deg, #00cc6a, #00ff87)',
               }} />
           </div>
         </div>
