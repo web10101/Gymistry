@@ -202,6 +202,38 @@ function Section({ label, children }) {
   );
 }
 
+// ── YouTube video embed ───────────────────────────────────────────────────────
+
+function VideoSkeleton() {
+  return (
+    <div
+      className="w-full rounded-xl mb-8 animate-pulse"
+      style={{
+        aspectRatio: '16/9',
+        background: 'rgba(24,24,27,0.9)',
+        border: '1px solid rgba(39,39,42,0.8)',
+      }}
+    />
+  );
+}
+
+function YouTubeEmbed({ videoId }) {
+  return (
+    <div
+      className="w-full rounded-xl overflow-hidden mb-8"
+      style={{ aspectRatio: '16/9', border: '1px solid rgba(39,39,42,0.8)' }}
+    >
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+        title="Exercise tutorial"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+      />
+    </div>
+  );
+}
+
 // ── Loading skeleton ──────────────────────────────────────────────────────────
 
 function LoadingState() {
@@ -230,9 +262,11 @@ function LoadingState() {
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function ExerciseDetail({ exercise, onBack }) {
-  const [data,    setData]    = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error,   setError]   = useState(null);
+  const [data,         setData]         = useState(null);
+  const [loading,      setLoading]      = useState(true);
+  const [error,        setError]        = useState(null);
+  const [videoId,      setVideoId]      = useState(null);
+  const [videoLoading, setVideoLoading] = useState(true);
 
   useEffect(() => {
     setData(null);
@@ -242,6 +276,21 @@ export default function ExerciseDetail({ exercise, onBack }) {
     getExerciseInfo(exercise)
       .then((d) => { setData(d); setLoading(false); })
       .catch((e) => { setError(e.message); setLoading(false); });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [exercise.id]);
+
+  useEffect(() => {
+    setVideoId(null);
+    setVideoLoading(true);
+
+    fetch('/api/youtube-search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ exerciseName: exercise.name }),
+    })
+      .then((res) => res.json())
+      .then((d) => { setVideoId(d.videoId || null); setVideoLoading(false); })
+      .catch(() => { setVideoLoading(false); });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise.id]);
 
@@ -261,6 +310,10 @@ export default function ExerciseDetail({ exercise, onBack }) {
       </header>
 
       <main className="flex-1 max-w-2xl mx-auto w-full px-5 py-8">
+        {/* YouTube tutorial video */}
+        {videoLoading && <VideoSkeleton />}
+        {!videoLoading && videoId && <YouTubeEmbed videoId={videoId} />}
+
         {/* Title */}
         <div className="mb-8">
           <p className="text-xs text-zinc-600 uppercase tracking-widest mb-2">
