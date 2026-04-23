@@ -16,13 +16,10 @@ function analyzeLighting(canvas) {
     const ctx = canvas.getContext('2d');
     const { width: w, height: h } = canvas;
 
-    // Center region — body area
     const cx = Math.round(w * 0.2), cy = Math.round(h * 0.05);
     const cw = Math.round(w * 0.6), ch = Math.round(h * 0.9);
     const centerPx = ctx.getImageData(cx, cy, cw, ch).data;
-
-    // Background region — top & side strips
-    const topPx = ctx.getImageData(0, 0, w, Math.round(h * 0.12)).data;
+    const topPx    = ctx.getImageData(0, 0, w, Math.round(h * 0.12)).data;
 
     const brightness = (px) => {
       let s = 0, n = 0;
@@ -34,16 +31,21 @@ function analyzeLighting(canvas) {
     };
 
     const centerBright = brightness(centerPx);
-    const bgBright = brightness(topPx);
+    const bgBright     = brightness(topPx);
+
+    // Hard block only if genuinely pitch dark (< 30) or extreme silhouette
+    const extremeBacklight = bgBright > centerBright + 100 && bgBright > 185 && centerBright < 55;
+    const mildBacklight    = !extremeBacklight && bgBright > centerBright + 65 && bgBright > 130;
 
     return {
       centerBright,
-      tooDark:    centerBright < 55,
-      tooHot:     centerBright > 230,
-      backlight:  bgBright > centerBright + 55 && bgBright > 120,
+      tooDark:          centerBright < 30,
+      dimLight:         centerBright >= 30 && centerBright < 55,
+      extremeBacklight,
+      mildBacklight,
     };
   } catch {
-    return { centerBright: 128, tooDark: false, tooHot: false, backlight: false };
+    return { centerBright: 128, tooDark: false, dimLight: false, extremeBacklight: false, mildBacklight: false };
   }
 }
 
@@ -53,69 +55,71 @@ function runPoseChecks(landmarks) {
   if (!landmarks) return null;
 
   const lm = landmarks;
-  const visible = (idx, thresh = 0.5) => lm[idx] && (lm[idx].visibility ?? 1) >= thresh;
+  const visible = (idx, thresh = 0.4) => lm[idx] && (lm[idx].visibility ?? 1) >= thresh;
 
-  // 1. Pose detection quality — count visible key joints
-  const visibleCount = KEY_JOINTS.filter((i) => visible(i, 0.5)).length;
-  const poseDetected = visibleCount >= 5;
+  // Require 4 out of 8 key joints (was 5, lower threshold)
+  const visibleCount = KEY_JOINTS.filter((i) => visible(i, 0.4)).length;
+  const poseDetected = visibleCount >= 4;
 
-  // 2. Full body in frame — check nothing cut at edges
-  const MARGIN = 0.06;
+  // Generous margins — only flag if really cut off
+  const MARGIN = 0.03;
   let cutPart = null;
-  if (visible(LM.NOSE) && lm[LM.NOSE].y < MARGIN)        cutPart = 'head';
-  if (visible(LM.L_ANKLE) && lm[LM.L_ANKLE].y > 1 - MARGIN) cutPart = 'feet';
-  if (visible(LM.R_ANKLE) && lm[LM.R_ANKLE].y > 1 - MARGIN) cutPart = 'feet';
-  if (visible(LM.L_SHOULDER) && lm[LM.L_SHOULDER].x < MARGIN) cutPart = 'left side';
-  if (visible(LM.R_SHOULDER) && lm[LM.R_SHOULDER].x > 1 - MARGIN) cutPart = 'right side';
+  if (visible(LM.NOSE)        && lm[LM.NOSE].y        < MARGIN)       cutPart = 'head';
+  if (visible(LM.L_ANKLE)     && lm[LM.L_ANKLE].y     > 1 - MARGIN)  cutPart = 'feet';
+  if (visible(LM.R_ANKLE)     && lm[LM.R_ANKLE].y     > 1 - MARGIN)  cutPart = 'feet';
+  if (visible(LM.L_SHOULDER)  && lm[LM.L_SHOULDER].x  < MARGIN)       cutPart = 'left side';
+  if (visible(LM.R_SHOULDER)  && lm[LM.R_SHOULDER].x  > 1 - MARGIN)  cutPart = 'right side';
   const fullBody = poseDetected && !cutPart;
 
-  // 3. Body centered — midpoint of hips x: 0.25 to 0.75
+  // Wide acceptable centering zone — 0.12–0.88 (was 0.25–0.75)
   let centered = false, centerDir = '';
   if (visible(LM.L_HIP) && visible(LM.R_HIP)) {
     const midX = (lm[LM.L_HIP].x + lm[LM.R_HIP].x) / 2;
-    centered = midX > 0.25 && midX < 0.75;
-    centerDir = midX <= 0.25 ? 'right' : midX >= 0.75 ? 'left' : '';
+    centered   = midX > 0.12 && midX < 0.88;
+    centerDir  = midX <= 0.12 ? 'right' : midX >= 0.88 ? 'left' : '';
   }
 
-  // 4. Distance — body height fraction in frame: 0.5 to 0.90
+  // Wide distance range — body height 0.20–0.97 (was 0.45–0.92)
   let distance = 'ok', distMsg = '';
   if (visible(LM.NOSE) && (visible(LM.L_ANKLE) || visible(LM.R_ANKLE))) {
-    const topY = lm[LM.NOSE].y;
-    const botY = Math.max(
+    const topY  = lm[LM.NOSE].y;
+    const botY  = Math.max(
       visible(LM.L_ANKLE) ? lm[LM.L_ANKLE].y : 0,
-      visible(LM.R_ANKLE) ? lm[LM.R_ANKLE].y : 0
+      visible(LM.R_ANKLE) ? lm[LM.R_ANKLE].y : 0,
     );
     const bodyH = botY - topY;
-    if (bodyH < 0.45) { distance = 'far';  distMsg = 'Step closer to the camera'; }
-    if (bodyH > 0.92) { distance = 'close'; distMsg = 'Step back — you\'re too close'; }
+    if (bodyH < 0.20) { distance = 'far';   distMsg = 'Step a bit closer'; }
+    if (bodyH > 0.97) { distance = 'close'; distMsg = 'Step back a little'; }
   }
 
-  return {
-    poseDetected, visibleCount,
-    fullBody, cutPart,
-    centered, centerDir,
-    distance, distMsg,
-  };
+  return { poseDetected, visibleCount, fullBody, cutPart, centered, centerDir, distance, distMsg };
 }
 
-// ─── Check item component ──────────────────────────────────────────────────────
+// ─── Check item component — 3 states: pass / warn / fail ─────────────────────
 
-function CheckItem({ pass, label, message }) {
+function CheckItem({ status, label, message }) {
+  const isPass = status === 'pass';
+  const isWarn = status === 'warn';
+
   return (
     <div className="flex items-start gap-3">
       <div
         className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold transition-all duration-300"
         style={
-          pass
-            ? { background: 'rgba(74,222,128,0.2)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.4)' }
-            : { background: 'rgba(239,68,68,0.15)', color: '#f87171', border: '1px solid rgba(239,68,68,0.3)' }
+          isPass
+            ? { background: 'rgba(74,222,128,0.2)',   color: '#4ade80', border: '1px solid rgba(74,222,128,0.4)' }
+            : isWarn
+            ? { background: 'rgba(251,191,36,0.15)',  color: '#fbbf24', border: '1px solid rgba(251,191,36,0.35)' }
+            : { background: 'rgba(239,68,68,0.15)',   color: '#f87171', border: '1px solid rgba(239,68,68,0.3)' }
         }
       >
-        {pass ? '✓' : '✕'}
+        {isPass ? '✓' : isWarn ? '!' : '✕'}
       </div>
       <div className="flex-1 min-w-0">
-        <p className={`text-sm font-medium ${pass ? 'text-zinc-300' : 'text-white'}`}>{label}</p>
-        {!pass && message && <p className="text-xs text-red-400 mt-0.5">{message}</p>}
+        <p className={`text-sm font-medium ${isPass ? 'text-zinc-400' : 'text-white'}`}>{label}</p>
+        {!isPass && message && (
+          <p className={`text-xs mt-0.5 ${isWarn ? 'text-yellow-400/80' : 'text-red-400'}`}>{message}</p>
+        )}
       </div>
     </div>
   );
@@ -126,20 +130,18 @@ function CheckItem({ pass, label, message }) {
 export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
   const videoRef    = useRef(null);
   const canvasRef   = useRef(null);
-  const analysisRef = useRef(null); // off-screen canvas for lighting
+  const analysisRef = useRef(null);
   const poseRef     = useRef(null);
   const streamRef   = useRef(null);
   const rafRef      = useRef(null);
   const busyRef     = useRef(false);
   const frameRef    = useRef(0);
 
-  const [cameraStatus, setCameraStatus] = useState('loading'); // loading | active | error
+  const [cameraStatus, setCameraStatus] = useState('loading');
   const [errorMsg, setErrorMsg]         = useState('');
-
   const [poseChecks, setPoseChecks]     = useState(null);
   const [lightChecks, setLightChecks]   = useState(null);
 
-  // Load MediaPipe (reuse same CDN loading pattern)
   const ensurePose = async () => {
     if (window.Pose) return;
     await new Promise((res, rej) => {
@@ -162,7 +164,7 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
 
     for (const [si, ei] of SKELETON_PAIRS) {
       const s = landmarks[si], e = landmarks[ei];
-      if (!s || !e || (s.visibility ?? 1) < 0.4 || (e.visibility ?? 1) < 0.4) continue;
+      if (!s || !e || (s.visibility ?? 1) < 0.3 || (e.visibility ?? 1) < 0.3) continue;
       ctx.strokeStyle = 'rgba(0,255,135,0.5)';
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -172,11 +174,10 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
     }
     for (const idx of KEY_JOINTS) {
       const lm = landmarks[idx];
-      if (!lm || (lm.visibility ?? 1) < 0.4) continue;
-      const conf = lm.visibility ?? 1;
+      if (!lm || (lm.visibility ?? 1) < 0.3) continue;
       ctx.beginPath();
       ctx.arc(lm.x * w, lm.y * h, 5, 0, 2 * Math.PI);
-      ctx.fillStyle = conf > 0.7 ? '#00ff87' : '#f59e0b';
+      ctx.fillStyle = (lm.visibility ?? 1) > 0.6 ? '#00ff87' : '#f59e0b';
       ctx.fill();
     }
   }, []);
@@ -185,9 +186,8 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
     busyRef.current = false;
     const lm = results.poseLandmarks || null;
 
-    // Lighting check using the off-screen analysis canvas
     if (analysisRef.current && videoRef.current) {
-      const ac = analysisRef.current;
+      const ac  = analysisRef.current;
       const ctx = ac.getContext('2d');
       ctx.drawImage(videoRef.current, 0, 0, ac.width, ac.height);
       setLightChecks(analyzeLighting(ac));
@@ -197,7 +197,6 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
       drawSkeleton(lm);
       setPoseChecks(runPoseChecks(lm));
     } else {
-      // Clear skeleton if no landmarks
       const ctx = canvasRef.current?.getContext('2d');
       if (ctx) ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       setPoseChecks(null);
@@ -225,13 +224,11 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
         video.playsInline = true;
         await video.play();
 
-        // Size overlay canvas
         video.addEventListener('loadedmetadata', () => {
           if (canvasRef.current) {
             canvasRef.current.width  = video.videoWidth;
             canvasRef.current.height = video.videoHeight;
           }
-          // Small off-screen canvas for lighting (lower res is fine)
           const ac = document.createElement('canvas');
           ac.width = 160; ac.height = 90;
           analysisRef.current = ac;
@@ -240,7 +237,7 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
         const pose = new window.Pose({
           locateFile: (f) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${f}`,
         });
-        pose.setOptions({ modelComplexity: 1, smoothLandmarks: true, enableSegmentation: false, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
+        pose.setOptions({ modelComplexity: 1, smoothLandmarks: true, enableSegmentation: false, minDetectionConfidence: 0.4, minTrackingConfidence: 0.4 });
         pose.onResults(onResults);
         poseRef.current = pose;
 
@@ -261,66 +258,108 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
 
     return () => {
       mounted = false;
-      if (rafRef.current)   cancelAnimationFrame(rafRef.current);
+      if (rafRef.current)    cancelAnimationFrame(rafRef.current);
       if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
       if (poseRef.current)   poseRef.current.close();
     };
   }, [onResults]);
 
   // ── Derive checklist ────────────────────────────────────────────────────────
+  // status: 'pass' | 'warn' | 'fail'
+  // blocking: only fail+blocking prevents start
   const checks = [
     {
       id: 'pose',
       label: 'Body detected',
-      pass: poseChecks?.poseDetected ?? false,
+      status: !poseChecks
+        ? 'fail'
+        : poseChecks.poseDetected ? 'pass' : 'fail',
       message: 'Stand fully in frame — can\'t detect your body yet',
+      blocking: true,
     },
     {
       id: 'fullbody',
       label: 'Full body in frame',
-      pass: poseChecks?.fullBody ?? false,
+      status: !poseChecks
+        ? 'warn'
+        : poseChecks.fullBody ? 'pass' : 'warn',
       message: poseChecks?.cutPart
-        ? `Your ${poseChecks.cutPart} is cut off — step back or adjust the camera`
-        : 'Ensure head to feet are visible',
+        ? `Your ${poseChecks.cutPart} is slightly cut off`
+        : 'Try to keep head to feet visible',
+      blocking: false,
     },
     {
       id: 'centered',
       label: 'Body centered',
-      pass: poseChecks?.centered ?? false,
+      status: !poseChecks
+        ? 'warn'
+        : poseChecks.centered ? 'pass' : 'warn',
       message: poseChecks?.centerDir
-        ? `Move to the ${poseChecks.centerDir} to center yourself`
-        : 'Position yourself in the center of the frame',
+        ? `Move a bit to the ${poseChecks.centerDir}`
+        : 'Position yourself in the frame',
+      blocking: false,
     },
     {
       id: 'distance',
       label: 'Correct distance',
-      pass: poseChecks?.distance === 'ok',
+      status: !poseChecks
+        ? 'warn'
+        : poseChecks.distance === 'ok' ? 'pass' : 'warn',
       message: poseChecks?.distMsg || 'Adjust your distance from the camera',
+      blocking: false,
     },
     {
       id: 'lighting',
       label: 'Good lighting',
-      pass: lightChecks ? !lightChecks.tooDark && !lightChecks.tooHot : false,
+      status: !lightChecks
+        ? 'warn'
+        : lightChecks.tooDark  ? 'fail'
+        : lightChecks.dimLight ? 'warn'
+        : 'pass',
       message: lightChecks?.tooDark
-        ? 'Too dark — turn on lights or open blinds in front of you'
-        : lightChecks?.tooHot
-        ? 'Overexposed — dim harsh lights or move away from direct sunlight'
-        : 'Check your lighting',
+        ? 'Too dark — turn on a light in front of you'
+        : lightChecks?.dimLight
+        ? 'Lighting is dim — brighter will improve tracking'
+        : '',
+      blocking: !!lightChecks?.tooDark,
     },
     {
       id: 'backlight',
       label: 'No backlight',
-      pass: lightChecks ? !lightChecks.backlight : true,
-      message: 'Bright source behind you — close the blinds or move so light is in front',
+      status: !lightChecks
+        ? 'pass'
+        : lightChecks.extremeBacklight ? 'fail'
+        : lightChecks.mildBacklight    ? 'warn'
+        : 'pass',
+      message: lightChecks?.extremeBacklight
+        ? 'Extreme backlight — close blinds or face a light source'
+        : lightChecks?.mildBacklight
+        ? 'Some backlight behind you — facing a light works better'
+        : '',
+      blocking: !!lightChecks?.extremeBacklight,
     },
   ];
 
-  const allPass = checks.every(c => c.pass) && cameraStatus === 'active';
-  const passCount = checks.filter(c => c.pass).length;
+  // Hard block only on genuinely critical failures — everything else is a warning
+  const hardBlocked  = checks.some(c => c.blocking && c.status === 'fail');
+  const readyToStart = !hardBlocked && cameraStatus === 'active';
+
+  const passCount = checks.filter(c => c.status === 'pass').length;
+  const warnCount = checks.filter(c => c.status === 'warn').length;
+  const failCount = checks.filter(c => c.status === 'fail').length;
+
+  // Progress: pass = full point, warn = half point
+  const progressPct = ((passCount + warnCount * 0.5) / checks.length) * 100;
+
+  const btnLabel = failCount === 0
+    ? 'Ready — Start Session ✓'
+    : hardBlocked
+    ? `Fix ${failCount} issue${failCount !== 1 ? 's' : ''} to continue`
+    : `Start Session (${warnCount} tip${warnCount !== 1 ? 's' : ''})`;
 
   return (
     <div className="flex-1 flex flex-col lg:flex-row gap-0 overflow-hidden">
-      {/* Camera preview — left / top */}
+      {/* Camera preview */}
       <div className="relative flex-1 bg-black min-h-[40vh] lg:min-h-0">
         {cameraStatus === 'loading' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
@@ -338,33 +377,38 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
         <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ transform: 'scaleX(-1)' }} />
 
-        {/* Confidence indicator */}
         {poseChecks && (
           <div className="absolute bottom-3 left-3 text-xs px-2.5 py-1 rounded-full font-medium"
-            style={{ background: 'rgba(10,10,10,0.8)', color: poseChecks.visibleCount >= 6 ? '#4ade80' : '#fbbf24', border: '1px solid rgba(255,255,255,0.1)' }}>
+            style={{ background: 'rgba(10,10,10,0.8)', color: poseChecks.visibleCount >= 5 ? '#4ade80' : '#fbbf24', border: '1px solid rgba(255,255,255,0.1)' }}>
             {poseChecks.visibleCount}/{KEY_JOINTS.length} joints tracked
           </div>
         )}
       </div>
 
-      {/* Checklist panel — right / bottom */}
+      {/* Checklist panel */}
       <div className="w-full lg:w-80 p-5 flex flex-col gap-4 border-t lg:border-t-0 lg:border-l border-zinc-900 bg-zinc-950">
         <div>
           <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-1">Environment Check</p>
-          <h2 className="text-white font-bold text-sm">{exercise} — Position Validation</h2>
+          <h2 className="text-white font-bold text-sm">{exercise} — Camera Setup</h2>
         </div>
 
         {/* Progress */}
         <div>
           <div className="flex justify-between text-xs mb-1.5">
-            <span className="text-zinc-500">Checks passing</span>
-            <span className="font-bold" style={{ color: allPass ? '#4ade80' : '#00ff87' }}>{passCount}/{checks.length}</span>
+            <span className="text-zinc-500">Setup quality</span>
+            <span className="font-bold" style={{ color: hardBlocked ? '#f87171' : readyToStart && warnCount === 0 ? '#4ade80' : '#fbbf24' }}>
+              {passCount}/{checks.length} passing
+            </span>
           </div>
           <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all duration-500"
               style={{
-                width: `${(passCount / checks.length) * 100}%`,
-                background: allPass ? 'linear-gradient(90deg, #4ade80, #22c55e)' : 'linear-gradient(90deg, #00cc6a, #00ff87)',
+                width: `${progressPct}%`,
+                background: hardBlocked
+                  ? 'linear-gradient(90deg, #ef4444, #f87171)'
+                  : warnCount === 0
+                  ? 'linear-gradient(90deg, #4ade80, #22c55e)'
+                  : 'linear-gradient(90deg, #00cc6a, #00ff87)',
               }} />
           </div>
         </div>
@@ -372,22 +416,24 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
         {/* Checks */}
         <div className="space-y-3 flex-1">
           {checks.map((c) => (
-            <CheckItem key={c.id} pass={c.pass} label={c.label} message={c.message} />
+            <CheckItem key={c.id} status={c.status} label={c.label} message={c.message} />
           ))}
         </div>
 
         {/* CTA */}
         <button
           onClick={onPassed}
-          disabled={!allPass}
+          disabled={!readyToStart}
           className="w-full py-3.5 rounded-xl text-sm font-bold tracking-wide transition-all duration-300"
           style={
-            allPass
+            readyToStart && warnCount === 0
               ? { background: 'linear-gradient(135deg, #4ade80, #22c55e)', color: '#0a0a0a' }
+              : readyToStart
+              ? { background: 'linear-gradient(135deg, #00ff87, #00cc6a)', color: '#0a0a0a' }
               : { background: 'rgba(255,255,255,0.05)', color: '#52525b', cursor: 'not-allowed' }
           }
         >
-          {allPass ? 'Ready — Start Session ✓' : `Fix ${checks.length - passCount} check${checks.length - passCount !== 1 ? 's' : ''} to continue`}
+          {btnLabel}
         </button>
 
         <button onClick={onBack} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors text-center">
