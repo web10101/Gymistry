@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { LIVE_EXERCISES, CAMERA_GUIDES } from '../data/exerciseGuides';
+import { CAMERA_GUIDES } from '../data/exerciseGuides';
+import ExerciseSelector from './ExerciseSelector';
 import { getJointDeviations } from '../data/poseThresholds';
 import {
   useLivePose,
@@ -36,18 +37,7 @@ function SetupScreen({ onContinue, onBack }) {
       </div>
 
       <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">Select exercise</p>
-      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5 mb-6">
-        {LIVE_EXERCISES.map((ex) => (
-          <button
-            key={ex.value}
-            onClick={() => setSelected(ex.value)}
-            className={`option-card flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 transition-all ${selected === ex.value ? 'selected' : ''}`}
-          >
-            <span className="text-xl">{ex.icon}</span>
-            <span className="text-xs font-medium text-zinc-300 leading-tight text-center">{ex.label}</span>
-          </button>
-        ))}
-      </div>
+      <ExerciseSelector mode="livetrainer" onSelect={(name) => setSelected(name)} />
 
       {guide && (
         <div className="slide-up mb-8 rounded-2xl p-5"
