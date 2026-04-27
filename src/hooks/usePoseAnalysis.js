@@ -161,6 +161,59 @@ export async function analyzePoseFromVideo(videoFile, onProgress) {
     return collectedLandmarks[collectedLandmarks.length - 1] ?? null;
   };
 
+  // ── Pre-flight: check first 5 frames for person and movement ──
+  onProgress({ stage: 'validating', pct: 20, message: 'Checking video…' });
+
+  const VALIDATION_N = 5;
+  const vStep = Math.max(0.2, duration / VALIDATION_N);
+  const vTimestamps = [];
+  for (let t = 0.15; t < duration - 0.1 && vTimestamps.length < VALIDATION_N; t += vStep) {
+    vTimestamps.push(parseFloat(t.toFixed(2)));
+  }
+
+  let detectedFrames = 0;
+  const vAngles = [];
+  const KEY_LM = [11, 12, 23, 24, 25, 26, 27, 28]; // shoulders, hips, knees, ankles
+
+  for (const ts of vTimestamps) {
+    video.currentTime = ts;
+    await new Promise((r) => { video.onseeked = r; });
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const lm = await sendFrame();
+    if (lm) {
+      const avgVis = KEY_LM.reduce((s, i) => s + (lm[i]?.visibility ?? 0), 0) / KEY_LM.length;
+      if (avgVis > 0.5) {
+        detectedFrames++;
+        vAngles.push(extractAngles(lm));
+      }
+    }
+  }
+
+  if (detectedFrames < 3) {
+    URL.revokeObjectURL(objectURL);
+    pose.close();
+    throw new Error(
+      "We couldn't detect a person in this video. Make sure your full body is visible and the lighting is decent."
+    );
+  }
+
+  const movementJoints = ['leftKnee', 'rightKnee', 'leftHip', 'rightHip', 'leftElbow', 'rightElbow', 'torsoLean'];
+  const maxMovementRange = Math.max(
+    ...movementJoints.map((key) => {
+      const vals = vAngles.map((f) => f[key]).filter((v) => v !== null && !isNaN(v));
+      if (vals.length < 2) return 0;
+      return Math.max(...vals) - Math.min(...vals);
+    })
+  );
+
+  if (maxMovementRange < 15) {
+    URL.revokeObjectURL(objectURL);
+    pose.close();
+    throw new Error(
+      "Looks like there's not much movement in this video. Upload a clip of you actually performing the exercise."
+    );
+  }
+
   for (let i = 0; i < timestamps.length; i++) {
     video.currentTime = timestamps[i];
     await new Promise((r) => { video.onseeked = r; });
