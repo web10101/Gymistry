@@ -414,4 +414,484 @@ export const EXERCISE_LIST = [
   { id: 'core-antirot-suitcase-carry',   name: 'Suitcase Carry',                     muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Intermediate', equipmentNeeded: ['Dumbbell'],          spaceNeeded: 'Large'   },
   { id: 'core-antirot-single-arm-carry', name: 'Single-Arm Overhead Carry',          muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Dumbbell'],          spaceNeeded: 'Large'   },
   { id: 'core-antirot-stir-pot-adv',     name: 'Advanced Stir the Pot',              muscleGroup: 'Core', category: 'Core', difficultyLevel: 'Advanced',     equipmentNeeded: ['Stability Ball'],    spaceNeeded: 'Small'   },
+
+  // ── CARDIO ────────────────────────────────────────────────────────────────
+  { id: 'running',                     name: 'Running',                           muscleGroup: 'Cardio' },
+  { id: 'treadmill',                   name: 'Treadmill Run',                     muscleGroup: 'Cardio' },
+  { id: 'incline-treadmill-walk',      name: 'Incline Treadmill Walk',            muscleGroup: 'Cardio' },
+  { id: 'sprinting',                   name: 'Sprinting',                         muscleGroup: 'Cardio' },
+  { id: 'track-sprints',               name: 'Track Sprints',                     muscleGroup: 'Cardio' },
+  { id: 'interval-running',            name: 'Interval Running',                  muscleGroup: 'Cardio' },
+  { id: 'cycling',                     name: 'Cycling',                           muscleGroup: 'Cardio' },
+  { id: 'stationary-bike',             name: 'Stationary Bike',                   muscleGroup: 'Cardio' },
+  { id: 'assault-bike',                name: 'Assault Bike',                      muscleGroup: 'Cardio' },
+  { id: 'cycle-sprints',               name: 'Cycling Sprints',                   muscleGroup: 'Cardio' },
+  { id: 'spin-class',                  name: 'Spin Class',                        muscleGroup: 'Cardio' },
+  { id: 'rowing-machine',              name: 'Rowing Machine',                    muscleGroup: 'Cardio' },
+  { id: 'ski-erg',                     name: 'Ski Erg',                           muscleGroup: 'Cardio' },
+  { id: 'elliptical',                  name: 'Elliptical',                        muscleGroup: 'Cardio' },
+  { id: 'stair-climber',               name: 'Stair Climber',                     muscleGroup: 'Cardio' },
+  { id: 'versa-climber',               name: 'VersaClimber',                      muscleGroup: 'Cardio' },
+  { id: 'jump-rope',                   name: 'Jump Rope',                         muscleGroup: 'Cardio' },
+  { id: 'double-under',                name: 'Double-Under',                      muscleGroup: 'Cardio' },
+  { id: 'swimming',                    name: 'Swimming',                          muscleGroup: 'Cardio' },
+  { id: 'swimming-laps',               name: 'Swimming Laps',                     muscleGroup: 'Cardio' },
+  { id: 'water-running',               name: 'Water Running',                     muscleGroup: 'Cardio' },
+  { id: 'walking',                     name: 'Walking',                           muscleGroup: 'Cardio' },
+  { id: 'hiking',                      name: 'Hiking',                            muscleGroup: 'Cardio' },
+  { id: 'jumping-jacks',               name: 'Jumping Jacks',                     muscleGroup: 'Cardio' },
+  { id: 'high-knees',                  name: 'High Knees',                        muscleGroup: 'Cardio' },
+  { id: 'mountain-climbers',           name: 'Mountain Climbers',                 muscleGroup: 'Cardio' },
+  { id: 'lateral-shuffle',             name: 'Lateral Shuffle',                   muscleGroup: 'Cardio' },
+  { id: 'bear-crawl',                  name: 'Bear Crawl',                        muscleGroup: 'Cardio' },
+  { id: 'inchworm',                    name: 'Inchworm',                          muscleGroup: 'Cardio' },
+  { id: 'shadow-boxing',               name: 'Shadow Boxing',                     muscleGroup: 'Cardio' },
+  { id: 'step-aerobics',               name: 'Step Aerobics',                     muscleGroup: 'Cardio' },
+
+  // ── HIIT & CARDIO ─────────────────────────────────────────────────────────
+  // Burpee variations
+  { id: 'half-burpee',                 name: 'Half Burpee',                       muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'push-up-burpee',              name: 'Push-Up Burpee',                    muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'tuck-jump-burpee',            name: 'Tuck Jump Burpee',                  muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'single-leg-burpee',           name: 'Single-Leg Burpee',                 muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'burpee-broad-jump',           name: 'Burpee to Broad Jump',              muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'burpee-box-jump',             name: 'Burpee Box Jump',                   muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Step',       spaceNeeded: 'Medium' },
+  { id: 'burpee-pull-up',              name: 'Burpee Pull-Up',                    muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Pull-Up Bar',    spaceNeeded: 'Medium' },
+  { id: 'dumbbell-burpee',             name: 'Dumbbell Burpee',                   muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Dumbbells',      spaceNeeded: 'Medium' },
+  { id: 'devil-press',                 name: 'Devil Press',                       muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Dumbbells',      spaceNeeded: 'Medium' },
+  { id: 'sprawl',                      name: 'Sprawl',                            muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+
+  // Jumping variations
+  { id: 'tuck-jump',                   name: 'Tuck Jump',                         muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'star-jump',                   name: 'Star Jump',                         muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'split-jump',                  name: 'Split Jump (Jumping Lunge)',         muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'pogo-jump',                   name: 'Pogo Jump',                         muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'vertical-jump',               name: 'Vertical Jump',                     muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'jump-180',                    name: '180-Degree Jump Squat',             muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'skater-jump',                 name: 'Skater Jump',                       muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'lateral-bound',               name: 'Lateral Bound',                     muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'single-leg-hop',              name: 'Single-Leg Hop',                    muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'depth-jump',                  name: 'Depth Jump',                        muscleGroup: 'Full Body',  category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Step',       spaceNeeded: 'Medium' },
+  { id: 'lateral-box-jump',            name: 'Lateral Box Jump',                  muscleGroup: 'Legs',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',       spaceNeeded: 'Medium' },
+
+  // Mountain climber variations
+  { id: 'cross-body-mountain-climber', name: 'Cross-Body Mountain Climber',       muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'spiderman-mountain-climber',  name: 'Spider-Man Mountain Climber',       muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'slow-mountain-climber',       name: 'Slow-Tempo Mountain Climber',       muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'decline-mountain-climber',    name: 'Decline Mountain Climber',          muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Advanced',     equipmentNeeded: 'Chair/Bench',    spaceNeeded: 'Small'  },
+  { id: 'sliding-mountain-climber',    name: 'Sliding Mountain Climber',          muscleGroup: 'Core',       category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Sliders/Socks',  spaceNeeded: 'Small'  },
+
+  // Agility drills (home-friendly)
+  { id: 'in-and-out-jumps',            name: 'In-and-Out Jumps',                  muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'line-hops',                   name: 'Line Hops',                         muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'lateral-line-hops',           name: 'Lateral Line Hops',                 muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'side-to-side-hop',            name: 'Side-to-Side Hop',                  muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'ali-shuffle',                 name: 'Ali Shuffle',                       muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'quick-feet',                  name: 'Quick Feet Drill',                  muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'ickey-shuffle',               name: 'Ickey Shuffle',                     muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'carioca',                     name: 'Carioca',                           muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'four-corner-drill',           name: '4-Corner Box Drill',                muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 't-drill',                     name: 'T-Drill',                           muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'five-ten-five',               name: '5-10-5 Shuttle Run',                muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'diagonal-bound',              name: 'Diagonal Bound',                    muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'stutter-step',                name: 'Stutter Step',                      muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'speed-ladder-drill',          name: 'Speed Ladder Drill',                muscleGroup: 'Cardio',     category: 'HIIT & Cardio', difficultyLevel: 'Intermediate', equipmentNeeded: 'Speed Ladder',   spaceNeeded: 'Medium' },
+
+  // ── PLYOMETRICS ───────────────────────────────────────────────────────────
+  // Explosive push-up variations
+  { id: 'clap-push-up',               name: 'Clap Push-Up',                      muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'double-clap-push-up',        name: 'Double Clap Push-Up',               muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'chest-tap-push-up',          name: 'Chest Tap Push-Up',                 muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'superman-push-up',           name: 'Superman Push-Up',                  muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'explosive-push-up',          name: 'Explosive Push-Up',                 muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'side-to-side-plyo-push-up',  name: 'Side-to-Side Plyometric Push-Up',   muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'staggered-plyo-push-up',     name: 'Staggered Plyometric Push-Up',      muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'plyo-push-up-box',           name: 'Plyometric Push-Up on Box',         muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Step',       spaceNeeded: 'Small'  },
+
+  // Jump variations
+  { id: 'ankle-hop',                  name: 'Ankle Hop',                         muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'power-skip',                 name: 'Power Skip',                        muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Beginner',     equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'bounding',                   name: 'Bounding',                          muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'single-leg-broad-jump',      name: 'Single-Leg Broad Jump',             muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'continuous-broad-jump',      name: 'Continuous Broad Jumps',            muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'rotational-jump',            name: 'Rotational Jump',                   muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'hurdle-jump',                name: 'Hurdle Jump',                       muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Object',     spaceNeeded: 'Medium' },
+  { id: 'broad-jump-stick',           name: 'Broad Jump with Stick Landing',     muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'triple-hop',                 name: 'Triple Hop',                        muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Large'  },
+  { id: 'seated-box-jump',            name: 'Seated Box Jump',                   muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'Box/Chair',      spaceNeeded: 'Small'  },
+  { id: 'single-leg-vertical-jump',   name: 'Single-Leg Vertical Jump',          muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+
+  // Power movements (home-friendly)
+  { id: 'squat-jump-hold',            name: 'Squat Jump with Landing Hold',      muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'reactive-squat-jump',        name: 'Reactive Squat Jump',               muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'plyo-lunge-jump',            name: 'Plyometric Lunge Jump',             muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'plyo-step-up',               name: 'Plyometric Step-Up',                muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',       spaceNeeded: 'Small'  },
+  { id: 'depth-drop',                 name: 'Depth Drop',                        muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',       spaceNeeded: 'Small'  },
+  { id: 'lateral-bound-stick',        name: 'Lateral Bound to Stick Landing',    muscleGroup: 'Legs',       category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Medium' },
+  { id: 'med-ball-overhead-slam',     name: 'Medicine Ball Overhead Slam',       muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Medicine Ball',  spaceNeeded: 'Small'  },
+  { id: 'med-ball-chest-pass',        name: 'Medicine Ball Chest Pass',          muscleGroup: 'Chest',      category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Medicine Ball',  spaceNeeded: 'Medium' },
+  { id: 'med-ball-rotational-throw',  name: 'Medicine Ball Rotational Throw',    muscleGroup: 'Core',       category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'Medicine Ball',  spaceNeeded: 'Medium' },
+  { id: 'plyo-hip-thrust',            name: 'Plyometric Hip Thrust',             muscleGroup: 'Glutes',     category: 'Plyometrics',   difficultyLevel: 'Intermediate', equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+  { id: 'tuck-jump-stick',            name: 'Tuck Jump to Squat Landing',        muscleGroup: 'Full Body',  category: 'Plyometrics',   difficultyLevel: 'Advanced',     equipmentNeeded: 'None',           spaceNeeded: 'Small'  },
+
+  // ── RESISTANCE BAND ───────────────────────────────────────────────────────
+  // Chest
+  { id: 'band-chest-press',           name: 'Resistance Band Chest Press',       muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-incline-chest-press',   name: 'Resistance Band Incline Press',     muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-push-up',               name: 'Resistance Band Push-Up',           muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-crossover',             name: 'Resistance Band Crossover',         muscleGroup: 'Chest',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Back
+  { id: 'band-seated-row',            name: 'Resistance Band Seated Row',        muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-single-arm-row',        name: 'Resistance Band Single-Arm Row',    muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-lat-pulldown',          name: 'Resistance Band Lat Pulldown',      muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-face-pull',             name: 'Resistance Band Face Pull',         muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-deadlift',              name: 'Resistance Band Deadlift',          muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-good-morning',          name: 'Resistance Band Good Morning',      muscleGroup: 'Back',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Shoulders
+  { id: 'band-shoulder-press',        name: 'Resistance Band Shoulder Press',    muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-lateral-raise',         name: 'Resistance Band Lateral Raise',     muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-front-raise',           name: 'Resistance Band Front Raise',       muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-rear-delt-fly',         name: 'Resistance Band Rear Delt Fly',     muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-upright-row',           name: 'Resistance Band Upright Row',       muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-external-rotation',     name: 'Resistance Band External Rotation', muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-internal-rotation',     name: 'Resistance Band Internal Rotation', muscleGroup: 'Shoulders',  category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Arms
+  { id: 'band-bicep-curl',            name: 'Resistance Band Bicep Curl',        muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-hammer-curl',           name: 'Resistance Band Hammer Curl',       muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-concentration-curl',    name: 'Resistance Band Concentration Curl',muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-reverse-curl',          name: 'Resistance Band Reverse Curl',      muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-tricep-pushdown',       name: 'Resistance Band Tricep Pushdown',   muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-overhead-tricep-ext',   name: 'Resistance Band Overhead Tricep Ext',muscleGroup: 'Arms',      category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-tricep-kickback',       name: 'Resistance Band Tricep Kickback',   muscleGroup: 'Arms',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Legs
+  { id: 'band-squat',                 name: 'Resistance Band Squat',             muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-romanian-deadlift',     name: 'Resistance Band Romanian Deadlift', muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-lunge',                 name: 'Resistance Band Lunge',             muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Medium' },
+  { id: 'band-lateral-lunge',         name: 'Resistance Band Lateral Lunge',     muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Medium' },
+  { id: 'band-leg-extension',         name: 'Resistance Band Leg Extension',     muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-hamstring-curl',        name: 'Resistance Band Hamstring Curl',    muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-standing-abduction',    name: 'Resistance Band Standing Abduction',muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-standing-adduction',    name: 'Resistance Band Standing Adduction',muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-calf-raise',            name: 'Resistance Band Calf Raise',        muscleGroup: 'Legs',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Glutes
+  { id: 'band-glute-kickback',        name: 'Resistance Band Glute Kickback',    muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-donkey-kick',           name: 'Resistance Band Donkey Kick',       muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-pull-through',          name: 'Resistance Band Pull-Through',      muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-seated-abduction',      name: 'Resistance Band Seated Abduction',  muscleGroup: 'Glutes',     category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // Core
+  { id: 'band-pallof-press',          name: 'Resistance Band Pallof Press',      muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-wood-chop',             name: 'Resistance Band Wood Chop',         muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-crunch',                name: 'Resistance Band Crunch',            muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-standing-crunch',       name: 'Resistance Band Standing Crunch',   muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-russian-twist',         name: 'Resistance Band Russian Twist',     muscleGroup: 'Core',       category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+  { id: 'band-anti-rotation-press',   name: 'Resistance Band Anti-Rotation Press',muscleGroup: 'Core',      category: 'Resistance Band', difficultyLevel: 'Intermediate', equipmentNeeded: 'Resistance Band', spaceNeeded: 'Small'  },
+
+  // ── MOBILITY & FLEXIBILITY ────────────────────────────────────────────────
+  // Hip mobility
+  { id: '90-90-stretch',              name: '90/90 Hip Stretch',                 muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'pigeon-pose',                name: 'Pigeon Pose',                       muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'frog-stretch',               name: 'Frog Stretch',                      muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'hip-circle',                 name: 'Standing Hip Circle',               muscleGroup: 'Glutes',     category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'leg-swing-lateral',          name: 'Lateral Leg Swing',                 muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'leg-swing-front-back',       name: 'Front-to-Back Leg Swing',           muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'deep-squat-hold',            name: 'Deep Squat Hold',                   muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'cossack-squat',              name: 'Cossack Squat',                     muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+
+  // Shoulder mobility
+  { id: 'shoulder-circle',            name: 'Shoulder Circle',                   muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'cross-body-shoulder-stretch',name: 'Cross-Body Shoulder Stretch',       muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'doorway-chest-stretch',      name: 'Doorway Chest Stretch',             muscleGroup: 'Chest',      category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'shoulder-dislocate',         name: 'Shoulder Dislocate',                muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'Dowel/Stick', spaceNeeded: 'Small'  },
+  { id: 'wall-slide',                 name: 'Wall Slide',                        muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'sleeper-stretch',            name: 'Sleeper Stretch',                   muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'overhead-shoulder-stretch',  name: 'Overhead Shoulder Stretch',         muscleGroup: 'Shoulders',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Thoracic mobility
+  { id: 'cat-cow',                    name: 'Cat-Cow',                           muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'thoracic-rotation',          name: 'Thoracic Rotation',                 muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'open-book',                  name: 'Open Book Stretch',                 muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'thread-the-needle',          name: 'Thread the Needle',                 muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'thoracic-foam-roll',         name: 'Thoracic Foam Roll Extension',      muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'Foam Roller', spaceNeeded: 'Small'  },
+  { id: 'seated-thoracic-rotation',   name: 'Seated Thoracic Rotation',          muscleGroup: 'Back',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Hamstring flexibility
+  { id: 'standing-hamstring-stretch', name: 'Standing Hamstring Stretch',        muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'seated-hamstring-stretch',   name: 'Seated Hamstring Stretch',          muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'supine-hamstring-stretch',   name: 'Supine Hamstring Stretch',          muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'standing-forward-fold',      name: 'Standing Forward Fold',             muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'single-leg-forward-fold',    name: 'Single-Leg Forward Fold',           muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Hip flexor work
+  { id: 'low-lunge-stretch',          name: 'Low Lunge Hip Flexor Stretch',      muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'couch-stretch',              name: 'Couch Stretch',                     muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'standing-quad-stretch',      name: 'Standing Quad Stretch',             muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'lizard-pose',                name: 'Lizard Pose',                       muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'standing-psoas-stretch',     name: 'Standing Psoas Stretch',            muscleGroup: 'Core',       category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Ankle mobility
+  { id: 'ankle-circle',               name: 'Ankle Circle',                      muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'wall-calf-stretch',          name: 'Wall Calf Stretch',                 muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'soleus-stretch',             name: 'Bent-Knee Calf Stretch',            muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'ankle-dorsiflexion-stretch', name: 'Ankle Dorsiflexion Stretch',        muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'heel-drop-stretch',          name: 'Heel Drop Stretch',                 muscleGroup: 'Legs',       category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'Box/Step',    spaceNeeded: 'Small'  },
+
+  // Full body flows
+  { id: 'world-greatest-stretch',     name: "World's Greatest Stretch",          muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'sun-salutation',             name: 'Sun Salutation',                    muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'down-dog-to-cobra',          name: 'Down Dog to Cobra Flow',            muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'spiderman-lunge-flow',       name: 'Spiderman Lunge Flow',              muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'squat-to-stand',             name: 'Squat to Stand',                    muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'hip-opener-flow',            name: 'Hip Opener Flow',                   muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'morning-mobility-flow',      name: 'Morning Mobility Flow',             muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'animal-flow',                name: 'Animal Flow',                       muscleGroup: 'Full Body',  category: 'Mobility & Flexibility', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+
+  // ── BALANCE & STABILITY ───────────────────────────────────────────────────
+  // Single leg work
+  { id: 'single-leg-stance',          name: 'Single-Leg Stance',                 muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'tandem-stance',              name: 'Tandem Stance',                     muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-squat-hold',      name: 'Single-Leg Squat Hold',             muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-rdl-bw',          name: 'Bodyweight Single-Leg RDL',         muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-hip-hinge',       name: 'Single-Leg Hip Hinge',              muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-forward-reach',   name: 'Single-Leg Forward Reach',          muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-lateral-reach',   name: 'Single-Leg Lateral Reach',          muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'heel-to-toe-walk',           name: 'Heel-to-Toe Walk',                  muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Medium' },
+
+  // Proprioception drills
+  { id: 'eyes-closed-single-leg',     name: 'Eyes-Closed Single-Leg Balance',    muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'star-excursion-balance',     name: 'Star Excursion Balance',            muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'single-leg-clock-reach',     name: 'Single-Leg Clock Reach',            muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'toe-tap-balance',            name: 'Toe Tap Balance Drill',             muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+  { id: 'tandem-walk',                name: 'Tandem Walk',                       muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',            spaceNeeded: 'Medium' },
+  { id: 'reactive-balance-catch',     name: 'Reactive Balance Catch',            muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Ball',            spaceNeeded: 'Small'  },
+  { id: 'perturbation-balance',       name: 'Perturbation Balance Drill',        muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',            spaceNeeded: 'Small'  },
+
+  // Unstable surface work (home-friendly)
+  { id: 'pillow-balance',             name: 'Pillow Single-Leg Balance',         muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'Pillow',          spaceNeeded: 'Small'  },
+  { id: 'stability-ball-plank',       name: 'Stability Ball Plank',              muscleGroup: 'Core',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'stability-ball-wall-squat',  name: 'Stability Ball Wall Squat',         muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Beginner',     equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'stability-ball-leg-curl',    name: 'Stability Ball Leg Curl',           muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'stir-the-pot',               name: 'Stir the Pot',                      muscleGroup: 'Core',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'Stability Ball',  spaceNeeded: 'Small'  },
+  { id: 'bosu-squat',                 name: 'BOSU Ball Squat',                   muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'BOSU Ball',       spaceNeeded: 'Small'  },
+  { id: 'bosu-single-leg',            name: 'BOSU Single-Leg Stand',             muscleGroup: 'Full Body',  category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'BOSU Ball',       spaceNeeded: 'Small'  },
+  { id: 'bosu-push-up',               name: 'BOSU Push-Up',                      muscleGroup: 'Chest',      category: 'Balance & Stability', difficultyLevel: 'Intermediate', equipmentNeeded: 'BOSU Ball',       spaceNeeded: 'Small'  },
+  { id: 'balance-board-squat',        name: 'Balance Board Squat',               muscleGroup: 'Legs',       category: 'Balance & Stability', difficultyLevel: 'Advanced',     equipmentNeeded: 'Balance Board',   spaceNeeded: 'Small'  },
+
+  // ── YOGA & BREATHWORK ─────────────────────────────────────────────────────
+  // Sun salutation variations (Sun Salutation A already exists as 'sun-salutation')
+  { id: 'sun-salutation-b',           name: 'Sun Salutation B',                  muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+  { id: 'half-sun-salutation',        name: 'Half Sun Salutation',               muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Medium' },
+
+  // Warrior flows
+  { id: 'warrior-i',                  name: 'Warrior I',                         muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'warrior-ii',                 name: 'Warrior II',                        muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'warrior-iii',                name: 'Warrior III',                       muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'reverse-warrior',            name: 'Reverse Warrior',                   muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'crescent-lunge-pose',        name: 'Crescent Lunge Pose',               muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'warrior-flow',               name: 'Warrior I to II Flow',              muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Standing poses
+  { id: 'tree-pose',                  name: 'Tree Pose',                         muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'chair-pose',                 name: 'Chair Pose',                        muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'triangle-pose',              name: 'Triangle Pose',                     muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'eagle-pose',                 name: 'Eagle Pose',                        muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'half-moon-pose',             name: 'Half Moon Pose',                    muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Restorative poses
+  { id: 'childs-pose',                name: "Child's Pose",                      muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'downward-dog',               name: 'Downward Dog',                      muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'cobra-pose',                 name: 'Cobra Pose',                        muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'bridge-pose',                name: 'Bridge Pose',                       muscleGroup: 'Glutes',     category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'boat-pose',                  name: 'Boat Pose',                         muscleGroup: 'Core',       category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'camel-pose',                 name: 'Camel Pose',                        muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'supine-twist',               name: 'Supine Spinal Twist',               muscleGroup: 'Back',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'seated-forward-bend',        name: 'Seated Forward Bend',               muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'legs-up-wall',               name: 'Legs Up the Wall',                  muscleGroup: 'Legs',       category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'savasana',                   name: 'Savasana',                          muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // Breathing techniques
+  { id: 'box-breathing',              name: 'Box Breathing',                     muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'diaphragmatic-breathing',    name: 'Diaphragmatic Breathing',           muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: '4-7-8-breathing',            name: '4-7-8 Breathing',                   muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'alternate-nostril-breathing',name: 'Alternate Nostril Breathing',       muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'breath-of-fire',             name: 'Breath of Fire',                    muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'ujjayi-breath',              name: 'Ujjayi Breath',                     muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+  { id: 'wim-hof-breathing',          name: 'Wim Hof Breathing',                 muscleGroup: 'Full Body',  category: 'Yoga & Breathwork', difficultyLevel: 'Advanced',     equipmentNeeded: 'None',        spaceNeeded: 'Small'  },
+
+  // ── ANIMAL FLOW ───────────────────────────────────────────────────────────
+  // Bear crawl variations (bear-crawl already exists under Cardio)
+  { id: 'bear-hold',                  name: 'Bear Hold',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'bear-crawl-lateral',         name: 'Lateral Bear Crawl',                muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'bear-crawl-backward',        name: 'Backward Bear Crawl',               muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'bear-shoulder-tap-crawl',    name: 'Bear Crawl Shoulder Tap',           muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+
+  // Crab walk variations
+  { id: 'crab-walk',                  name: 'Crab Walk',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'crab-walk-lateral',          name: 'Lateral Crab Walk',                 muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'crab-reach',                 name: 'Crab Reach',                        muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'crab-kick',                  name: 'Crab Kick',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+
+  // Ape movements
+  { id: 'ape',                        name: 'Ape',                               muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'ape-reach',                  name: 'Ape Reach',                         muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'ape-jump',                   name: 'Ape Jump',                          muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+
+  // Beast movements
+  { id: 'beast-hold',                 name: 'Beast Hold',                        muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Beginner',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'beast-crawl',                name: 'Beast Crawl',                       muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'beast-wave',                 name: 'Beast Wave',                        muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'beast-reach',                name: 'Beast Reach',                       muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'loaded-beast',               name: 'Loaded Beast',                      muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+
+  // Scorpion
+  { id: 'scorpion',                   name: 'Scorpion',                          muscleGroup: 'Core',       category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'rear-scorpion',              name: 'Rear Scorpion',                     muscleGroup: 'Core',       category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'scorpion-kick',              name: 'Scorpion Kick',                     muscleGroup: 'Core',       category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+
+  // Ground-based flow movements
+  { id: 'side-kickthrough',           name: 'Side Kickthrough',                  muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'underswitch',                name: 'Underswitch',                       muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'kong',                       name: 'Kong',                              muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'leopard-crawl',              name: 'Leopard Crawl',                     muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'lizard-crawl',               name: 'Lizard Crawl',                      muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'sit-out',                    name: 'Sit-Out',                           muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Advanced',     equipmentNeeded: 'None', spaceNeeded: 'Small'  },
+  { id: 'hip-escape',                 name: 'Hip Escape (Shrimping)',            muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+  { id: 'frogger-jump',               name: 'Frogger Jump',                      muscleGroup: 'Full Body',  category: 'Animal Flow', difficultyLevel: 'Intermediate', equipmentNeeded: 'None', spaceNeeded: 'Medium' },
+
+  // ── REHAB & PREHAB ────────────────────────────────────────────────────────
+  // Rotator cuff work
+  { id: 'side-lying-external-rotation',name: 'Side-Lying External Rotation',    muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-external-rotation-90', name: 'Prone External Rotation at 90°',   muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'empty-can',                  name: 'Empty Can',                         muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'full-can',                   name: 'Full Can',                          muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'scapular-push-up',           name: 'Scapular Push-Up',                  muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'wall-angel',                 name: 'Wall Angel',                        muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Knee stability
+  { id: 'terminal-knee-extension',    name: 'Terminal Knee Extension',           muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'Resistance Band',       spaceNeeded: 'Small'  },
+  { id: 'quad-set',                   name: 'Quad Set',                          muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'short-arc-quad',             name: 'Short Arc Quad',                    muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'lateral-step-down',          name: 'Lateral Step Down',                 muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Intermediate', equipmentNeeded: 'Box/Step',              spaceNeeded: 'Small'  },
+  { id: 'vmo-squeeze',                name: 'VMO Squeeze',                       muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Hip stability
+  { id: 'hip-hike',                   name: 'Hip Hike',                          muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'side-lying-hip-abduction',   name: 'Side-Lying Hip Abduction',          muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-hip-extension-rehab',  name: 'Prone Hip Extension',               muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'single-leg-heel-tap',        name: 'Single-Leg Heel Tap',               muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'hip-adduction-squeeze',      name: 'Hip Adduction Squeeze',             muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'Ball/Pillow',           spaceNeeded: 'Small'  },
+  { id: 'hip-90-90-transition',       name: 'Hip 90/90 Transition',              muscleGroup: 'Glutes',     category: 'Rehab & Prehab', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Lower back care
+  { id: 'pelvic-tilt',                name: 'Pelvic Tilt',                       muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-press-up',             name: 'Prone Press-Up',                    muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'knee-to-chest-stretch',      name: 'Knee-to-Chest Stretch',             muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'lumbar-rotation-stretch',    name: 'Lumbar Rotation Stretch',           muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: '90-90-hip-lift',             name: '90/90 Hip Lift',                    muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'prone-lying-rest',           name: 'Prone Lying Rest',                  muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // Neck and shoulder tension relief
+  { id: 'chin-tuck',                  name: 'Chin Tuck',                         muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'neck-lateral-stretch',       name: 'Neck Lateral Stretch',              muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'neck-rotation-stretch',      name: 'Neck Rotation Stretch',             muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'levator-scapulae-stretch',   name: 'Levator Scapulae Stretch',          muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'upper-trap-stretch',         name: 'Upper Trapezius Stretch',           muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'thoracic-extension-chair',   name: 'Thoracic Extension Over Chair',     muscleGroup: 'Back',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',                 spaceNeeded: 'Small'  },
+
+  // Injury prevention
+  { id: 'short-foot-exercise',        name: 'Short Foot Exercise',               muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'toe-spread',                 name: 'Toe Spread and Grip',               muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'ankle-alphabet',             name: 'Ankle Alphabet',                    muscleGroup: 'Legs',       category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'serratus-wall-press',        name: 'Serratus Anterior Wall Press',      muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+  { id: 'y-t-w-exercise',             name: 'Y-T-W Exercise',                    muscleGroup: 'Shoulders',  category: 'Rehab & Prehab', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',                  spaceNeeded: 'Small'  },
+
+  // ── CHAIR & MINIMAL SPACE ─────────────────────────────────────────────────
+  // Chair upper body
+  { id: 'wall-push-up',               name: 'Wall Push-Up',                      muscleGroup: 'Chest',      category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'counter-push-up',            name: 'Counter/Desk Push-Up',              muscleGroup: 'Chest',      category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'chair-shoulder-press',       name: 'Seated Shoulder Press',             muscleGroup: 'Shoulders',  category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-bicep-curl',           name: 'Seated Bicep Curl',                 muscleGroup: 'Arms',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-shoulder-shrug',       name: 'Seated Shoulder Shrug',             muscleGroup: 'Back',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-arm-circle',           name: 'Seated Arm Circle',                 muscleGroup: 'Shoulders',  category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // Chair lower body
+  { id: 'chair-march',                name: 'Seated March',                      muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-knee-lift',            name: 'Seated Knee Lift',                  muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-leg-extension',        name: 'Seated Leg Extension (Bodyweight)', muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-ankle-pump',           name: 'Seated Ankle Pump',                 muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-toe-tap',              name: 'Seated Toe Tap',                    muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-inner-thigh-squeeze',  name: 'Seated Inner Thigh Squeeze',        muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-calf-raise',           name: 'Seated Calf Raise (Chair)',         muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-sit-to-stand',         name: 'Chair Sit-to-Stand',                muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // Chair core
+  { id: 'chair-torso-rotation',       name: 'Seated Torso Rotation',             muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-side-bend',            name: 'Seated Side Bend',                  muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-knee-to-chest',        name: 'Seated Knee-to-Chest',              muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-ab-crunch',            name: 'Seated Ab Crunch',                  muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-oblique-crunch',       name: 'Seated Oblique Crunch',             muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // Standing minimal space
+  { id: 'standing-march',             name: 'Standing March',                    muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-knee-lift',         name: 'Standing Knee Lift',                muscleGroup: 'Legs',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-side-leg-raise',    name: 'Standing Side Leg Raise',           muscleGroup: 'Glutes',     category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-back-leg-raise',    name: 'Standing Back Leg Raise',           muscleGroup: 'Glutes',     category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-side-bend',         name: 'Standing Side Bend',                muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+  { id: 'standing-torso-twist',       name: 'Standing Torso Twist',              muscleGroup: 'Core',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',   spaceNeeded: 'Small'  },
+
+  // Chair stretches
+  { id: 'chair-cat-cow',              name: 'Seated Cat-Cow',                    muscleGroup: 'Back',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-chest-opener',         name: 'Seated Chest Opener',               muscleGroup: 'Chest',      category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-wrist-stretch',        name: 'Seated Wrist and Forearm Stretch',  muscleGroup: 'Arms',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-figure-four',          name: 'Seated Figure-Four Stretch',        muscleGroup: 'Glutes',     category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+  { id: 'chair-forward-fold',         name: 'Seated Chair Forward Fold',         muscleGroup: 'Back',       category: 'Chair & Minimal Space', difficultyLevel: 'Beginner',     equipmentNeeded: 'Chair',  spaceNeeded: 'Small'  },
+
+  // ── PREGNANCY SAFE ────────────────────────────────────────────────────────
+  // Pelvic floor
+  { id: 'kegel',                      name: 'Kegel Exercise',                    muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'kegel-hold',                 name: 'Kegel Hold',                        muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'reverse-kegel',              name: 'Reverse Kegel',                     muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'pelvic-floor-bridge',        name: 'Pelvic Floor Bridge',               muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-pelvic-circles',    name: 'Pelvic Circles on Birth Ball',      muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'Birth Ball (opt)',  spaceNeeded: 'Small'  },
+
+  // Breathing work
+  { id: 'prenatal-breathing',         name: 'Prenatal Diaphragmatic Breathing',  muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'rib-cage-breathing',         name: 'Rib Cage Breathing',                muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-breath-awareness',  name: 'Prenatal Breath Awareness',         muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Trimester-appropriate movements
+  { id: 'prenatal-squat',             name: 'Prenatal Squat',                    muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'wall-squat-prenatal',        name: 'Supported Wall Squat (Prenatal)',   muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-sumo-squat',        name: 'Prenatal Sumo Squat',               muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-marching',          name: 'Prenatal Marching in Place',        muscleGroup: 'Cardio',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'modified-push-up-prenatal',  name: 'Modified Incline Push-Up (Prenatal)',muscleGroup: 'Chest',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'Wall/Counter',     spaceNeeded: 'Small'  },
+  { id: 'prenatal-side-plank',        name: 'Supported Side Plank (Prenatal)',   muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Intermediate', equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'all-fours-hip-circle',       name: 'All-Fours Hip Circle',              muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-hip-hinge',         name: 'Prenatal Hip Hinge',                muscleGroup: 'Back',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Hip opening
+  { id: 'butterfly-stretch',          name: 'Butterfly Stretch',                 muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'figure-four-stretch',        name: 'Figure-Four Stretch',               muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'modified-pigeon-pose',       name: 'Supported Pigeon Pose',             muscleGroup: 'Glutes',     category: 'Pregnancy Safe', difficultyLevel: 'Intermediate', equipmentNeeded: 'Chair',            spaceNeeded: 'Small'  },
+  { id: 'prenatal-deep-squat',        name: 'Prenatal Deep Squat with Support',  muscleGroup: 'Legs',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-hip-opener',        name: 'Prenatal Hip Opener Flow',          muscleGroup: 'Full Body',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Safe mobility
+  { id: 'prenatal-shoulder-roll',     name: 'Prenatal Shoulder Roll',            muscleGroup: 'Shoulders',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'gentle-neck-roll',           name: 'Gentle Neck Roll',                  muscleGroup: 'Shoulders',  category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'standing-cat-cow',           name: 'Standing Cat-Cow',                  muscleGroup: 'Back',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'standing-side-stretch',      name: 'Standing Side Stretch',             muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'seated-prenatal-twist',      name: 'Seated Gentle Twist (Prenatal)',    muscleGroup: 'Back',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'prenatal-wrist-circle',      name: 'Prenatal Wrist Circle',             muscleGroup: 'Arms',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+
+  // Pregnancy-safe core
+  { id: 'abdominal-drawing-in',       name: 'Abdominal Drawing-In (TVA)',        muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'modified-dead-bug',          name: 'Modified Dead Bug (Prenatal)',       muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'supported-plank-prenatal',   name: 'Supported Plank on Knees (Prenatal)',muscleGroup: 'Core',      category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
+  { id: 'standing-wall-core',         name: 'Standing Core Against Wall',        muscleGroup: 'Core',       category: 'Pregnancy Safe', difficultyLevel: 'Beginner',     equipmentNeeded: 'None',             spaceNeeded: 'Small'  },
 ];
