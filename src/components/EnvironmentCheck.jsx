@@ -9,20 +9,31 @@ const SKELETON_PAIRS = [
   [LM.L_KNEE, LM.L_ANKLE], [LM.R_KNEE, LM.R_ANKLE],
 ];
 
+// 3-tier joint color: green = high confidence, yellow = medium, red = low
+function jointColor(visibility) {
+  const v = visibility ?? 1;
+  if (v >= 0.72) return '#4ade80';
+  if (v >= 0.45) return '#fbbf24';
+  return '#ef4444';
+}
+
+function boneColor(v1, v2) {
+  const avg = ((v1 ?? 1) + (v2 ?? 1)) / 2;
+  if (avg >= 0.72) return 'rgba(74,222,128,0.55)';
+  if (avg >= 0.45) return 'rgba(251,191,36,0.5)';
+  return 'rgba(239,68,68,0.45)';
+}
+
 // ─── Lighting analysis ────────────────────────────────────────────────────────
 
 function analyzeLighting(canvas) {
   try {
     const ctx = canvas.getContext('2d');
     const { width: w, height: h } = canvas;
-
-    // Center region — body area
     const cx = Math.round(w * 0.2), cy = Math.round(h * 0.05);
     const cw = Math.round(w * 0.6), ch = Math.round(h * 0.9);
     const centerPx = ctx.getImageData(cx, cy, cw, ch).data;
-
-    // Background region — top & side strips
-    const topPx = ctx.getImageData(0, 0, w, Math.round(h * 0.12)).data;
+    const topPx    = ctx.getImageData(0, 0, w, Math.round(h * 0.12)).data;
 
     const brightness = (px) => {
       let s = 0, n = 0;
@@ -34,13 +45,12 @@ function analyzeLighting(canvas) {
     };
 
     const centerBright = brightness(centerPx);
-    const bgBright = brightness(topPx);
-
+    const bgBright     = brightness(topPx);
     return {
       centerBright,
-      tooDark:    centerBright < 55,
-      tooHot:     centerBright > 230,
-      backlight:  bgBright > centerBright + 55 && bgBright > 120,
+      tooDark:   centerBright < 55,
+      tooHot:    centerBright > 230,
+      backlight: bgBright > centerBright + 55 && bgBright > 120,
     };
   } catch {
     return { centerBright: 128, tooDark: false, tooHot: false, backlight: false };
@@ -51,54 +61,55 @@ function analyzeLighting(canvas) {
 
 function runPoseChecks(landmarks) {
   if (!landmarks) return null;
-
   const lm = landmarks;
   const visible = (idx, thresh = 0.5) => lm[idx] && (lm[idx].visibility ?? 1) >= thresh;
 
-  // 1. Pose detection quality — count visible key joints
   const visibleCount = KEY_JOINTS.filter((i) => visible(i, 0.5)).length;
   const poseDetected = visibleCount >= 5;
 
-  // 2. Full body in frame — check nothing cut at edges
+  // joints cut off at edges
   const MARGIN = 0.06;
   let cutPart = null;
-  if (visible(LM.NOSE) && lm[LM.NOSE].y < MARGIN)        cutPart = 'head';
-  if (visible(LM.L_ANKLE) && lm[LM.L_ANKLE].y > 1 - MARGIN) cutPart = 'feet';
-  if (visible(LM.R_ANKLE) && lm[LM.R_ANKLE].y > 1 - MARGIN) cutPart = 'feet';
-  if (visible(LM.L_SHOULDER) && lm[LM.L_SHOULDER].x < MARGIN) cutPart = 'left side';
-  if (visible(LM.R_SHOULDER) && lm[LM.R_SHOULDER].x > 1 - MARGIN) cutPart = 'right side';
-  const fullBody = poseDetected && !cutPart;
+  if (visible(LM.NOSE)       && lm[LM.NOSE].y      < MARGIN)       cutPart = 'head';
+  if (visible(LM.L_ANKLE)    && lm[LM.L_ANKLE].y   > 1 - MARGIN)   cutPart = 'feet';
+  if (visible(LM.R_ANKLE)    && lm[LM.R_ANKLE].y   > 1 - MARGIN)   cutPart = 'feet';
+  if (visible(LM.L_SHOULDER) && lm[LM.L_SHOULDER].x < MARGIN)      cutPart = 'left side';
+  if (visible(LM.R_SHOULDER) && lm[LM.R_SHOULDER].x > 1 - MARGIN)  cutPart = 'right side';
 
-  // 3. Body centered — midpoint of hips x: 0.25 to 0.75
+  // body centered — hip midpoint
   let centered = false, centerDir = '';
   if (visible(LM.L_HIP) && visible(LM.R_HIP)) {
     const midX = (lm[LM.L_HIP].x + lm[LM.R_HIP].x) / 2;
-    centered = midX > 0.25 && midX < 0.75;
-    centerDir = midX <= 0.25 ? 'right' : midX >= 0.75 ? 'left' : '';
+    centered   = midX > 0.25 && midX < 0.75;
+    centerDir  = midX <= 0.25 ? 'right' : midX >= 0.75 ? 'left' : '';
   }
 
-  // 4. Distance — body height fraction in frame: 0.5 to 0.90
+  // distance — body height fraction
   let distance = 'ok', distMsg = '';
   if (visible(LM.NOSE) && (visible(LM.L_ANKLE) || visible(LM.R_ANKLE))) {
-    const topY = lm[LM.NOSE].y;
-    const botY = Math.max(
+    const topY  = lm[LM.NOSE].y;
+    const botY  = Math.max(
       visible(LM.L_ANKLE) ? lm[LM.L_ANKLE].y : 0,
-      visible(LM.R_ANKLE) ? lm[LM.R_ANKLE].y : 0
+      visible(LM.R_ANKLE) ? lm[LM.R_ANKLE].y : 0,
     );
     const bodyH = botY - topY;
-    if (bodyH < 0.45) { distance = 'far';  distMsg = 'Step closer to the camera'; }
-    if (bodyH > 0.92) { distance = 'close'; distMsg = 'Step back — you\'re too close'; }
+    if (bodyH < 0.45) { distance = 'far';   distMsg = 'Step closer to the camera'; }
+    if (bodyH > 0.92) { distance = 'close'; distMsg = 'Step back a little'; }
   }
 
   return {
-    poseDetected, visibleCount,
-    fullBody, cutPart,
-    centered, centerDir,
-    distance, distMsg,
+    poseDetected,
+    visibleCount,
+    cutPart,
+    noJointsCut: poseDetected && !cutPart,
+    centered,
+    centerDir,
+    distance,
+    distMsg,
   };
 }
 
-// ─── Check item component ──────────────────────────────────────────────────────
+// ─── Check item ────────────────────────────────────────────────────────────────
 
 function CheckItem({ pass, label, message }) {
   return (
@@ -107,8 +118,8 @@ function CheckItem({ pass, label, message }) {
         className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold transition-all duration-300"
         style={
           pass
-            ? { background: 'rgba(74,222,128,0.2)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.4)' }
-            : { background: 'rgba(239,68,68,0.15)', color: '#f87171', border: '1px solid rgba(239,68,68,0.3)' }
+            ? { background: 'rgba(74,222,128,0.2)',  color: '#4ade80', border: '1px solid rgba(74,222,128,0.4)' }
+            : { background: 'rgba(239,68,68,0.15)',  color: '#f87171', border: '1px solid rgba(239,68,68,0.3)' }
         }
       >
         {pass ? '✓' : '✕'}
@@ -126,27 +137,29 @@ function CheckItem({ pass, label, message }) {
 export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
   const videoRef    = useRef(null);
   const canvasRef   = useRef(null);
-  const analysisRef = useRef(null); // off-screen canvas for lighting
+  const analysisRef = useRef(null);
   const poseRef     = useRef(null);
   const streamRef   = useRef(null);
   const rafRef      = useRef(null);
   const busyRef     = useRef(false);
   const frameRef    = useRef(0);
+  // Raw results written every frame, read by 1-second interval
+  const rawPoseRef  = useRef(null);
+  const rawLightRef = useRef(null);
 
   const [cameraStatus, setCameraStatus] = useState('loading'); // loading | active | error
   const [errorMsg, setErrorMsg]         = useState('');
-
-  const [poseChecks, setPoseChecks]     = useState(null);
+  // Checklist state — refreshed every second
+  const [poseChecks,  setPoseChecks]    = useState(null);
   const [lightChecks, setLightChecks]   = useState(null);
 
-  // Load MediaPipe (reuse same CDN loading pattern)
   const ensurePose = async () => {
     if (window.Pose) return;
     await new Promise((res, rej) => {
       const s = document.createElement('script');
       s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js';
       s.crossOrigin = 'anonymous';
-      s.onload = res;
+      s.onload  = res;
       s.onerror = () => rej(new Error('Failed to load MediaPipe'));
       document.head.appendChild(s);
     });
@@ -154,29 +167,35 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
 
   const drawSkeleton = useCallback((landmarks) => {
     const canvas = canvasRef.current;
-    const video  = videoRef.current;
-    if (!canvas || !video) return;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const { width: w, height: h } = canvas;
     ctx.clearRect(0, 0, w, h);
 
+    // Bones — colored by average confidence of endpoints
     for (const [si, ei] of SKELETON_PAIRS) {
       const s = landmarks[si], e = landmarks[ei];
-      if (!s || !e || (s.visibility ?? 1) < 0.4 || (e.visibility ?? 1) < 0.4) continue;
-      ctx.strokeStyle = 'rgba(232,255,71,0.5)';
-      ctx.lineWidth = 2;
+      if (!s || !e) continue;
+      ctx.strokeStyle = boneColor(s.visibility, e.visibility);
+      ctx.lineWidth   = 2;
       ctx.beginPath();
       ctx.moveTo(s.x * w, s.y * h);
       ctx.lineTo(e.x * w, e.y * h);
       ctx.stroke();
     }
+
+    // Joints — green / yellow / red by visibility
     for (const idx of KEY_JOINTS) {
       const lm = landmarks[idx];
-      if (!lm || (lm.visibility ?? 1) < 0.4) continue;
-      const conf = lm.visibility ?? 1;
+      if (!lm) continue;
       ctx.beginPath();
       ctx.arc(lm.x * w, lm.y * h, 5, 0, 2 * Math.PI);
-      ctx.fillStyle = conf > 0.7 ? '#e8ff47' : '#f59e0b';
+      ctx.fillStyle = jointColor(lm.visibility);
+      ctx.fill();
+      // Bright centre dot for readability
+      ctx.beginPath();
+      ctx.arc(lm.x * w, lm.y * h, 2, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(255,255,255,0.75)';
       ctx.fill();
     }
   }, []);
@@ -185,24 +204,32 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
     busyRef.current = false;
     const lm = results.poseLandmarks || null;
 
-    // Lighting check using the off-screen analysis canvas
+    // Lighting — write raw result to ref (interval will push to state)
     if (analysisRef.current && videoRef.current) {
-      const ac = analysisRef.current;
+      const ac  = analysisRef.current;
       const ctx = ac.getContext('2d');
       ctx.drawImage(videoRef.current, 0, 0, ac.width, ac.height);
-      setLightChecks(analyzeLighting(ac));
+      rawLightRef.current = analyzeLighting(ac);
     }
 
     if (lm) {
       drawSkeleton(lm);
-      setPoseChecks(runPoseChecks(lm));
+      rawPoseRef.current = runPoseChecks(lm);
     } else {
-      // Clear skeleton if no landmarks
       const ctx = canvasRef.current?.getContext('2d');
       if (ctx) ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-      setPoseChecks(null);
+      rawPoseRef.current = null;
     }
   }, [drawSkeleton]);
+
+  // Checklist state updates every second from the latest raw refs
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPoseChecks(rawPoseRef.current);
+      setLightChecks(rawLightRef.current);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -220,18 +247,16 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
 
         streamRef.current = stream;
         const video = videoRef.current;
-        video.srcObject = stream;
-        video.muted = true;
+        video.srcObject  = stream;
+        video.muted      = true;
         video.playsInline = true;
         await video.play();
 
-        // Size overlay canvas
         video.addEventListener('loadedmetadata', () => {
           if (canvasRef.current) {
             canvasRef.current.width  = video.videoWidth;
             canvasRef.current.height = video.videoHeight;
           }
-          // Small off-screen canvas for lighting (lower res is fine)
           const ac = document.createElement('canvas');
           ac.width = 160; ac.height = 90;
           analysisRef.current = ac;
@@ -261,70 +286,69 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
 
     return () => {
       mounted = false;
-      if (rafRef.current)   cancelAnimationFrame(rafRef.current);
+      if (rafRef.current)    cancelAnimationFrame(rafRef.current);
       if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
       if (poseRef.current)   poseRef.current.close();
     };
   }, [onResults]);
 
-  // ── Derive checklist ────────────────────────────────────────────────────────
+  // ── Derive checklist (6 items, updated from state every second) ─────────────
   const checks = [
     {
       id: 'pose',
-      label: 'Body detected',
+      label: 'Full body visible',
       pass: poseChecks?.poseDetected ?? false,
-      message: 'Stand fully in frame — can\'t detect your body yet',
-    },
-    {
-      id: 'fullbody',
-      label: 'Full body in frame',
-      pass: poseChecks?.fullBody ?? false,
-      message: poseChecks?.cutPart
-        ? `Your ${poseChecks.cutPart} is cut off — step back or adjust the camera`
-        : 'Ensure head to feet are visible',
-    },
-    {
-      id: 'centered',
-      label: 'Body centered',
-      pass: poseChecks?.centered ?? false,
-      message: poseChecks?.centerDir
-        ? `Move to the ${poseChecks.centerDir} to center yourself`
-        : 'Position yourself in the center of the frame',
+      message: 'Stand fully in frame so your whole body is visible',
     },
     {
       id: 'distance',
       label: 'Correct distance',
       pass: poseChecks?.distance === 'ok',
-      message: poseChecks?.distMsg || 'Adjust your distance from the camera',
+      message: poseChecks?.distance === 'close'
+        ? 'Step back a little'
+        : 'Step closer to the camera',
+    },
+    {
+      id: 'centered',
+      label: 'Body centered',
+      pass: poseChecks?.centered ?? false,
+      message: 'Move to center',
+    },
+    {
+      id: 'joints',
+      label: 'No joints cut off',
+      pass: poseChecks?.noJointsCut ?? false,
+      message: poseChecks?.cutPart
+        ? `Your ${poseChecks.cutPart} is cut off — step back a little`
+        : 'Make sure no part of your body is outside the frame',
     },
     {
       id: 'lighting',
-      label: 'Good lighting',
+      label: 'Not too dark',
       pass: lightChecks ? !lightChecks.tooDark && !lightChecks.tooHot : false,
       message: lightChecks?.tooDark
-        ? 'Too dark — turn on lights or open blinds in front of you'
-        : lightChecks?.tooHot
-        ? 'Overexposed — dim harsh lights or move away from direct sunlight'
-        : 'Check your lighting',
+        ? 'Turn on a light'
+        : 'Too bright — move away from direct sunlight',
     },
     {
       id: 'backlight',
-      label: 'No backlight',
+      label: 'No strong backlight',
       pass: lightChecks ? !lightChecks.backlight : true,
-      message: 'Bright source behind you — close the blinds or move so light is in front',
+      message: 'Move away from that window',
     },
   ];
 
-  const allPass = checks.every(c => c.pass) && cameraStatus === 'active';
+  const allPass   = checks.every(c => c.pass) && cameraStatus === 'active';
   const passCount = checks.filter(c => c.pass).length;
 
   return (
     <div className="flex-1 flex flex-col lg:flex-row gap-0 overflow-hidden">
-      {/* Camera preview — left / top */}
+      {/* ── Camera preview ───────────────────────────────────────────────────── */}
       <div className="relative flex-1 bg-black min-h-[40vh] lg:min-h-0">
         {cameraStatus === 'loading' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-            <div className="w-10 h-10 rounded-full border-2 border-transparent" style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }} />
+            <div className="w-10 h-10 rounded-full border-2 border-transparent"
+              style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }} />
             <p className="text-zinc-500 text-sm">Starting camera…</p>
           </div>
         )}
@@ -335,62 +359,106 @@ export default function EnvironmentCheck({ exercise, onPassed, onBack }) {
             <p className="text-zinc-400 text-sm">{errorMsg}</p>
           </div>
         )}
-        <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" style={{ transform: 'scaleX(-1)' }} />
 
-        {/* Confidence indicator */}
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ transform: 'scaleX(-1)' }}
+          playsInline muted
+        />
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ transform: 'scaleX(-1)' }}
+        />
+
+        {/* Joint-count badge */}
         {poseChecks && (
-          <div className="absolute bottom-3 left-3 text-xs px-2.5 py-1 rounded-full font-medium"
-            style={{ background: 'rgba(10,10,10,0.8)', color: poseChecks.visibleCount >= 6 ? '#4ade80' : '#fbbf24', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <div
+            className="absolute bottom-3 left-3 text-xs px-2.5 py-1 rounded-full font-medium"
+            style={{
+              background: 'rgba(10,10,10,0.8)',
+              color: poseChecks.visibleCount >= 6 ? '#4ade80' : '#fbbf24',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+          >
             {poseChecks.visibleCount}/{KEY_JOINTS.length} joints tracked
+          </div>
+        )}
+
+        {/* Confidence legend */}
+        {poseChecks && (
+          <div
+            className="absolute bottom-3 right-3 flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full"
+            style={{ background: 'rgba(10,10,10,0.8)', border: '1px solid rgba(255,255,255,0.1)' }}
+          >
+            <span className="w-2 h-2 rounded-full inline-block" style={{ background: '#4ade80' }} />
+            <span className="text-zinc-400">High</span>
+            <span className="w-2 h-2 rounded-full inline-block ml-1" style={{ background: '#fbbf24' }} />
+            <span className="text-zinc-400">Mid</span>
+            <span className="w-2 h-2 rounded-full inline-block ml-1" style={{ background: '#ef4444' }} />
+            <span className="text-zinc-400">Low</span>
           </div>
         )}
       </div>
 
-      {/* Checklist panel — right / bottom */}
+      {/* ── Checklist panel ──────────────────────────────────────────────────── */}
       <div className="w-full lg:w-80 p-5 flex flex-col gap-4 border-t lg:border-t-0 lg:border-l border-zinc-900 bg-zinc-950">
         <div>
           <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-1">Environment Check</p>
           <h2 className="text-white font-bold text-sm">{exercise} — Position Validation</h2>
         </div>
 
-        {/* Progress */}
+        {/* Progress bar */}
         <div>
           <div className="flex justify-between text-xs mb-1.5">
             <span className="text-zinc-500">Checks passing</span>
-            <span className="font-bold" style={{ color: allPass ? '#4ade80' : '#e8ff47' }}>{passCount}/{checks.length}</span>
+            <span className="font-bold" style={{ color: allPass ? '#4ade80' : '#e8ff47' }}>
+              {passCount}/{checks.length}
+            </span>
           </div>
           <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
-            <div className="h-full rounded-full transition-all duration-500"
+            <div
+              className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${(passCount / checks.length) * 100}%`,
-                background: allPass ? 'linear-gradient(90deg, #4ade80, #22c55e)' : 'linear-gradient(90deg, #b8f400, #e8ff47)',
-              }} />
+                background: allPass
+                  ? 'linear-gradient(90deg, #4ade80, #22c55e)'
+                  : 'linear-gradient(90deg, #b8f400, #e8ff47)',
+              }}
+            />
           </div>
         </div>
 
-        {/* Checks */}
+        {/* Checks — state refreshes every second */}
         <div className="space-y-3 flex-1">
           {checks.map((c) => (
             <CheckItem key={c.id} pass={c.pass} label={c.label} message={c.message} />
           ))}
         </div>
 
-        {/* CTA */}
-        <button
-          onClick={onPassed}
-          disabled={!allPass}
-          className="w-full py-3.5 rounded-xl text-sm font-bold tracking-wide transition-all duration-300"
-          style={
-            allPass
-              ? { background: 'linear-gradient(135deg, #4ade80, #22c55e)', color: '#0a0a0a' }
-              : { background: 'rgba(255,255,255,0.05)', color: '#52525b', cursor: 'not-allowed' }
-          }
-        >
-          {allPass ? 'Ready — Start Session ✓' : `Fix ${checks.length - passCount} check${checks.length - passCount !== 1 ? 's' : ''} to continue`}
-        </button>
+        {/* Start button — only rendered when all checks pass */}
+        {allPass ? (
+          <button
+            onClick={onPassed}
+            className="w-full py-3.5 rounded-xl text-sm font-bold tracking-wide transition-all duration-300"
+            style={{ background: 'linear-gradient(135deg, #4ade80, #22c55e)', color: '#0a0a0a' }}
+          >
+            Ready — Start Session ✓
+          </button>
+        ) : (
+          <div
+            className="w-full py-3.5 rounded-xl text-sm font-medium text-center select-none"
+            style={{ background: 'rgba(255,255,255,0.04)', color: '#52525b' }}
+          >
+            Fix {checks.length - passCount} check{checks.length - passCount !== 1 ? 's' : ''} to continue
+          </div>
+        )}
 
-        <button onClick={onBack} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors text-center">
+        <button
+          onClick={onBack}
+          className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors text-center"
+        >
           ← Choose different exercise
         </button>
       </div>
