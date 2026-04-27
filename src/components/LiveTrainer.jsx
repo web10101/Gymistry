@@ -41,8 +41,8 @@ function SetupScreen({ onContinue, onBack }) {
 
       {guide && (
         <div className="slide-up mb-8 rounded-2xl p-5"
-          style={{ background: 'rgba(232,255,71,0.04)', border: '1px solid rgba(232,255,71,0.12)' }}>
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#e8ff47' }}>
+          style={{ background: 'rgba(0,255,135,0.04)', border: '1px solid rgba(0,255,135,0.12)' }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#00ff87' }}>
             Camera Guide — {selected}
           </p>
           <div className="grid grid-cols-3 gap-4 mb-4 text-center">
@@ -60,7 +60,7 @@ function SetupScreen({ onContinue, onBack }) {
           <ul className="space-y-1.5">
             {guide.tips.map((tip) => (
               <li key={tip} className="flex items-start gap-2 text-xs text-zinc-400">
-                <span style={{ color: '#e8ff47' }} className="flex-shrink-0 mt-0.5">→</span>{tip}
+                <span style={{ color: '#00ff87' }} className="flex-shrink-0 mt-0.5">→</span>{tip}
               </li>
             ))}
           </ul>
@@ -381,13 +381,13 @@ function SessionScreen({ exercise, onEnd }) {
   }[phase] || '';
 
   return (
-    <div className="flex flex-col h-screen bg-zinc-950 select-none">
+    <div className="flex flex-col h-screen bg-[#0a0a0a] select-none">
       {/* Minimal top bar */}
       <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-4 py-3"
         style={{ background: 'linear-gradient(to bottom, rgba(10,10,10,0.92) 0%, transparent 100%)' }}>
         <div className="flex items-center gap-2.5">
           <div className="w-2 h-2 rounded-full"
-            style={{ background: status === 'active' ? '#4ade80' : '#f59e0b', boxShadow: status === 'active' ? '0 0 8px rgba(74,222,128,0.7)' : 'none', animation: status === 'active' ? 'pulse 2s ease-in-out infinite' : 'none' }} />
+            style={{ background: status === 'active' ? '#00ff87' : '#f59e0b', boxShadow: status === 'active' ? '0 0 8px rgba(0,255,135,0.7)' : 'none', animation: status === 'active' ? 'pulse 2s ease-in-out infinite' : 'none' }} />
           <span className="text-white text-sm font-semibold">{exercise}</span>
           {phaseLabel && (
             <span className="text-xs text-zinc-500 font-medium">{phaseLabel}</span>
@@ -402,13 +402,13 @@ function SessionScreen({ exercise, onEnd }) {
       {/* Camera */}
       <div className="relative flex-1 overflow-hidden bg-black">
         {status === 'loading' && (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-zinc-950">
-            <div className="w-12 h-12 rounded-full border-2 border-transparent" style={{ borderTopColor: '#e8ff47', animation: 'spin 1s linear infinite' }} />
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-[#0a0a0a]">
+            <div className="w-12 h-12 rounded-full border-2 border-transparent" style={{ borderTopColor: '#00ff87', animation: 'spin 1s linear infinite' }} />
             <p className="text-zinc-400 text-sm">Starting camera…</p>
           </div>
         )}
         {status === 'error' && (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 px-8 text-center bg-zinc-950">
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 px-8 text-center bg-[#0a0a0a]">
             <span className="text-4xl">📷</span>
             <p className="text-white font-semibold">Camera error</p>
             <p className="text-zinc-400 text-sm">{errorMsg}</p>
@@ -462,9 +462,9 @@ function SessionScreen({ exercise, onEnd }) {
         {/* Movement pill */}
         <div className="absolute top-14 right-3 z-10 text-xs px-2.5 py-1 rounded-full font-medium transition-all"
           style={{
-            background: isMoving ? 'rgba(74,222,128,0.15)' : 'rgba(255,255,255,0.05)',
-            color: isMoving ? '#4ade80' : '#52525b',
-            border: `1px solid ${isMoving ? 'rgba(74,222,128,0.3)' : 'rgba(255,255,255,0.08)'}`,
+            background: isMoving ? 'rgba(0,255,135,0.15)' : 'rgba(255,255,255,0.05)',
+            color: isMoving ? '#00ff87' : '#52525b',
+            border: `1px solid ${isMoving ? 'rgba(0,255,135,0.3)' : 'rgba(255,255,255,0.08)'}`,
           }}>
           {isMoving ? 'MOVING' : 'REST'}
         </div>
@@ -475,7 +475,7 @@ function SessionScreen({ exercise, onEnd }) {
         style={{ background: 'rgba(10,10,10,0.97)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex-shrink-0 text-center min-w-[60px]">
           <div className="text-4xl font-extrabold leading-none"
-            style={{ color: '#e8ff47', fontVariantNumeric: 'tabular-nums' }}>
+            style={{ color: '#00ff87', fontVariantNumeric: 'tabular-nums' }}>
             {repCount}
           </div>
           <div className="text-zinc-600 text-xs mt-0.5 uppercase tracking-wider">Reps</div>
@@ -486,7 +486,7 @@ function SessionScreen({ exercise, onEnd }) {
             <div className="flex-shrink-0 text-center min-w-[48px]">
               <div className="text-xl font-bold leading-none transition-colors duration-300"
                 style={{
-                  color: formScore >= 85 ? '#4ade80' : formScore >= 60 ? '#eab308' : '#f87171',
+                  color: formScore >= 85 ? '#00ff87' : formScore >= 60 ? '#eab308' : '#f87171',
                   fontVariantNumeric: 'tabular-nums',
                 }}>
                 {formScore}%
@@ -526,7 +526,7 @@ function SummaryScreen({ result, onBack, onRestart }) {
     <div className="flex-1 px-5 py-8 max-w-2xl mx-auto w-full fade-in">
       <div className="text-center mb-8">
         <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4"
-          style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}>
+          style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}>
           🏆
         </div>
         <h1 className="text-2xl font-bold text-white mb-1">Session Complete</h1>
@@ -539,7 +539,7 @@ function SummaryScreen({ result, onBack, onRestart }) {
           { label: 'Session Time', value: `${mins}:${String(secs).padStart(2, '0')}` },
         ].map(({ label, value }) => (
           <div key={label} className="rounded-2xl p-5 text-center"
-            style={{ background: 'rgba(232,255,71,0.06)', border: '1px solid rgba(232,255,71,0.12)' }}>
+            style={{ background: 'rgba(0,255,135,0.06)', border: '1px solid rgba(0,255,135,0.12)' }}>
             <p className="text-3xl font-extrabold text-white mb-1">{value}</p>
             <p className="text-xs text-zinc-500 uppercase tracking-wider">{label}</p>
           </div>
@@ -569,7 +569,7 @@ function SummaryScreen({ result, onBack, onRestart }) {
 
       <div className="flex gap-3">
         <button onClick={onBack}
-          className="flex-1 py-3.5 rounded-xl border border-zinc-700 text-sm font-medium text-zinc-300 hover:border-zinc-500 transition-all">
+          className="flex-1 py-3.5 rounded-xl border border-[#00ff87] text-sm font-medium text-[#00ff87] hover:bg-[rgba(0,255,135,0.06)] transition-all">
           Home
         </button>
         <button onClick={onRestart} className="btn-primary flex-1 py-3.5 rounded-xl text-sm font-bold">
@@ -624,7 +624,7 @@ export default function LiveTrainer({ onBack }) {
             </div>
           </div>
           <div className="text-xs px-2.5 py-1 rounded-full font-bold"
-            style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}>
+            style={{ background: 'rgba(0,255,135,0.1)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}>
             {stage === STAGES.VALIDATION ? 'CHECKING' : 'LIVE'}
           </div>
         </header>
