@@ -61,12 +61,12 @@ function drawSkeleton(ctx, joints, W, H, { lineColor, nodeColor, criticals = [],
     const isCrit = criticals.includes(k);
     const isErr  = errors.includes(k);
     const r      = (isCrit || isErr) ? 5 : 3.5;
-    const color  = isErr ? '#ef4444' : isCrit ? '#e8ff47' : nodeColor;
+    const color  = isErr ? '#ef4444' : isCrit ? '#00ff87' : nodeColor;
 
     if (isCrit || isErr) {
       ctx.beginPath();
       ctx.arc(x, y, r * 2.8 * glowScale, 0, Math.PI * 2);
-      ctx.fillStyle = isErr ? 'rgba(239,68,68,0.22)' : 'rgba(232,255,71,0.22)';
+      ctx.fillStyle = isErr ? 'rgba(239,68,68,0.22)' : 'rgba(0,255,135,0.22)';
       ctx.fill();
     }
 
@@ -193,11 +193,30 @@ function Section({ label, children }) {
     <div className="mb-7">
       <p
         className="text-xs font-bold uppercase tracking-widest mb-3"
-        style={{ color: '#e8ff47' }}
+        style={{ color: '#00ff87' }}
       >
         {label}
       </p>
       {children}
+    </div>
+  );
+}
+
+// ── YouTube video embed ───────────────────────────────────────────────────────
+
+function YouTubeEmbed({ videoId }) {
+  return (
+    <div
+      className="w-full rounded-xl overflow-hidden mb-8"
+      style={{ aspectRatio: '16/9', border: '1px solid rgba(39,39,42,0.8)' }}
+    >
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+        title="Exercise tutorial"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+      />
     </div>
   );
 }
@@ -230,9 +249,11 @@ function LoadingState() {
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function ExerciseDetail({ exercise, onBack }) {
-  const [data,    setData]    = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error,   setError]   = useState(null);
+  const [data,         setData]         = useState(null);
+  const [loading,      setLoading]      = useState(true);
+  const [error,        setError]        = useState(null);
+  const [videoId,      setVideoId]      = useState(null);
+  const [videoLoading, setVideoLoading] = useState(true);
 
   useEffect(() => {
     setData(null);
@@ -242,6 +263,21 @@ export default function ExerciseDetail({ exercise, onBack }) {
     getExerciseInfo(exercise)
       .then((d) => { setData(d); setLoading(false); })
       .catch((e) => { setError(e.message); setLoading(false); });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [exercise.id]);
+
+  useEffect(() => {
+    setVideoId(null);
+    setVideoLoading(true);
+
+    fetch('/api/youtube-search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ exerciseName: exercise.name }),
+    })
+      .then((res) => res.json())
+      .then((d) => { setVideoId(d.videoId || null); setVideoLoading(false); })
+      .catch(() => { setVideoLoading(false); });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise.id]);
 
@@ -261,6 +297,9 @@ export default function ExerciseDetail({ exercise, onBack }) {
       </header>
 
       <main className="flex-1 max-w-2xl mx-auto w-full px-5 py-8">
+        {/* YouTube tutorial video */}
+        {!videoLoading && videoId && <YouTubeEmbed videoId={videoId} />}
+
         {/* Title */}
         <div className="mb-8">
           <p className="text-xs text-zinc-600 uppercase tracking-widest mb-2">
@@ -304,7 +343,7 @@ export default function ExerciseDetail({ exercise, onBack }) {
                     <li key={i} className="flex gap-3 text-sm text-zinc-300">
                       <span
                         className="font-bold tabular-nums flex-shrink-0 w-5 text-right"
-                        style={{ color: '#e8ff47' }}
+                        style={{ color: '#00ff87' }}
                       >
                         {i + 1}.
                       </span>
@@ -323,7 +362,7 @@ export default function ExerciseDetail({ exercise, onBack }) {
                     <div
                       key={i}
                       className="flex items-start gap-2 text-sm font-semibold"
-                      style={{ color: '#e8ff47' }}
+                      style={{ color: '#00ff87' }}
                     >
                       <span className="opacity-50 mt-0.5">›</span>
                       <span>{cue}</span>

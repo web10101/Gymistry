@@ -9,7 +9,7 @@ const mdComponents = {
   ),
   h2: ({ children }) => (
     <h2 className="text-lg sm:text-xl font-bold mt-8 mb-3 pb-2 border-b border-zinc-800"
-      style={{ color: '#e8ff47' }}>
+      style={{ color: '#00ff87' }}>
       {children}
     </h2>
   ),
@@ -39,7 +39,7 @@ const mdComponents = {
     <em className="text-zinc-400 not-italic">{children}</em>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="border-l-2 border-lime-400 pl-4 my-4 text-zinc-400 italic text-sm">
+    <blockquote className="border-l-2 border-[#00ff87] pl-4 my-4 text-zinc-400 italic text-sm">
       {children}
     </blockquote>
   ),
@@ -68,7 +68,7 @@ const mdComponents = {
   ),
   code: ({ inline, children }) =>
     inline ? (
-      <code className="text-lime-400 bg-zinc-900 px-1.5 py-0.5 rounded text-xs font-mono">
+      <code className="text-[#00ff87] bg-zinc-900 px-1.5 py-0.5 rounded text-xs font-mono">
         {children}
       </code>
     ) : (
@@ -86,7 +86,7 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
         <div className="flex items-center gap-3">
           <div
             className="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
-            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
+            style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}
           >
             💪
           </div>
@@ -128,7 +128,7 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
             <button
               onClick={onRestart}
               className="px-4 py-2 rounded-lg text-xs font-bold transition-all"
-              style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)', color: '#0a0a0a' }}
+              style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)', color: '#0a0a0a' }}
             >
               New Program
             </button>
@@ -141,14 +141,14 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
         <div
           className="mb-4 px-4 py-2.5 rounded-lg text-xs font-medium flex items-center gap-2"
           style={{
-            background: 'rgba(232, 255, 71, 0.08)',
-            border: '1px solid rgba(232, 255, 71, 0.2)',
-            color: '#e8ff47',
+            background: 'rgba(0,255,135, 0.08)',
+            border: '1px solid rgba(0,255,135, 0.2)',
+            color: '#00ff87',
           }}
         >
           <div
             className="w-2 h-2 rounded-full"
-            style={{ background: '#e8ff47', animation: 'pulse 1s ease-in-out infinite' }}
+            style={{ background: '#00ff87', animation: 'pulse 1s ease-in-out infinite' }}
           />
           Your personalized program is being generated in real time…
         </div>
@@ -166,8 +166,8 @@ export default function WorkoutPlan({ plan, isStreaming, onRestart }) {
         <div
           className="mt-10 p-6 rounded-2xl text-center"
           style={{
-            background: 'rgba(232, 255, 71, 0.06)',
-            border: '1px solid rgba(232, 255, 71, 0.15)',
+            background: 'rgba(0,255,135, 0.06)',
+            border: '1px solid rgba(0,255,135, 0.15)',
           }}
         >
           <p className="text-zinc-300 text-sm mb-4">

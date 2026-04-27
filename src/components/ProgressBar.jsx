@@ -15,7 +15,7 @@ export default function ProgressBar({ current, total }) {
           className="h-full rounded-full transition-all duration-500 ease-out"
           style={{
             width: `${pct}%`,
-            background: 'linear-gradient(90deg, #b8f400, #e8ff47)',
+            background: 'linear-gradient(90deg, #00cc6a, #00ff87)',
           }}
         />
       </div>

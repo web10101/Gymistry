@@ -21,7 +21,7 @@ export default function LoadingState({ name }) {
         <div
           className="absolute inset-0 rounded-full border-2 border-transparent"
           style={{
-            borderTopColor: '#e8ff47',
+            borderTopColor: '#00ff87',
             animation: 'spin 1.2s linear infinite',
           }}
         />
@@ -45,7 +45,7 @@ export default function LoadingState({ name }) {
             <div
               className="w-1.5 h-1.5 rounded-full flex-shrink-0"
               style={{
-                background: '#e8ff47',
+                background: '#00ff87',
                 animation: `pulse-dot ${1}s ease-in-out ${i * 0.6}s infinite`,
               }}
             />
