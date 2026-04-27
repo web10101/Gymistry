@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from 'react';
 import { EXERCISE_REP_CONFIG } from '../data/exerciseGuides';
+import { computeFormScore } from '../data/poseThresholds';
 
 const avg = (...vals) => {
   const v = vals.filter((x) => x !== null && !isNaN(x));
@@ -38,15 +39,18 @@ const ROM_MARGIN    = 10;  // degrees — wiggle room for ROM comparison
  *   Reports whether the person hit adequate depth for the exercise.
  */
 export function useRepCounter(exercise) {
-  const [repCount,  setRepCount]  = useState(0);
-  const [phase,     setPhase]     = useState(PHASE.AT_TOP);
-  const [lastROM,   setLastROM]   = useState(null); // bottom angle of last rep
+  const [repCount,     setRepCount]     = useState(0);
+  const [phase,        setPhase]        = useState(PHASE.AT_TOP);
+  const [lastROM,      setLastROM]      = useState(null); // bottom angle of last rep
+  const [lastFormScore, setLastFormScore] = useState(null);
 
-  const phaseRef       = useRef(PHASE.AT_TOP);
-  const repCountRef    = useRef(0);
-  const angleHistRef   = useRef([]);
-  const prevAngleRef   = useRef(null);
-  const repMinAngleRef = useRef(Infinity); // track depth in current rep
+  const phaseRef          = useRef(PHASE.AT_TOP);
+  const repCountRef       = useRef(0);
+  const angleHistRef      = useRef([]);
+  const prevAngleRef      = useRef(null);
+  const repMinAngleRef    = useRef(Infinity); // track depth in current rep
+  const repBottomAnglesRef = useRef(null);   // angles captured at deepest point
+  const formScoresRef     = useRef([]);      // score for every rep
 
   const setPhaseSync = (p) => {
     phaseRef.current = p;
@@ -56,10 +60,10 @@ export function useRepCounter(exercise) {
   const update = useCallback(
     (angles) => {
       const cfg = EXERCISE_REP_CONFIG[exercise];
-      if (!cfg) return { newRep: null, phase: phaseRef.current };
+      if (!cfg) return { newRep: null, phase: phaseRef.current, formScore: null };
 
       const raw = getPrimaryAngle(angles, exercise);
-      if (raw === null) return { newRep: null, phase: phaseRef.current };
+      if (raw === null) return { newRep: null, phase: phaseRef.current, formScore: null };
 
       // Smooth
       angleHistRef.current.push(raw);
@@ -79,16 +83,26 @@ export function useRepCounter(exercise) {
 
       if (curPhase === PHASE.AT_TOP || curPhase === PHASE.REST) {
         if (velocity < -1) setPhaseSync(PHASE.ECCENTRIC);
-        if (smoothed < bottom) { setPhaseSync(PHASE.AT_BOTTOM); repMinAngleRef.current = smoothed; }
+        if (smoothed < bottom) {
+          setPhaseSync(PHASE.AT_BOTTOM);
+          repMinAngleRef.current = smoothed;
+          repBottomAnglesRef.current = angles;
+        }
       }
 
       if (curPhase === PHASE.ECCENTRIC) {
-        if (smoothed < repMinAngleRef.current) repMinAngleRef.current = smoothed;
+        if (smoothed < repMinAngleRef.current) {
+          repMinAngleRef.current = smoothed;
+          repBottomAnglesRef.current = angles;
+        }
         if (smoothed < bottom) setPhaseSync(PHASE.AT_BOTTOM);
       }
 
       if (curPhase === PHASE.AT_BOTTOM) {
-        if (smoothed < repMinAngleRef.current) repMinAngleRef.current = smoothed;
+        if (smoothed < repMinAngleRef.current) {
+          repMinAngleRef.current = smoothed;
+          repBottomAnglesRef.current = angles;
+        }
         if (velocity > 1) setPhaseSync(PHASE.CONCENTRIC);
       }
 
@@ -99,6 +113,11 @@ export function useRepCounter(exercise) {
           setRepCount(repCountRef.current);
           newRep = repCountRef.current;
 
+          // Form score from deepest captured angles
+          const score = computeFormScore(repBottomAnglesRef.current || angles, exercise);
+          formScoresRef.current.push(score);
+          setLastFormScore(score);
+
           // ROM data
           const achievedROM = repMinAngleRef.current;
           const expectedBottom = bottom;
@@ -106,11 +125,13 @@ export function useRepCounter(exercise) {
             achieved: Math.round(achievedROM),
             target: expectedBottom,
             adequate: achievedROM <= expectedBottom + ROM_MARGIN,
+            formScore: score,
           };
           setLastROM(romData);
 
           // Reset for next rep
           repMinAngleRef.current = Infinity;
+          repBottomAnglesRef.current = null;
           setPhaseSync(PHASE.AT_TOP);
         }
       }
@@ -122,7 +143,7 @@ export function useRepCounter(exercise) {
         }
       }
 
-      return { newRep, phase: phaseRef.current, romData };
+      return { newRep, phase: phaseRef.current, romData, formScore: romData?.formScore ?? null };
     },
     [exercise]
   );
@@ -131,12 +152,15 @@ export function useRepCounter(exercise) {
     setRepCount(0);
     setPhase(PHASE.AT_TOP);
     setLastROM(null);
-    repCountRef.current    = 0;
-    phaseRef.current       = PHASE.AT_TOP;
-    angleHistRef.current   = [];
-    prevAngleRef.current   = null;
-    repMinAngleRef.current = Infinity;
+    setLastFormScore(null);
+    repCountRef.current       = 0;
+    phaseRef.current          = PHASE.AT_TOP;
+    angleHistRef.current      = [];
+    prevAngleRef.current      = null;
+    repMinAngleRef.current    = Infinity;
+    repBottomAnglesRef.current = null;
+    formScoresRef.current     = [];
   }, []);
 
-  return { repCount, repCountRef, phase, phaseRef, lastROM, update, reset };
+  return { repCount, repCountRef, phase, phaseRef, lastROM, lastFormScore, formScoresRef, update, reset };
 }

@@ -1,5 +1,3 @@
-import { describeVelocity, describeSpine, computeSymmetry } from '../hooks/useLivePose';
-import { PHASE } from '../hooks/useRepCounter';
 
 const COACHING_MODEL = 'claude-haiku-4-5-20251001';
 
@@ -109,75 +107,53 @@ export class TTSQueue {
 
 // ─── Claude coaching prompt ───────────────────────────────────────────────────
 
-function fmtA(v) { return v !== null && !isNaN(v) ? `${Math.round(v)}°` : '—'; }
-function fmtS(v) { return v !== undefined ? `${v}°` : '—'; }
+function buildPrompt({ exercise, angles, deviations, formScore, phase, repCount, lastROM, recentCues }) {
+  // Summarise worst joint deviations (red first, then yellow)
+  const devEntries = Object.entries(deviations || {})
+    .filter(([, d]) => d.color !== 'green')
+    .sort(([, a], [, b]) => b.deviation - a.deviation);
 
-function buildPrompt({ exercise, angles, velocity, symmetry, repCount, phase, lastROM, recentCues, secondsElapsed }) {
-  const sym = symmetry || computeSymmetry(angles);
-  const asymmetries = Object.entries(sym)
-    .filter(([, v]) => v > 20)
-    .map(([joint, v]) => `${joint}: ${v}° L/R difference`)
-    .join(', ') || 'none significant';
+  const devStr = devEntries.length
+    ? devEntries.map(([j, d]) => `${j} ${d.deviation}° off (${d.color})`).join(', ')
+    : 'all joints within range';
+
+  const score = formScore != null ? `${formScore}%` : 'n/a';
 
   const romNote = lastROM
-    ? lastROM.adequate
-      ? `Last rep reached ${lastROM.achieved}° — good depth ✓`
-      : `Last rep only reached ${lastROM.achieved}° — target is ${lastROM.target}° or lower, cut short`
-    : 'No full rep yet';
-
-  const avoidStr = recentCues?.length
-    ? `DO NOT say: "${recentCues.slice(-4).join('" | "')}"`
+    ? lastROM.adequate ? 'good depth' : `only ${lastROM.achieved}° — target ${lastROM.target}°`
     : '';
 
-  const mm = Math.floor(secondsElapsed / 60);
-  const ss = String(secondsElapsed % 60).padStart(2, '0');
+  const avoidStr = recentCues?.length
+    ? `NEVER repeat: "${recentCues.slice(-3).join('" | "')}"`
+    : '';
 
-  return `You are an encouraging, experienced personal trainer watching someone perform ${exercise} via live camera. Your job is to help them succeed, not pick them apart. Coach like a real human trainer — warm, specific when it matters, and mostly positive.
-
-Only correct something if it is unsafe, clearly wrong, or significantly impacts whether the exercise is working. Ignore minor asymmetries and small degree differences. The person is a human not a machine. If their form is good enough to be safe and effective — just encourage them and count their reps.
-
-SESSION: ${mm}:${ss} elapsed | Rep ${repCount} | Phase: ${phase}
-
-FULL JOINT DATA:
-Knees:     L ${fmtA(angles.leftKnee)} / R ${fmtA(angles.rightKnee)}
-Hips:      L ${fmtA(angles.leftHip)} / R ${fmtA(angles.rightHip)}
-Elbows:    L ${fmtA(angles.leftElbow)} / R ${fmtA(angles.rightElbow)}
-Shoulders: L ${fmtA(angles.leftShoulder)} / R ${fmtA(angles.rightShoulder)}
-Ankles:    L ${fmtA(angles.leftAnkle)} / R ${fmtA(angles.rightAnkle)}
-Wrists:    L ${fmtA(angles.leftWrist)} / R ${fmtA(angles.rightWrist)}
-Torso lean: ${fmtA(angles.torsoLean)} | Spine: ${describeSpine(angles.spineAngle)}
-Hip tilt: ${angles.hipTilt?.toFixed(1) ?? '—'}% | Shoulder tilt: ${angles.shoulderTilt?.toFixed(1) ?? '—'}%
-Stance width: ${angles.stanceWidth?.toFixed(2) ?? '—'} (0=feet together, 1=full frame width)
-Head position: ${fmtA(angles.headForward)} offset from center
-
-SIGNIFICANT ASYMMETRIES (>20° L/R only): ${asymmetries}
-
-MOVEMENT:
-Velocity: ${describeVelocity(velocity)}
-Depth / ROM: ${romNote}
-
+  return `Trainer for ${exercise}. Rep ${repCount}. Phase: ${phase}. Form score: ${score}.
+Joint deviations: ${devStr}.${romNote ? ` Depth: ${romNote}.` : ''}
 ${avoidStr}
 
-YOUR RESPONSE: ONE coaching cue, MAX 12 words.
+Rules — read carefully:
+- ONE sentence max. Short. Natural. Like a real trainer talking.
+- Form score >85: just count the rep or say something encouraging.
+- A joint is red/yellow: name it specifically and give one simple fix.
+- Never give a technical report. Never start with "I".
+- Never repeat the last 3 cues above.
+- Return empty string if nothing important to say.
 
-Priority order (respond to highest priority that applies):
-1. URGENT SAFETY — spinal rounding, joint collapse, loss of control → interrupt immediately
-2. Form correction — only if clearly wrong or unsafe (specific body part + exact direction)
-3. Depth feedback — if they're significantly short of ROM ("little lower, you've got it")
-4. Encouragement — when form is solid or improving
-5. Rep acknowledgment — call out their rep with energy
-6. EMPTY STRING — if form is good enough and nothing important needs saying
-
-Rules:
 - Only correct something if it is unsafe, clearly wrong, or significantly impacts whether the exercise is working. Ignore minor asymmetries and small degree differences. The person is a human not a machine. If their form is good enough to be safe and effective — just encourage them and count their reps.
-- Be specific when correcting: "left knee caving in, drive it over your pinky toe" not "watch your knees"
-- Notice improvements: "knees tracking better — keep that up"
-- Vary tone: firm for safety corrections, warm and energetic for encouragement
-- When they're RESTING (${phase === PHASE.REST ? 'YES, currently resting' : 'no, currently moving'}): brief reset cue or silence
-- Return EXACTLY "" (empty string) if nothing important needs saying
-- Never start with "I", never use filler words ("okay", "alright", "so")
+- Form score >85: just count the rep or say something encouraging.
+- A joint is red/yellow: name it specifically and give one simple fix.
+- Never give a technical report. Never start with "I".
+- Never repeat the last 3 cues above.
+- Return empty string if nothing important to say.
 
-Respond with ONLY the cue text (or empty string). No quotes, no labels.`;
+Examples of good responses:
+"Three. Good depth."
+"Chest is dropping — chin up."
+"Nice, that's better."
+"Knees out a bit more."
+"Four. Keep that pace."
+
+Respond with ONLY the cue (or empty string). No quotes, no labels.`;
 }
 
 // ─── API call ─────────────────────────────────────────────────────────────────
