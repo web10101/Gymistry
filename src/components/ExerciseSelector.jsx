@@ -63,12 +63,10 @@ export default function ExerciseSelector({ mode, onSelect }) {
   const filtered = useMemo(() => {
     let list = BASE_LIST;
     if (selectedGroup !== 'All') list = list.filter((e) => e.muscleGroup === selectedGroup);
-    if (selectedEquip.length > 0) {
-      list = list.filter((e) => {
-        const eq = getEquipment(e.name);
-        return eq.length === 0 || eq.some((q) => selectedEquip.includes(q));
-      });
-    }
+    list = list.filter((e) => {
+      const eq = getEquipment(e.name);
+      return eq.length === 0 || eq.some((q) => selectedEquip.includes(q));
+    });
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter((e) => e.name.toLowerCase().includes(q) || e.muscleGroup.toLowerCase().includes(q));
