@@ -51,8 +51,8 @@ function SetupScreen({ onContinue, onBack }) {
 
       {guide && (
         <div className="slide-up mb-8 rounded-2xl p-5"
-          style={{ background: 'rgba(232,255,71,0.04)', border: '1px solid rgba(232,255,71,0.12)' }}>
-          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#e8ff47' }}>
+          style={{ background: 'rgba(0,255,135,0.04)', border: '1px solid rgba(0,255,135,0.15)' }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#00ff87' }}>
             Camera Guide — {selected}
           </p>
           <div className="grid grid-cols-3 gap-4 mb-4 text-center">
@@ -70,7 +70,7 @@ function SetupScreen({ onContinue, onBack }) {
           <ul className="space-y-1.5">
             {guide.tips.map((tip) => (
               <li key={tip} className="flex items-start gap-2 text-xs text-zinc-400">
-                <span style={{ color: '#e8ff47' }} className="flex-shrink-0 mt-0.5">→</span>{tip}
+                <span style={{ color: '#00ff87' }} className="flex-shrink-0 mt-0.5">→</span>{tip}
               </li>
             ))}
           </ul>
