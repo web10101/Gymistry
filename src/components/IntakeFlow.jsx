@@ -102,17 +102,25 @@ export default function IntakeFlow({ onBack }) {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Top bar */}
-      <header className="flex items-center justify-between px-5 py-4 border-b border-zinc-900">
+      <header
+        className="flex items-center justify-between px-5 py-4 sticky top-0 z-50"
+        style={{
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          background: 'rgba(10,10,10,0.75)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}
+      >
         <div className="flex items-center gap-2.5">
           <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-black text-zinc-900"
-            style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}
+            className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-black text-black glow-pulse"
+            style={{ background: 'linear-gradient(135deg, #e8ff47, #b8f400)' }}
           >
             G
           </div>
           <button
             onClick={onBack}
-            className="font-bold text-white tracking-tight text-sm hover:text-[#00ff87] transition-colors"
+            className="font-bold text-white tracking-tight text-sm hover:text-[#e8ff47] transition-colors"
           >
             Gymistry
           </button>
@@ -148,7 +156,11 @@ export default function IntakeFlow({ onBack }) {
 
       {/* Main question area */}
       <main className="flex-1 flex items-start justify-center px-5 pt-10 pb-16">
-        <div className="w-full max-w-2xl" key={currentIndex}>
+        <div
+          className="w-full max-w-2xl"
+          key={currentIndex}
+          style={{ animation: 'cardEntrance 0.5s cubic-bezier(0.16,1,0.3,1) both' }}
+        >
           <QuestionCard
             question={currentQuestion}
             answers={answers}

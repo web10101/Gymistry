@@ -36,9 +36,10 @@ function UploadZone({ onFile }) {
       onDrop={onDrop}
       className="relative rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-4 p-10 text-center"
       style={{
-        borderColor: dragging ? '#00ff87' : 'rgba(255,255,255,0.12)',
-        background: dragging ? 'rgba(0,255,135,0.04)' : 'rgba(255,255,255,0.02)',
+        borderColor: dragging ? '#e8ff47' : 'rgba(255,255,255,0.12)',
+        background: dragging ? 'rgba(232,255,71,0.04)' : 'rgba(255,255,255,0.02)',
         minHeight: 200,
+        animation: 'uploadPulse 8s ease-in-out infinite',
       }}
     >
       <input
@@ -57,7 +58,7 @@ function UploadZone({ onFile }) {
       </div>
       <div
         className="text-xs font-semibold px-4 py-2 rounded-lg"
-        style={{ background: 'rgba(0,255,135,0.1)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
+        style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
       >
         Choose File
       </div>
@@ -109,9 +110,23 @@ function ProcessingScreen({ stage, progress }) {
         >
           {isPose ? '📐' : '🧠'}
         </div>
+        {/* Outer comet ring */}
         <div
           className="absolute inset-0 rounded-full border-2 border-transparent"
-          style={{ borderTopColor: '#00ff87', animation: 'spin 1s linear infinite' }}
+          style={{
+            borderTopColor: '#e8ff47',
+            borderRightColor: 'rgba(232,255,71,0.3)',
+            animation: 'spin 1s linear infinite',
+          }}
+        />
+        {/* Inner counter-rotating ring */}
+        <div
+          className="absolute rounded-full border border-transparent"
+          style={{
+            inset: '20%',
+            borderTopColor: 'rgba(232,255,71,0.5)',
+            animation: 'spin 1.5s linear infinite reverse',
+          }}
         />
       </div>
 
@@ -136,7 +151,7 @@ function ProcessingScreen({ stage, progress }) {
               className="h-full rounded-full transition-all duration-300"
               style={{
                 width: `${progress.pct ?? 0}%`,
-                background: 'linear-gradient(90deg, #00cc6a, #00ff87)',
+                background: 'linear-gradient(90deg, #b8f400, #e8ff47)',
               }}
             />
           </div>
@@ -151,8 +166,8 @@ function ProcessingScreen({ stage, progress }) {
               key={i}
               className="w-2 h-2 rounded-full"
               style={{
-                background: '#00ff87',
-                animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
+                background: '#e8ff47',
+                animation: `bounceDot 1.2s ease-in-out ${i * 0.2}s infinite`,
               }}
             />
           ))}
@@ -161,10 +176,6 @@ function ProcessingScreen({ stage, progress }) {
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); opacity: 0.4; }
-          50% { transform: translateY(-6px); opacity: 1; }
-        }
       `}</style>
     </div>
   );
@@ -222,7 +233,15 @@ export default function FormCheck({ onBack }) {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="flex items-center justify-between px-5 py-4 border-b border-zinc-900">
+      <header
+        className="flex items-center justify-between px-5 py-4 sticky top-0 z-50"
+        style={{
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          background: 'rgba(10,10,10,0.75)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}
+      >
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
@@ -240,7 +259,7 @@ export default function FormCheck({ onBack }) {
           <button
             onClick={handleReset}
             className="text-xs font-bold px-4 py-2 rounded-lg transition-all"
-            style={{ background: 'rgba(0,255,135,0.1)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
+            style={{ background: 'rgba(232,255,71,0.1)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.2)' }}
           >
             New Analysis
           </button>
@@ -299,7 +318,7 @@ export default function FormCheck({ onBack }) {
                 <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium mb-3">Exercise</p>
                 <div
                   className="flex items-center justify-between rounded-xl px-4 py-3"
-                  style={{ background: 'rgba(0,255,135,0.06)', border: '1px solid rgba(0,255,135,0.15)' }}
+                  style={{ background: 'rgba(232,255,71,0.06)', border: '1px solid rgba(232,255,71,0.15)' }}
                 >
                   <span className="text-sm font-semibold text-white">{exercise}</span>
                   <button

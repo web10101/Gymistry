@@ -19,14 +19,18 @@ function inferEquipment(name) {
   return 'Bodyweight';
 }
 
-function ExerciseCard({ exercise, onClick }) {
+function ExerciseCard({ exercise, onClick, index }) {
   return (
     <button
       onClick={() => onClick(exercise)}
       className="group card-glass rounded-xl p-4 text-left w-full transition-all duration-200 hover:-translate-y-0.5"
-      style={{ borderColor: 'rgba(255,255,255,0.07)' }}
+      style={{
+        borderColor: 'rgba(255,255,255,0.07)',
+        animation: 'cardEntrance 0.5s cubic-bezier(0.16,1,0.3,1) both',
+        animationDelay: `${Math.min(index * 30, 600)}ms`,
+      }}
     >
-      <p className="text-sm font-semibold text-white leading-snug group-hover:text-[#00ff87] transition-colors">
+      <p className="text-sm font-semibold text-white leading-snug group-hover:text-[#e8ff47] transition-colors">
         {exercise.name}
       </p>
       <p className="text-xs text-zinc-600 mt-1">{exercise.muscleGroup}</p>
@@ -54,7 +58,15 @@ export default function ExerciseBrowser({ onSelectExercise, onBack }) {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="flex items-center justify-between px-5 py-4 border-b border-zinc-900 sticky top-0 z-10 bg-zinc-950/95 backdrop-blur">
+      <header
+        className="flex items-center justify-between px-5 py-4 sticky top-0 z-50"
+        style={{
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          background: 'rgba(10,10,10,0.75)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}
+      >
         <div className="flex items-center gap-3">
           <button onClick={onBack} className="text-zinc-500 hover:text-zinc-300 transition-colors text-sm">
             ← Back
@@ -64,7 +76,12 @@ export default function ExerciseBrowser({ onSelectExercise, onBack }) {
         </div>
         <span
           className="text-xs font-bold px-2.5 py-1 rounded-full"
-          style={{ background: 'rgba(0,255,135,0.10)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.2)' }}
+          style={{
+            background: 'rgba(232,255,71,0.10)',
+            color: '#e8ff47',
+            border: '1px solid rgba(232,255,71,0.2)',
+            animation: 'glowPulse 3s ease-in-out infinite',
+          }}
         >
           {filtered.length}
         </span>
@@ -86,7 +103,7 @@ export default function ExerciseBrowser({ onSelectExercise, onBack }) {
             onClick={() => setEquipOpen((v) => !v)}
             className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-zinc-300"
           >
-            <span>Equipment {selectedEquip && <span style={{ color: '#00ff87' }}>· {selectedEquip}</span>}</span>
+            <span>Equipment {selectedEquip && <span style={{ color: '#e8ff47' }}>· {selectedEquip}</span>}</span>
             <span className="text-zinc-600 text-base leading-none">{equipOpen ? '−' : '+'}</span>
           </button>
           {equipOpen && (
@@ -97,13 +114,13 @@ export default function ExerciseBrowser({ onSelectExercise, onBack }) {
                   onClick={() => setSelectedEquip(selectedEquip === eq ? null : eq)}
                   className="flex items-center gap-2 text-xs py-2 px-3 rounded-lg text-left transition-all"
                   style={selectedEquip === eq
-                    ? { background: 'rgba(0,255,135,0.14)', color: '#00ff87', border: '1px solid rgba(0,255,135,0.35)' }
+                    ? { background: 'rgba(232,255,71,0.14)', color: '#e8ff47', border: '1px solid rgba(232,255,71,0.35)' }
                     : { background: 'rgba(255,255,255,0.04)', color: '#a1a1aa', border: '1px solid rgba(255,255,255,0.07)' }}
                 >
                   <span
                     className="w-4 h-4 rounded flex-shrink-0 flex items-center justify-center text-[9px] font-bold"
                     style={selectedEquip === eq
-                      ? { background: '#00ff87', color: '#0a0a0a' }
+                      ? { background: '#e8ff47', color: '#0a0a0a' }
                       : { border: '1px solid rgba(255,255,255,0.15)', color: 'transparent' }}
                   >
                     ✓
@@ -123,7 +140,8 @@ export default function ExerciseBrowser({ onSelectExercise, onBack }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search exercises…"
-            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[#00ff87]/50 transition-colors"
+            className="w-full rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-[#e8ff47]/50 transition-colors"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
           />
           {search && (
             <button
@@ -136,8 +154,8 @@ export default function ExerciseBrowser({ onSelectExercise, onBack }) {
         {/* Results */}
         {filtered.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-            {filtered.map((ex) => (
-              <ExerciseCard key={ex.id} exercise={ex} onClick={onSelectExercise} />
+            {filtered.map((ex, i) => (
+              <ExerciseCard key={ex.id} exercise={ex} onClick={onSelectExercise} index={i} />
             ))}
           </div>
         ) : (
@@ -147,7 +165,7 @@ export default function ExerciseBrowser({ onSelectExercise, onBack }) {
             <button
               onClick={() => { setSearch(''); setSelectedGroup('All'); setSelectedEquip(null); }}
               className="mt-4 text-xs underline"
-              style={{ color: '#00ff87' }}
+              style={{ color: '#e8ff47' }}
             >
               Clear filters
             </button>

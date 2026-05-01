@@ -12,7 +12,8 @@ function TextInput({ question, value, onChange, onSubmit }) {
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && value?.trim() && onSubmit()}
         placeholder={question.placeholder}
-        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors"
+        className="w-full rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#e8ff47] transition-colors"
+        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
       />
       <button
         onClick={onSubmit}
@@ -48,8 +49,8 @@ function NumberInput({ question, value, onChange, onSubmit }) {
           placeholder={question.placeholder}
           min={question.min}
           max={question.max}
-          className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors"
-          style={{ MozAppearance: 'textfield' }}
+          className="w-full rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#e8ff47] transition-colors"
+          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', MozAppearance: 'textfield' }}
         />
         {question.unit && (
           <span className="text-zinc-400 font-medium whitespace-nowrap">{question.unit}</span>
@@ -82,19 +83,18 @@ function NumberUnitInput({ question, value, unit, onValueChange, onUnitChange, o
           onChange={(e) => onValueChange(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && valid && onSubmit()}
           placeholder={question.placeholder}
-          className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors"
-          style={{ MozAppearance: 'textfield' }}
+          className="flex-1 rounded-xl px-5 py-4 text-white text-lg placeholder-zinc-600 focus:outline-none focus:border-[#e8ff47] transition-colors"
+          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', MozAppearance: 'textfield' }}
         />
-        <div className="flex rounded-xl overflow-hidden border border-zinc-700">
+        <div className="flex rounded-xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
           {question.units.map((u) => (
             <button
               key={u}
               onClick={() => onUnitChange(u)}
-              className={`px-5 py-4 text-sm font-bold transition-all ${
-                unit === u
-                  ? 'bg-lime-400 text-zinc-900'
-                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
-              }`}
+              className="px-5 py-4 text-sm font-bold transition-all"
+              style={unit === u
+                ? { background: '#e8ff47', color: '#0a0a0a' }
+                : { background: 'rgba(255,255,255,0.04)', color: '#a1a1aa' }}
             >
               {u}
             </button>
@@ -131,7 +131,7 @@ function SingleSelect({ question, value, onChange, onSubmit }) {
             <span className="text-2xl flex-shrink-0">{opt.icon}</span>
             <span className="text-sm font-medium text-zinc-200">{opt.label}</span>
             {value === opt.value && (
-              <span className="ml-auto text-[#00ff87] text-lg">✓</span>
+              <span className="ml-auto text-[#e8ff47] text-lg">✓</span>
             )}
           </button>
         ))}
@@ -174,7 +174,7 @@ function MultiSelect({ question, value = [], onChange, onSubmit }) {
             <span className="text-2xl flex-shrink-0">{opt.icon}</span>
             <span className="text-sm font-medium text-zinc-200">{opt.label}</span>
             {isSelected(opt.value) && (
-              <span className="ml-auto text-[#00ff87] text-lg">✓</span>
+              <span className="ml-auto text-[#e8ff47] text-lg">✓</span>
             )}
           </button>
         ))}
@@ -199,7 +199,8 @@ function TextareaInput({ question, value, onChange, onSubmit }) {
         placeholder={question.placeholder}
         rows={4}
         autoFocus
-        className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 py-4 text-white text-base placeholder-zinc-600 focus:outline-none focus:border-[#00ff87] transition-colors resize-none"
+        className="w-full rounded-xl px-5 py-4 text-white text-base placeholder-zinc-600 focus:outline-none focus:border-[#e8ff47] transition-colors resize-none"
+        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
       />
       <button
         onClick={onSubmit}
@@ -244,12 +245,15 @@ export default function QuestionCard({
       {/* Question number badge */}
       <div className="flex items-center gap-2 mb-4">
         <span
-          className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-zinc-900"
-          style={{ background: 'linear-gradient(135deg, #00ff87, #00cc6a)' }}
+          className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-black"
+          style={{
+            background: 'linear-gradient(135deg, #e8ff47, #b8f400)',
+            animation: 'glowPulse 2.5s ease-in-out infinite',
+          }}
         >
           {questionNumber}
         </span>
-        <span className="text-xs text-zinc-500 uppercase tracking-widest font-medium">
+        <span className="text-xs uppercase tracking-widest font-medium text-gradient">
           Your trainer asks
         </span>
       </div>
