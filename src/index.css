@@ -68,11 +68,30 @@
   }
 
   .slide-up {
-    animation: slideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .fade-in {
     animation: fadeIn 0.3s ease forwards;
+  }
+
+  .gymistry-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px),
+      radial-gradient(circle at 20% 10%, rgba(232,255,71,0.22), transparent 30%),
+      radial-gradient(circle at 85% 35%, rgba(217,70,239,0.18), transparent 28%);
+    background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+  }
+
+  .hero-title {
+    text-wrap: balance;
+    text-shadow: 0 18px 60px rgba(232,255,71,0.12);
+  }
+
+  .ticker {
+    width: max-content;
+    animation: marquee 24s linear infinite;
   }
 }
 
@@ -97,8 +116,44 @@
   50% { box-shadow: 0 0 40px rgba(184, 244, 0, 0.5); }
 }
 
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(26px, -38px) scale(1.05); }
+  66% { transform: translate(-22px, 24px) scale(0.95); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--float-rotate, 0deg)); }
+  50% { transform: translateY(-18px) rotate(var(--float-rotate, 0deg)); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+
 .pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-blob {
+  animation: blob 10s ease-in-out infinite;
+}
+
+.animate-blob-delayed {
+  animation: blob 13s ease-in-out infinite reverse;
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 7s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out infinite 0.8s;
 }
 
 ::-webkit-scrollbar {
