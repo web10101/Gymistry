@@ -1,75 +1,188 @@
-const actions = [
-  { id: 'intake', emoji: '🏋️', label: 'Build My Program', kicker: 'Smart plan builder', copy: 'Answer a fast coach-style intake and get a personalized 4-week training program with sets, reps, notes, and progression.', accent: 'from-lime-300 to-emerald-300' },
-  { id: 'formcheck', emoji: '🎥', label: 'Form Check', kicker: 'Upload + improve', copy: 'Drop in a lift video and get movement feedback, joint-angle notes, mistake fixes, and clean coaching cues.', accent: 'from-fuchsia-300 to-orange-300' },
-  { id: 'livetrainer', emoji: '🎙️', label: 'Live Trainer', kicker: 'Real-time coaching', copy: 'Turn on your camera for rep counting, live voice cues, symmetry checks, and form alerts while you train.', accent: 'from-sky-300 to-lime-300', live: true },
-  { id: 'library', emoji: '📚', label: 'Exercise Library', kicker: 'Master every move', copy: 'Browse 290+ exercises with animated breakdowns, muscle targeting, mistake fixes, and pro-level coaching cues.', accent: 'from-amber-200 to-rose-300' },
+const primaryActions = [
+  {
+    id: 'livetrainer',
+    icon: '🎙️',
+    title: 'Start Live Trainer',
+    desc: 'Camera rep counting, voice cues, and form alerts in real time.',
+    cta: 'Start session',
+    featured: true,
+  },
+  {
+    id: 'formcheck',
+    icon: '🎥',
+    title: 'Form Check',
+    desc: 'Upload a lift video and get joint-angle coaching feedback.',
+    cta: 'Analyze video',
+  },
+  {
+    id: 'intake',
+    icon: '🏋️',
+    title: 'Build Program',
+    desc: 'Generate a personalized 4-week training block.',
+    cta: 'Create plan',
+  },
+  {
+    id: 'library',
+    icon: '📚',
+    title: 'Exercise Library',
+    desc: 'Browse 290+ movements, cues, and common mistakes.',
+    cta: 'Browse',
+  },
 ];
 
-const tickerItems = ['AI PROGRAMS', 'FORM FIXES', 'LIVE REPS', 'POSE INTELLIGENCE', 'NO ACCOUNT NEEDED'];
+const todaysWorkout = [
+  ['Back Squat', '4 x 6', 'Form target: knees track over toes'],
+  ['Romanian Deadlift', '3 x 8', 'Keep ribs stacked and hips back'],
+  ['Walking Lunge', '3 x 10', 'Smooth tempo, no knee collapse'],
+];
+
+const metrics = [
+  ['Readiness', '86%', '+12%'],
+  ['Form score', '92', 'stable'],
+  ['Weekly volume', '18 sets', '+4 sets'],
+];
 
 export default function Home({ onNavigate }) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#080907] text-white">
-      <div className="fixed inset-0 -z-10 gymistry-grid opacity-70" />
-      <div className="fixed -left-32 top-20 -z-10 h-96 w-96 rounded-full bg-lime-300/25 blur-3xl animate-blob" />
-      <div className="fixed -right-28 top-1/3 -z-10 h-[28rem] w-[28rem] rounded-full bg-fuchsia-500/20 blur-3xl animate-blob-delayed" />
+    <div className="relative min-h-screen overflow-hidden bg-[#070807] text-white">
+      <div className="fixed inset-0 -z-10 gymistry-grid opacity-60" />
+      <div className="fixed -left-28 top-12 -z-10 h-80 w-80 rounded-full bg-lime-300/20 blur-3xl animate-blob" />
+      <div className="fixed bottom-0 right-0 -z-10 h-96 w-96 rounded-full bg-emerald-400/10 blur-3xl animate-blob-delayed" />
 
-      <header className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
-        <button onClick={() => onNavigate('home')} className="group flex items-center gap-3" aria-label="Gymistry home">
-          <span className="flex h-11 w-11 rotate-[-7deg] items-center justify-center rounded-2xl border-2 border-zinc-950 bg-lime-300 text-xl font-black text-zinc-950 shadow-[5px_5px_0_#000] transition-transform group-hover:rotate-3 group-hover:scale-105">G</span>
-          <span><span className="block text-lg font-black uppercase tracking-tight">Gymistry</span><span className="block text-[10px] font-bold uppercase tracking-[0.32em] text-lime-200/80">AI sweat lab</span></span>
-        </button>
-        <button onClick={() => onNavigate('livetrainer')} className="rounded-full border-2 border-zinc-950 bg-white px-4 py-2 text-xs font-black uppercase tracking-wider text-zinc-950 shadow-[4px_4px_0_#000] transition hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#000]">Train live</button>
-      </header>
+      <div className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 lg:grid-cols-[260px_1fr]">
+        <aside className="hidden border-r border-white/10 bg-zinc-950/45 p-5 backdrop-blur-2xl lg:flex lg:flex-col">
+          <button onClick={() => onNavigate('home')} className="flex items-center gap-3 text-left">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl border-2 border-zinc-950 bg-lime-300 text-xl font-black text-zinc-950 shadow-[4px_4px_0_#000]">G</span>
+            <span>
+              <span className="block text-lg font-black tracking-tight">Gymistry</span>
+              <span className="block text-[10px] font-bold uppercase tracking-[0.28em] text-lime-200/70">AI trainer</span>
+            </span>
+          </button>
 
-      <main>
-        <section className="relative mx-auto grid min-h-[calc(100svh-84px)] w-full max-w-7xl items-center gap-10 px-5 pb-16 pt-8 sm:px-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="relative z-10 max-w-3xl">
-            <div className="slide-up mb-7 inline-flex rotate-[-1.5deg] items-center gap-3 rounded-full border-2 border-zinc-950 bg-lime-300 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-zinc-950 shadow-[5px_5px_0_#000]"><span className="h-2 w-2 animate-ping rounded-full bg-zinc-950" />Phases 1-4 unlocked</div>
-            <h1 className="hero-title slide-up text-[clamp(4.2rem,13vw,10rem)] font-black uppercase leading-[0.76] tracking-[-0.11em] text-white">
-              Train <span className="relative mx-1 inline-block rotate-[-3deg] rounded-[1.6rem] border-[3px] border-zinc-950 bg-lime-300 px-3 text-zinc-950 shadow-[9px_9px_0_#000] sm:mx-3 sm:px-5">like</span> your AI
-              <span className="block bg-gradient-to-r from-lime-200 via-white to-orange-200 bg-clip-text text-transparent">is yelling.</span>
-            </h1>
-            <p className="slide-up mt-8 max-w-2xl text-lg font-semibold leading-8 text-zinc-300 sm:text-xl">A loud, fast, cinematic fitness cockpit for programs, form checks, live rep coaching, and exercise mastery.</p>
-            <div className="slide-up mt-9 flex flex-col gap-4 sm:flex-row">
-              <button onClick={() => onNavigate('intake')} className="rounded-full border-2 border-zinc-950 bg-lime-300 px-8 py-4 text-sm font-black uppercase tracking-wider text-zinc-950 shadow-[7px_7px_0_#000] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#000]">Build my program →</button>
-              <button onClick={() => onNavigate('formcheck')} className="rounded-full border-2 border-white/15 bg-white/10 px-8 py-4 text-sm font-black uppercase tracking-wider text-white backdrop-blur-xl transition hover:border-white hover:bg-white hover:text-zinc-950">Check my form</button>
-            </div>
-          </div>
-
-          <div className="relative min-h-[560px] lg:min-h-[660px]">
-            <div className="absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full border-[18px] border-lime-300/80 bg-gradient-to-br from-lime-200 via-emerald-200 to-white shadow-[0_0_80px_rgba(190,242,100,0.35)] sm:h-[34rem] sm:w-[34rem]" />
-            <div className="absolute left-1/2 top-[48%] w-[18rem] -translate-x-1/2 -translate-y-1/2 rotate-[-7deg] rounded-[2.4rem] border-[3px] border-zinc-950 bg-white p-5 text-zinc-950 shadow-[14px_14px_0_#000] sm:w-[22rem] animate-float">
-              <div className="flex items-center justify-between"><span className="rounded-full bg-zinc-950 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-lime-200">Live Trainer</span><span className="flex h-9 w-9 items-center justify-center rounded-full bg-lime-300 text-lg">🎙️</span></div>
-              <div className="mt-8 text-6xl font-black leading-none tracking-[-0.08em] sm:text-7xl">12</div><div className="mt-1 text-xs font-black uppercase tracking-[0.35em] text-zinc-500">perfect reps</div>
-              <div className="mt-8 space-y-3"><div className="h-4 rounded-full bg-zinc-200"><div className="h-full w-[88%] rounded-full bg-lime-300" /></div><div className="h-4 rounded-full bg-zinc-200"><div className="h-full w-[64%] rounded-full bg-fuchsia-300" /></div><div className="h-4 rounded-full bg-zinc-200"><div className="h-full w-[76%] rounded-full bg-orange-300" /></div></div>
-              <p className="mt-7 text-sm font-black uppercase leading-5 tracking-tight">Chest up. Knees tracking. Keep cooking.</p>
-            </div>
-            <div className="absolute left-0 top-10 rotate-[-9deg] rounded-3xl border-2 border-zinc-950 bg-fuchsia-300 px-5 py-4 text-zinc-950 shadow-[8px_8px_0_#000] animate-float-slow"><div className="text-3xl font-black">AI</div><div className="text-[10px] font-black uppercase tracking-widest">coach brain</div></div>
-            <div className="absolute right-2 top-24 rotate-[10deg] rounded-full border-2 border-zinc-950 bg-orange-300 px-5 py-3 text-xs font-black uppercase tracking-widest text-zinc-950 shadow-[7px_7px_0_#000] animate-float-delayed">Form fixed</div>
-          </div>
-        </section>
-
-        <section className="relative -rotate-1 border-y-2 border-zinc-950 bg-lime-300 py-4 text-zinc-950 shadow-[0_10px_0_#000]">
-          <div className="ticker flex whitespace-nowrap text-3xl font-black uppercase tracking-[-0.04em] sm:text-5xl">{[...tickerItems, ...tickerItems, ...tickerItems].map((item, index) => (<span key={`${item}-${index}`} className="mx-5 inline-flex items-center gap-5">{item} <span>✦</span></span>))}</div>
-        </section>
-
-        <section className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8">
-          <div className="mb-10"><p className="text-xs font-black uppercase tracking-[0.35em] text-lime-200">Choose your training mode</p><h2 className="mt-3 text-5xl font-black uppercase leading-none tracking-[-0.08em] sm:text-7xl">Pick your power-up.</h2></div>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {actions.map((action) => (
-              <button key={action.id} onClick={() => onNavigate(action.id)} className="group relative min-h-[330px] overflow-hidden rounded-[2rem] border-2 border-white/10 bg-white/[0.04] p-6 text-left backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-zinc-950 hover:bg-white hover:text-zinc-950 hover:shadow-[12px_12px_0_#000]">
-                <div className={`absolute -right-14 -top-14 h-36 w-36 rounded-full bg-gradient-to-br ${action.accent} opacity-80 blur-xl transition group-hover:blur-none`} />
-                <span className="relative z-10 flex h-16 w-16 rotate-[-8deg] items-center justify-center rounded-3xl border-2 border-zinc-950 bg-white text-3xl shadow-[6px_6px_0_#000] transition group-hover:rotate-3 group-hover:bg-lime-300">{action.emoji}</span>
-                <p className="relative z-10 mt-9 text-[10px] font-black uppercase tracking-[0.28em] text-lime-200 group-hover:text-zinc-500">{action.kicker}</p>
-                <h3 className="relative z-10 mt-3 text-3xl font-black uppercase leading-none tracking-[-0.06em]">{action.label}</h3>
-                <p className="relative z-10 mt-5 text-sm font-semibold leading-6 text-zinc-400 group-hover:text-zinc-700">{action.copy}</p>
-                <span className="absolute bottom-5 right-6 text-4xl font-black transition group-hover:translate-x-1">→</span>
+          <nav className="mt-10 space-y-2">
+            {primaryActions.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => onNavigate(item.id)}
+                className="group flex w-full items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-3 text-left text-sm font-bold text-zinc-300 transition hover:border-lime-300/40 hover:bg-lime-300 hover:text-zinc-950"
+              >
+                <span className="text-lg">{item.icon}</span>
+                {item.title}
               </button>
             ))}
+          </nav>
+
+          <div className="mt-auto rounded-[1.5rem] border border-lime-300/20 bg-lime-300/10 p-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-lime-200">Coach note</p>
+            <p className="mt-3 text-sm font-semibold leading-6 text-zinc-200">Your lower-body day is loaded. Start with Live Trainer for real-time squat feedback.</p>
           </div>
-        </section>
-      </main>
+        </aside>
+
+        <main className="p-4 sm:p-6 lg:p-8">
+          <header className="mb-6 flex items-center justify-between gap-4 lg:hidden">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-lime-300 font-black text-zinc-950">G</span>
+              <div>
+                <h1 className="font-black">Gymistry</h1>
+                <p className="text-xs text-zinc-500">AI training dashboard</p>
+              </div>
+            </div>
+            <button onClick={() => onNavigate('livetrainer')} className="rounded-full bg-lime-300 px-4 py-2 text-xs font-black uppercase text-zinc-950">Live</button>
+          </header>
+
+          <section className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+              <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-lime-300/20 blur-3xl" />
+              <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="inline-flex rounded-full border border-lime-300/25 bg-lime-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.25em] text-lime-200">Today in Gymistry</p>
+                  <h2 className="mt-5 max-w-2xl text-5xl font-black uppercase leading-[0.88] tracking-[-0.08em] sm:text-7xl">Lower body strength</h2>
+                  <p className="mt-5 max-w-xl text-sm font-semibold leading-6 text-zinc-400 sm:text-base">AI coach has your session ready: heavy squats, hinge work, unilateral control, and live form tracking.</p>
+                </div>
+                <button onClick={() => onNavigate('livetrainer')} className="rounded-2xl border-2 border-zinc-950 bg-lime-300 px-6 py-4 text-sm font-black uppercase tracking-wider text-zinc-950 shadow-[7px_7px_0_#000] transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#000]">Start workout →</button>
+              </div>
+
+              <div className="relative z-10 mt-8 grid gap-3 sm:grid-cols-3">
+                {metrics.map(([label, value, trend]) => (
+                  <div key={label} className="rounded-3xl border border-white/10 bg-zinc-950/60 p-4">
+                    <p className="text-[10px] font-black uppercase tracking-[0.22em] text-zinc-500">{label}</p>
+                    <div className="mt-3 flex items-end justify-between gap-3">
+                      <span className="text-3xl font-black text-white">{value}</span>
+                      <span className="rounded-full bg-lime-300/10 px-2 py-1 text-[10px] font-black text-lime-200">{trend}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-zinc-950/70 p-6 backdrop-blur-xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.25em] text-lime-200">AI Coach</p>
+                  <h3 className="mt-2 text-2xl font-black tracking-tight">Form focus</h3>
+                </div>
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-lime-300 text-2xl shadow-[5px_5px_0_#000]">🧠</div>
+              </div>
+
+              <div className="mt-6 rounded-3xl border border-lime-300/20 bg-lime-300/10 p-5">
+                <p className="text-sm font-semibold leading-6 text-zinc-200">Keep your torso angle consistent on squats. I’ll watch knee travel, hip depth, and left/right symmetry when you start Live Trainer.</p>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {['Depth target: parallel', 'Symmetry alert: enabled', 'Voice cues: active'].map((item) => (
+                  <div key={item} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+                    <span className="text-sm font-bold text-zinc-300">{item}</span>
+                    <span className="h-2.5 w-2.5 rounded-full bg-lime-300 shadow-[0_0_18px_rgba(190,242,100,0.8)]" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-5 grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl">
+              <div className="mb-5 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.25em] text-zinc-500">Session plan</p>
+                  <h3 className="mt-1 text-2xl font-black">Today’s lifts</h3>
+                </div>
+                <button onClick={() => onNavigate('intake')} className="rounded-full border border-white/10 px-3 py-2 text-xs font-black uppercase text-zinc-400 transition hover:bg-white hover:text-zinc-950">New plan</button>
+              </div>
+
+              <div className="space-y-3">
+                {todaysWorkout.map(([name, sets, cue], index) => (
+                  <button key={name} onClick={() => onNavigate('library')} className="group flex w-full items-center gap-4 rounded-3xl border border-white/10 bg-zinc-950/60 p-4 text-left transition hover:border-lime-300/40 hover:bg-lime-300 hover:text-zinc-950">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-sm font-black group-hover:bg-zinc-950 group-hover:text-lime-200">0{index + 1}</span>
+                    <span className="flex-1">
+                      <span className="block font-black">{name}</span>
+                      <span className="mt-1 block text-xs font-semibold text-zinc-500 group-hover:text-zinc-800">{cue}</span>
+                    </span>
+                    <span className="text-sm font-black">{sets}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              {primaryActions.map((action) => (
+                <button
+                  key={action.id}
+                  onClick={() => onNavigate(action.id)}
+                  className={`group relative overflow-hidden rounded-[2rem] border p-5 text-left transition duration-300 hover:-translate-y-1 hover:shadow-[9px_9px_0_#000] ${action.featured ? 'border-lime-300/40 bg-lime-300 text-zinc-950' : 'border-white/10 bg-white/[0.04] text-white hover:border-zinc-950 hover:bg-white hover:text-zinc-950'}`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <span className={`flex h-13 w-13 items-center justify-center rounded-2xl text-2xl ${action.featured ? 'bg-zinc-950 text-white' : 'bg-zinc-950 text-lime-200 group-hover:bg-lime-300 group-hover:text-zinc-950'}`}>{action.icon}</span>
+                    <span className="text-2xl font-black">→</span>
+                  </div>
+                  <h3 className="mt-6 text-xl font-black uppercase tracking-tight">{action.title}</h3>
+                  <p className={`mt-3 text-sm font-semibold leading-6 ${action.featured ? 'text-zinc-800' : 'text-zinc-400 group-hover:text-zinc-700'}`}>{action.desc}</p>
+                  <p className="mt-5 text-[10px] font-black uppercase tracking-[0.24em] opacity-70">{action.cta}</p>
+                </button>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }
